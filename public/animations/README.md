@@ -89,8 +89,8 @@ holds a still frame when `prefers-reduced-motion` is set.
 
 It needs the player: `npm install lottie-web`.
 
-The original card-based `components/IntegrationHub.tsx` is still in the repo
-and unused — delete it once you're happy with this.
+The original card-based `components/IntegrationHub.tsx` has been deleted; the
+Lottie version replaces it.
 
 ## Editing it
 

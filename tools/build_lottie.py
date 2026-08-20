@@ -81,7 +81,7 @@ def hexc(h):
 
 
 INK = hexc("#0b0b0d")       # --color-ink
-CYAN = hexc("#2fb2ff")       # --color-accent-cyan
+CYAN = hexc("#2eb2ff")       # --color-accent-cyan
 BLUE = hexc("#326cff")       # --color-primary-500
 VIOLET = hexc("#5542ff")     # --color-accent-violet
 WHITE = hexc("#ffffff")      # --color-surface-4

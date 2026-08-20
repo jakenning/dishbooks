@@ -37,7 +37,7 @@ export function Logo({
         <path d="M19.5575 0.260486C19.2189 0.183976 19.023 0.637667 19.3182 0.820218C22.5415 2.82424 24.6606 6.19337 24.6606 10.0001C24.6606 13.8108 22.5415 17.1773 19.3168 19.1813C19.0203 19.3652 19.2189 19.8175 19.5616 19.7397C21.4657 19.3088 23.1672 18.3679 24.5041 17.0739C26.3729 15.2632 27.529 12.7625 27.529 10.0041C27.5262 5.26317 24.1233 1.2927 19.5575 0.260486Z" fill="#5542FF" />
         <defs>
           <linearGradient id="dishbooks-logo-a" x1="0" y1="9.98858" x2="35.0898" y2="9.98858" gradientUnits="userSpaceOnUse">
-            <stop offset="0.1" stopColor="#2FB2FF" />
+            <stop offset="0.1" stopColor="#2EB2FF" />
             <stop offset="1" stopColor="#326CFF" />
           </linearGradient>
         </defs>
@@ -62,7 +62,7 @@ export function LogoIcon({ className = "" }: { className?: string }) {
       <path d="M47.4968 0.625154C46.6743 0.44153 46.1987 1.53039 46.9155 1.96851C54.7437 6.77818 59.8898 14.8641 59.8898 24.0002C59.8898 33.146 54.7437 41.2254 46.9122 46.0351C46.1921 46.4764 46.6743 47.5621 47.5067 47.3752C52.131 46.3411 56.2631 44.0829 59.51 40.9774C64.0484 36.6316 66.856 30.63 66.856 24.0099C66.8494 12.6316 58.5851 3.10247 47.4968 0.625154Z" fill="#5542FF" />
       <defs>
         <linearGradient id="dishbooks-icon-a" x1="0" y1="23.9726" x2="85.2181" y2="23.9726" gradientUnits="userSpaceOnUse">
-          <stop offset="0.1" stopColor="#2FB2FF" />
+          <stop offset="0.1" stopColor="#2EB2FF" />
           <stop offset="1" stopColor="#326CFF" />
         </linearGradient>
       </defs>

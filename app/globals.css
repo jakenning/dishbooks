@@ -72,12 +72,12 @@
 
   /* Accent hues pulled from the logo mark (cyan → blue → violet) —
      decorative use only (gradients, glows), not UI/semantic states. */
-  --color-accent-cyan: #2fb2ff;
+  --color-accent-cyan: #2eb2ff;
   --color-accent-violet: #5542ff;
 
   /* Display gradient — headline text and decorative marks. */
-  --gradient-brand: linear-gradient(135deg, #2fb2ff 0%, #326cff 55%, #5542ff 100%);
-  --gradient-brand-soft: linear-gradient(135deg, rgb(47 178 255 / 16%) 0%, rgb(50 108 255 / 16%) 55%, rgb(85 66 255 / 16%) 100%);
+  --gradient-brand: linear-gradient(135deg, #2eb2ff 0%, #326cff 55%, #5542ff 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgb(46 178 255 / 16%) 0%, rgb(50 108 255 / 16%) 55%, rgb(85 66 255 / 16%) 100%);
   /* Solid-fill gradient for buttons and the active tab. Deliberately a
      two-stop, tighter ramp than --gradient-brand: at button size the
      three-stop display ramp reads muddy in the middle. */

@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dishbooks-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "dishbooks-static-export",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "out"],
+      "port": 4173,
+      "autoPort": true
+    }
+  ]
+}

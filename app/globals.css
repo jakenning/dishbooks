@@ -1,0 +1,308 @@
+@import "tailwindcss";
+
+:root {
+  /* Primary blue scale — from Figma "1.2 - Primary colour scale" */
+  --color-primary-100: #c6d6ff;
+  --color-primary-200: #a1bbff;
+  --color-primary-300: #7ca1ff;
+  --color-primary-400: #5786ff;
+  --color-primary-500: #326cff;
+  --color-primary-600: #2255d6;
+  --color-primary-700: #1440ad;
+  --color-primary-800: #0a2d85;
+  --color-primary-900: #041d5c;
+
+  /* Neutral surfaces — from Figma "1.2 - Neutral palette" */
+  --color-surface-1: #f2f4f7; /* page background */
+  --color-surface-2: #f9fafc;
+  --color-surface-3: #fdfdff;
+  --color-surface-4: #ffffff;
+  --color-border: #eaecf2;
+
+  /* Text */
+  --color-ink: #0b0c0d; /* primary text, 100% */
+  --color-ink-muted: rgb(11 12 13 / 60%); /* secondary/muted text */
+  --color-ink-soft: rgb(11 12 13 / 40%);
+
+  /* Semantic — from Figma "1.2 - Semantic Colors" */
+  --color-success: #00c950;
+  --color-success-dark: #016630;
+  --color-success-soft: rgb(0 201 80 / 16%);
+  --color-error: #f82c36;
+  --color-error-dark: #9f0712;
+  --color-error-soft: rgb(248 44 54 / 16%);
+  --color-warning: #fe9a00;
+  --color-warning-dark: #973c00;
+  --color-warning-soft: rgb(254 154 0 / 16%);
+  --color-info: #0084d1;
+  --color-info-dark: #00598a;
+  --color-info-soft: rgb(0 132 209 / 16%);
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 999px;
+
+  /* Accent hues pulled from the logo mark (cyan → blue → violet) —
+     decorative use only (gradients, glows), not UI/semantic states. */
+  --color-accent-cyan: #2eb2ff;
+  --color-accent-violet: #5542ff;
+
+  --gradient-brand: linear-gradient(135deg, #2eb2ff 0%, #326cff 55%, #5542ff 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgb(46 178 255 / 16%) 0%, rgb(50 108 255 / 16%) 55%, rgb(85 66 255 / 16%) 100%);
+}
+
+@theme inline {
+  --font-sans: var(--font-albert-sans), "Albert Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary-100: var(--color-primary-100);
+  --color-primary-200: var(--color-primary-200);
+  --color-primary-300: var(--color-primary-300);
+  --color-primary-400: var(--color-primary-400);
+  --color-primary-500: var(--color-primary-500);
+  --color-primary-600: var(--color-primary-600);
+  --color-primary-700: var(--color-primary-700);
+  --color-primary-800: var(--color-primary-800);
+  --color-primary-900: var(--color-primary-900);
+
+  --color-surface-1: var(--color-surface-1);
+  --color-surface-2: var(--color-surface-2);
+  --color-surface-3: var(--color-surface-3);
+  --color-surface-4: var(--color-surface-4);
+  --color-border: var(--color-border);
+
+  --color-ink: var(--color-ink);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-ink-soft: var(--color-ink-soft);
+
+  --color-success: var(--color-success);
+  --color-success-dark: var(--color-success-dark);
+  --color-success-soft: var(--color-success-soft);
+  --color-error: var(--color-error);
+  --color-error-dark: var(--color-error-dark);
+  --color-error-soft: var(--color-error-soft);
+  --color-warning: var(--color-warning);
+  --color-warning-dark: var(--color-warning-dark);
+  --color-warning-soft: var(--color-warning-soft);
+  --color-info: var(--color-info);
+  --color-info-dark: var(--color-info-dark);
+  --color-info-soft: var(--color-info-soft);
+
+  --color-accent-cyan: var(--color-accent-cyan);
+  --color-accent-violet: var(--color-accent-violet);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-full: var(--radius-full);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01" 1;
+  overflow-x: hidden;
+}
+
+/* Persistent hairline "rail" grid, Stripe-style. The vertical rails must
+   span each element's FULL box (including padding), not just its content's
+   height, or they visibly break at every section's top/bottom padding. So
+   the rail lives on a full-height `::after` sized to match `.container-page`
+   exactly (same max-width + centering), rather than on `.container-page`
+   itself — that keeps the lines connected across the whole page, through
+   the sticky header and footer too. `.rail` only supplies the pseudo-line
+   itself — pair it with an element that already has its own positioning
+   context (`sticky`, `relative`), so it doesn't fight Tailwind's `sticky`
+   utility on the header. `.section-y` sets its own `position: relative`
+   since it never needs to be sticky. */
+.container-page {
+  max-width: 1216px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+@media (min-width: 768px) {
+  .container-page {
+    padding-inline: 40px;
+  }
+}
+
+.section-y {
+  position: relative;
+  padding-block: 64px;
+  border-top: 1px solid var(--color-border);
+}
+
+.section-y::after,
+.rail::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  max-width: 1216px;
+  margin-inline: auto;
+  border-inline: 1px solid var(--color-border);
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .section-y {
+    padding-block: 96px;
+  }
+}
+
+/* Small "+" corner mark, echoing a blueprint/spec-sheet rail intersection.
+   Place at a card or section corner with `.corner-mark` + position classes. */
+.corner-mark {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  pointer-events: none;
+}
+
+.corner-mark::before,
+.corner-mark::after {
+  content: "";
+  position: absolute;
+  background: var(--color-border);
+}
+
+.corner-mark::before {
+  left: 4px;
+  top: 0;
+  width: 1px;
+  height: 100%;
+}
+
+.corner-mark::after {
+  top: 4px;
+  left: 0;
+  height: 1px;
+  width: 100%;
+}
+
+.kicker {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary-600);
+}
+
+.h1 {
+  font-size: 40px;
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+@media (min-width: 768px) {
+  .h1 {
+    font-size: 56px;
+  }
+}
+
+.h2 {
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+@media (min-width: 768px) {
+  .h2 {
+    font-size: 34px;
+  }
+}
+
+.h3 {
+  font-size: 19px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.body-lg {
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+}
+
+.body-base {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-ink-muted);
+}
+
+/* --- Signature brand gradient + depth utilities --- */
+
+.bg-gradient-brand {
+  background-image: var(--gradient-brand);
+}
+
+.bg-gradient-brand-soft {
+  background-image: var(--gradient-brand-soft);
+}
+
+.text-gradient-brand {
+  background-image: var(--gradient-brand);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.shadow-glow-primary {
+  box-shadow: 0 8px 30px -8px rgb(50 108 255 / 45%);
+}
+
+.shadow-glow-violet {
+  box-shadow: 0 8px 40px -10px rgb(85 66 255 / 40%);
+}
+
+/* Soft blurred color fields used behind hero/CTA content for depth,
+   in place of flat gradient washes. Each blob is an absolutely
+   positioned pseudo-shape — apply on a `relative overflow-hidden` parent. */
+.blob-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(64px);
+  opacity: 0.55;
+}
+
+@media (min-width: 768px) {
+  .blob {
+    filter: blur(90px);
+  }
+}
+
+/* Faint grain, layered over dark/gradient sections to kill flatness. */
+.bg-grain {
+  position: relative;
+}
+
+.bg-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Subtle dot-grid texture for light sections. */
+.bg-dot-grid {
+  background-image: radial-gradient(rgb(11 12 13 / 8%) 1px, transparent 1px);
+  background-size: 22px 22px;
+}

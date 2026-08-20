@@ -1,10 +1,11 @@
+import Image from "next/image";
 import { Hero } from "@/components/Hero";
 import { Button } from "@/components/Button";
 import { ChecklistBlock } from "@/components/ChecklistBlock";
 import { FinalCTA } from "@/components/FinalCTA";
-import { DataTable } from "@/components/DataTable";
 import { TabSwitcher } from "@/components/TabSwitcher";
 import { IntegrationHubLottie } from "@/components/IntegrationHubLottie";
+import { ArrowRight, BulletList } from "@/components/icons";
 
 const featureTabs = [
   {
@@ -21,6 +22,12 @@ const featureTabs = [
     href: "/features/smart-dashboard",
     variant: "primary" as const,
     kind: "chart" as const,
+    image: {
+      src: "/images/bill-pay-invoice-approval.jpg",
+      alt: "DishBooks bill pay and invoice approval queue",
+      width: 1290,
+      height: 858,
+    },
   },
   {
     label: "Bank Reconciliation",
@@ -54,6 +61,8 @@ const featureTabs = [
   },
 ];
 
+const dexQuestions = ["What happened?", "Why did it happen?", "What's next?"];
+
 export default function Home() {
   return (
     <>
@@ -65,18 +74,17 @@ export default function Home() {
             <span className="text-gradient-brand">built for restaurants.</span>
           </>
         }
-        subhead="Know your numbers, control your costs, and grow with confidence."
-        primaryCta={{ label: "Get started", href: "/signup" }}
+        primaryCta={{ label: "Get Started", href: "/signup" }}
         secondaryCta={{ label: "Meet Dex", href: "#dex" }}
       />
 
       {/* The gap in generic tools */}
       <section className="section-y">
-        <div className="container-page grid gap-10 md:grid-cols-2 md:items-center">
+        <div className="container-page grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
           <div>
             <h2 className="h2">
               Most accounting software isn&apos;t designed for the hospitality
-              industry.
+              industry
             </h2>
             <p className="body-lg mt-4">
               Daily sales summaries, prime cost tracking, multi-location
@@ -84,28 +92,26 @@ export default function Home() {
               purpose-built for the industry, powered by Dex AI to deliver
               smart insights in a single, connected platform.
             </p>
-            <Button href="/why-dishbooks" variant="secondary" className="mt-6">
-              See why DishBooks →
+            <Button href="/why-dishbooks" variant="secondary" size="lg" className="mt-8">
+              See why DishBooks
             </Button>
           </div>
-          <div className="min-w-0 rounded-lg border border-border bg-surface-2 p-6">
-            <DataTable
-              columns={["Metric", "Location 1", "Location 2"]}
-              rows={[
-                ["Prime cost", "58.2%", "51.4%"],
-                ["Labor", "29.4%", "24.1%"],
-                ["Net profit", { text: "12.6%", included: true }, { text: "9.8%", included: true }],
-              ]}
-            />
-            <p className="mt-3 text-xs text-ink-soft">
-              Illustrative dashboard data — every location, one connected view.
-            </p>
-          </div>
+          <Image
+            src="/images/why-dishbooks.jpg"
+            alt="Two restaurant owners standing in their dining room"
+            width={1168}
+            height={890}
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="h-auto w-full rounded-2xl object-cover"
+          />
         </div>
       </section>
 
       {/* Meet Dex */}
-      <section id="dex" className="relative section-y scroll-mt-24 overflow-hidden border-t-white/10 bg-primary-900 text-white">
+      <section
+        id="dex"
+        className="on-dark relative section-y scroll-mt-24 overflow-hidden bg-primary-900 text-neutral-50"
+      >
         <div className="blob-field">
           <div className="blob -left-20 top-0 h-96 w-96 bg-accent-cyan/40" aria-hidden="true" />
           <div className="blob -right-24 bottom-0 h-96 w-96 bg-accent-violet/50" aria-hidden="true" />
@@ -114,31 +120,30 @@ export default function Home() {
 
         <div className="container-page relative z-10">
           <div className="max-w-2xl">
-            <p className="kicker flex items-center gap-2 text-primary-300">
+            <p className="kicker flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-gradient-brand" aria-hidden="true" />
               Meet Dex
             </p>
-            <h2 className="mt-3 text-3xl font-medium tracking-tight sm:text-4xl">
-              Your AI financial assistant
-            </h2>
-            <p className="mt-4 text-lg leading-relaxed text-white/70">
+            <h2 className="h2 mt-3">Your AI financial assistant</h2>
+            <p className="body-lg mt-4">
               The brain behind your numbers — working around the clock to turn
               data into actionable insight. Ask Dex what happened, why it
               happened, and what&apos;s next.
             </p>
           </div>
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            {["What happened?", "Why did it happen?", "What's next?"].map((q) => (
+            {dexQuestions.map((q) => (
               <div
                 key={q}
-                className="rounded-lg border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-colors hover:border-white/25 hover:bg-white/10"
+                className="rounded-xl border border-light-alpha-8 bg-light-alpha-4 p-10 backdrop-blur-sm transition-colors hover:bg-light-alpha-8"
               >
-                <p className="text-lg font-medium">{q}</p>
+                <p className="text-xl text-primary-200">{q}</p>
               </div>
             ))}
           </div>
-          <Button href="/features/dex-ai" variant="inverse" className="mt-8">
-            Explore Dex AI →
+          <Button href="/features/dex-ai" variant="inverse" size="lg" className="mt-10">
+            Explore Dex AI
+            <ArrowRight />
           </Button>
         </div>
       </section>
@@ -147,7 +152,10 @@ export default function Home() {
       <section className="section-y">
         <div className="container-page">
           <div className="max-w-2xl">
-            <h2 className="h2">What DishBooks does for your restaurant</h2>
+            <h2 className="h2">
+              What <span className="text-primary-500">DishBooks</span> does for
+              your restaurant
+            </h2>
             <p className="body-lg mt-3">
               From daily sales to bank reconciliation, DishBooks brings
               everything into one system.
@@ -173,26 +181,23 @@ export default function Home() {
               bank, and vendor invoices from your distributors — automatically,
               so your numbers stay current without manual entry.
             </p>
-            <ul className="mt-6 space-y-2">
-              {[
-                "POS integration — Toast live today",
-                "Bank & credit card feeds, every account",
-                "Vendor invoices — US Foods, Ben E Keith, Sysco",
-                "MarginEdge API integration",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-[15px] text-ink">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-brand" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <div className="mt-6">
+              <BulletList
+                items={[
+                  "POS integration — Toast live today",
+                  "Bank & credit card feeds, every account",
+                  "Vendor invoices — US Foods, Ben E Keith, Sysco",
+                  "MarginEdge API integration",
+                ]}
+              />
+            </div>
           </div>
           <IntegrationHubLottie className="max-w-[560px]" />
         </div>
       </section>
 
       {/* Pricing teaser */}
-      <section className="section-y bg-surface-2">
+      <section className="section-y bg-surface-4">
         <div className="container-page">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="h2">Simple, transparent pricing</h2>
@@ -202,31 +207,44 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mx-auto mt-10 grid max-w-2xl gap-4 sm:grid-cols-2">
-            <div className="rounded-lg bg-gradient-brand p-7 text-white shadow-glow-violet">
-              <p className="text-sm font-semibold text-white/80">
-                Restaurant location
-              </p>
-              <p className="mt-2 text-3xl font-semibold">$175/mo</p>
-              <p className="mt-1 text-sm text-white/70">per location, billed monthly</p>
+          <div className="mx-auto mt-10 grid max-w-[688px] gap-8 sm:grid-cols-2">
+            <div className="rounded-xl bg-gradient-price p-8 text-neutral-50">
+              <p className="text-xs">Restaurant location</p>
+              <p className="mt-0.5 text-[40px] font-semibold leading-tight">$175/mo</p>
+              <p className="mt-0.5 text-xs">per location, billed monthly</p>
             </div>
-            <div className="rounded-lg border border-border bg-surface-4 p-7 transition-shadow hover:shadow-lg hover:shadow-ink/5">
-              <p className="text-sm font-semibold text-ink-soft">
-                Non-restaurant entity
+            <div className="rounded-xl border border-border bg-surface-4 p-8">
+              <p className="text-xs text-ink-soft">Non-restaurant entity</p>
+              <p className="mt-0.5 text-[40px] font-semibold leading-tight text-ink">
+                $49/mo
               </p>
-              <p className="mt-2 text-3xl font-semibold text-ink">$49/mo</p>
-              <p className="mt-1 text-sm text-ink-muted">per entity, billed monthly</p>
+              <p className="mt-0.5 text-xs text-ink-soft">per entity, billed monthly</p>
             </div>
           </div>
-          <div className="mt-8 flex flex-col items-center gap-3">
-            <p className="text-sm text-ink-soft">14-day free trial. Cancel anytime.</p>
-            <Button href="/pricing">See full pricing →</Button>
+          <div className="mt-10 flex flex-col items-center gap-4">
+            <p className="kicker">14-day free trial. Cancel anytime.</p>
+            <Button href="/pricing" size="lg">
+              See full pricing
+              <ArrowRight />
+            </Button>
           </div>
         </div>
       </section>
 
       <ChecklistBlock
-        title="Know your numbers. Control your costs."
+        tone="muted"
+        image={{
+          src: "/images/prime-cost-cogs.jpg",
+          alt: "Restaurant operator reviewing prime cost and COGS on DishBooks",
+          width: 1150,
+          height: 795,
+        }}
+        title={
+          <>
+            Know your numbers.{" "}
+            <span className="text-primary-500">Control your costs.</span>
+          </>
+        }
         subhead="DishBooks solves the core financial challenges restaurants face by unifying data, automating workflows, and delivering restaurant-specific insights."
         items={[
           "Automate data entry — reduce manual work and errors.",

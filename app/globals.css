@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  /* Primary blue scale — from Figma "1.2 - Primary colour scale" */
+  /* Primary blue scale — Figma "Primary/*" */
+  --color-primary-50: #ebf0ff;
   --color-primary-100: #c6d6ff;
   --color-primary-200: #a1bbff;
   --color-primary-300: #7ca1ff;
@@ -12,17 +13,41 @@
   --color-primary-800: #0a2d85;
   --color-primary-900: #041d5c;
 
-  /* Neutral surfaces — from Figma "1.2 - Neutral palette" */
+  /* Cool neutral ramp — Figma "Cool Neutral/*". Replaces the old
+     alpha-over-white greys so text colour is stable on any surface. */
+  --color-neutral-50: #f5f6fa;
+  --color-neutral-100: #edeff5;
+  --color-neutral-200: #e3e5eb;
+  --color-neutral-500: #a8abb2;
+  --color-neutral-600: #82858c;
+  --color-neutral-700: #5f6166;
+  --color-neutral-950: #0b0b0d;
+
+  /* Neutral surfaces — Figma "Components/Surface/*" */
   --color-surface-1: #f2f4f7; /* page background */
   --color-surface-2: #f9fafc;
   --color-surface-3: #fdfdff;
   --color-surface-4: #ffffff;
-  --color-border: #eaecf2;
+  /* Figma "Components/Surface/4" (#ffffffcc) — the translucent pill that
+     the feature tab bar sits on, so the page tint reads through it. */
+  --color-surface-veil: rgb(255 255 255 / 80%);
+  --color-border: var(--color-neutral-200);
+  /* Lighter divider used between full-bleed sections (Figma Cool Neutral/100) */
+  --color-border-soft: var(--color-neutral-100);
 
   /* Text */
-  --color-ink: #0b0c0d; /* primary text, 100% */
-  --color-ink-muted: rgb(11 12 13 / 60%); /* secondary/muted text */
-  --color-ink-soft: rgb(11 12 13 / 40%);
+  --color-ink: var(--color-neutral-950); /* headings */
+  /* Figma legacy style "Gray 1". Label colour on white pills — a touch
+     lighter than --color-ink so a button doesn't read as heavy as a heading. */
+  --color-ink-button: #333333;
+  --color-ink-muted: var(--color-neutral-700); /* body copy */
+  --color-ink-soft: var(--color-neutral-600); /* small print */
+  --color-ink-faint: var(--color-neutral-500); /* sub-labels on cards */
+
+  /* Tints for content sitting on the dark blue sections —
+     Figma "Light Neutral Alpha/*" */
+  --color-light-alpha-4: rgb(245 246 250 / 4%);
+  --color-light-alpha-8: rgb(245 246 250 / 8%);
 
   /* Semantic — from Figma "1.2 - Semantic Colors" */
   --color-success: #00c950;
@@ -42,20 +67,42 @@
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
+  --radius-2xl: 24px; /* imagery */
   --radius-full: 999px;
 
   /* Accent hues pulled from the logo mark (cyan → blue → violet) —
      decorative use only (gradients, glows), not UI/semantic states. */
-  --color-accent-cyan: #2eb2ff;
+  --color-accent-cyan: #2fb2ff;
   --color-accent-violet: #5542ff;
 
-  --gradient-brand: linear-gradient(135deg, #2eb2ff 0%, #326cff 55%, #5542ff 100%);
-  --gradient-brand-soft: linear-gradient(135deg, rgb(46 178 255 / 16%) 0%, rgb(50 108 255 / 16%) 55%, rgb(85 66 255 / 16%) 100%);
+  /* Display gradient — headline text and decorative marks. */
+  --gradient-brand: linear-gradient(135deg, #2fb2ff 0%, #326cff 55%, #5542ff 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgb(47 178 255 / 16%) 0%, rgb(50 108 255 / 16%) 55%, rgb(85 66 255 / 16%) 100%);
+  /* Solid-fill gradient for buttons and the active tab. Deliberately a
+     two-stop, tighter ramp than --gradient-brand: at button size the
+     three-stop display ramp reads muddy in the middle. */
+  --gradient-button: linear-gradient(90deg, #2f9dff 0%, #4b50ff 100%);
+  /* Blurred halo dropped behind a button/panel to lift it off the page. */
+  --gradient-glow: linear-gradient(
+    90deg,
+    rgb(76 192 255 / 25%) 0%,
+    rgb(50 108 255 / 25%) 55.77%,
+    rgb(75 80 255 / 25%) 100%
+  );
+  /* Highlighted pricing card. */
+  --gradient-price: linear-gradient(
+    111.83deg,
+    var(--color-primary-400) 16.06%,
+    var(--color-primary-500) 49.9%,
+    var(--color-primary-600) 100%
+  );
 }
 
 @theme inline {
   --font-sans: var(--font-albert-sans), "Albert Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-inconsolata), "Inconsolata", ui-monospace, monospace;
 
+  --color-primary-50: var(--color-primary-50);
   --color-primary-100: var(--color-primary-100);
   --color-primary-200: var(--color-primary-200);
   --color-primary-300: var(--color-primary-300);
@@ -66,15 +113,29 @@
   --color-primary-800: var(--color-primary-800);
   --color-primary-900: var(--color-primary-900);
 
+  --color-neutral-50: var(--color-neutral-50);
+  --color-neutral-100: var(--color-neutral-100);
+  --color-neutral-200: var(--color-neutral-200);
+  --color-neutral-500: var(--color-neutral-500);
+  --color-neutral-600: var(--color-neutral-600);
+  --color-neutral-700: var(--color-neutral-700);
+  --color-neutral-950: var(--color-neutral-950);
+
   --color-surface-1: var(--color-surface-1);
   --color-surface-2: var(--color-surface-2);
   --color-surface-3: var(--color-surface-3);
   --color-surface-4: var(--color-surface-4);
+  --color-surface-veil: var(--color-surface-veil);
   --color-border: var(--color-border);
+  --color-border-soft: var(--color-border-soft);
 
   --color-ink: var(--color-ink);
   --color-ink-muted: var(--color-ink-muted);
   --color-ink-soft: var(--color-ink-soft);
+  --color-ink-faint: var(--color-ink-faint);
+
+  --color-light-alpha-4: var(--color-light-alpha-4);
+  --color-light-alpha-8: var(--color-light-alpha-8);
 
   --color-success: var(--color-success);
   --color-success-dark: var(--color-success-dark);
@@ -96,6 +157,7 @@
   --radius-md: var(--radius-md);
   --radius-lg: var(--radius-lg);
   --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
   --radius-full: var(--radius-full);
 }
 
@@ -117,7 +179,7 @@ body {
    utility on the header. `.section-y` sets its own `position: relative`
    since it never needs to be sticky. */
 .container-page {
-  max-width: 1216px;
+  max-width: 1192px;
   margin-inline: auto;
   padding-inline: 24px;
 }
@@ -138,9 +200,12 @@ body {
 .rail::after {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 24px;
+  right: 24px;
   z-index: 1;
-  max-width: 1216px;
+  max-width: 1352px;
   margin-inline: auto;
   border-inline: 1px solid var(--color-border);
   pointer-events: none;
@@ -149,6 +214,12 @@ body {
 @media (min-width: 768px) {
   .section-y {
     padding-block: 96px;
+  }
+
+  .section-y::after,
+  .rail::after {
+    left: 40px;
+    right: 40px;
   }
 }
 
@@ -183,18 +254,20 @@ body {
 }
 
 .kicker {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-primary-600);
+  color: var(--color-primary-500);
 }
 
 .h1 {
   font-size: 40px;
   line-height: 1.1;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  letter-spacing: -0.03em;
   color: var(--color-ink);
 }
 
@@ -206,15 +279,31 @@ body {
 
 .h2 {
   font-size: 28px;
-  line-height: 1.2;
+  line-height: 1.1;
   font-weight: 500;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.03em;
   color: var(--color-ink);
 }
 
 @media (min-width: 768px) {
   .h2 {
-    font-size: 34px;
+    font-size: 36px;
+  }
+}
+
+/* The one step up from .h2, used where a section leads with the statement
+   rather than a kicker (Figma: "Know your numbers. Control your costs."). */
+.h2-lg {
+  font-size: 32px;
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+}
+
+@media (min-width: 768px) {
+  .h2-lg {
+    font-size: 40px;
   }
 }
 
@@ -225,15 +314,36 @@ body {
   color: var(--color-ink);
 }
 
+/* Sections sitting on the dark blue ground. The shared type styles below
+   each set their own `color`, which beats a Tailwind text-* utility at equal
+   specificity — so the dark-ground palette is re-declared here rather than
+   fought with `!important` at every call site. */
+.on-dark .h1,
+.on-dark .h2,
+.on-dark .h2-lg {
+  color: var(--color-neutral-50);
+}
+
+.on-dark .body-lg,
+.on-dark .body-base {
+  color: var(--color-primary-100);
+}
+
+.on-dark .kicker {
+  color: var(--color-primary-400);
+}
+
 .body-lg {
-  font-size: 18px;
-  line-height: 1.55;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
   color: var(--color-ink-muted);
 }
 
 .body-base {
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
   color: var(--color-ink-muted);
 }
 
@@ -243,15 +353,44 @@ body {
   background-image: var(--gradient-brand);
 }
 
+.bg-gradient-button {
+  background-image: var(--gradient-button);
+}
+
+.bg-gradient-price {
+  background-image: var(--gradient-price);
+}
+
+/* Blurred halo behind a button. Sized to the button by the parent, which
+   must be `relative`; the halo itself is inert. */
+.btn-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: var(--radius-full);
+  background-image: var(--gradient-glow);
+  filter: blur(15px);
+  pointer-events: none;
+}
+
 .bg-gradient-brand-soft {
   background-image: var(--gradient-brand-soft);
 }
 
-.text-gradient-brand {
-  background-image: var(--gradient-brand);
+.text-gradient-brand,
+.text-gradient-button {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+.text-gradient-brand {
+  background-image: var(--gradient-brand);
+}
+
+.text-gradient-button {
+  background-image: var(--gradient-button);
 }
 
 .shadow-glow-primary {

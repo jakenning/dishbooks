@@ -1,10 +1,13 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { Button } from "./Button";
+import { ArrowRight } from "./icons";
 
 type HeroProps = {
   kicker: string;
   title: ReactNode;
-  subhead: string;
+  /** Optional — the home hero in the design runs title straight into the CTAs. */
+  subhead?: string;
   primaryCta?: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
   align?: "left" | "center";
@@ -21,7 +24,20 @@ export function Hero({
   const isCenter = align === "center";
   return (
     <section className="relative section-y overflow-hidden bg-surface-1">
-      <div className="blob-field">
+      {/* Photographic wash, held at half strength so the type stays legible.
+          Anchored to the top edge because the design crops the lower half. */}
+      <div className="absolute inset-0 opacity-50" aria-hidden="true">
+        <Image
+          src="/images/hero-bg.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-top"
+        />
+      </div>
+
+      <div className="blob-field mix-blend-multiply">
         <div
           className="blob -left-24 -top-32 h-[420px] w-[420px] bg-accent-cyan/50"
           aria-hidden="true"
@@ -46,25 +62,17 @@ export function Hero({
           {kicker}
         </p>
         <h1 className="h1 mt-4 max-w-3xl">{title}</h1>
-        <p className="body-lg mt-5 max-w-xl">{subhead}</p>
+        {subhead && <p className="body-lg mt-5 max-w-xl">{subhead}</p>}
         {(primaryCta || secondaryCta) && (
           <div className="mt-8 flex flex-wrap items-center gap-3">
             {primaryCta && (
               <Button href={primaryCta.href} size="lg">
                 {primaryCta.label}
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path
-                    d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <ArrowRight />
               </Button>
             )}
             {secondaryCta && (
-              <Button href={secondaryCta.href} variant="secondary" size="lg">
+              <Button href={secondaryCta.href} variant="gradient" size="lg">
                 {secondaryCta.label}
               </Button>
             )}

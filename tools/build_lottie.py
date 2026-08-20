@@ -80,8 +80,8 @@ def hexc(h):
     return [int(h[i:i + 2], 16) / 255.0 for i in (0, 2, 4)]
 
 
-INK = hexc("#0b0c0d")
-CYAN = hexc("#2eb2ff")       # --color-accent-cyan
+INK = hexc("#0b0b0d")       # --color-ink
+CYAN = hexc("#2fb2ff")       # --color-accent-cyan
 BLUE = hexc("#326cff")       # --color-primary-500
 VIOLET = hexc("#5542ff")     # --color-accent-violet
 WHITE = hexc("#ffffff")      # --color-surface-4

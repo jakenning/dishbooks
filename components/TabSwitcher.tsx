@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { MockPanel } from "./MockPanel";
+import { ArrowRight, BulletList } from "./icons";
 
 type Tab = {
   label: string;
@@ -13,6 +15,8 @@ type Tab = {
   href: string;
   variant: "primary" | "cyan" | "violet";
   kind: "chart" | "chat" | "table";
+  /** Product shot from the design; falls back to MockPanel when absent. */
+  image?: { src: string; alt: string; width: number; height: number };
 };
 
 export function TabSwitcher({ tabs }: { tabs: Tab[] }) {
@@ -24,7 +28,7 @@ export function TabSwitcher({ tabs }: { tabs: Tab[] }) {
       <div
         role="tablist"
         aria-label="DishBooks features"
-        className="flex flex-wrap gap-1 rounded-full border border-border bg-surface-4 p-1"
+        className="flex flex-wrap gap-1 rounded-full bg-surface-veil p-1"
       >
         {tabs.map((t, i) => (
           <button
@@ -32,10 +36,10 @@ export function TabSwitcher({ tabs }: { tabs: Tab[] }) {
             role="tab"
             aria-selected={i === active}
             onClick={() => setActive(i)}
-            className={`relative flex-1 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${
+            className={`relative flex-1 whitespace-nowrap rounded-full px-6 py-3 text-base font-semibold transition-colors ${
               i === active
-                ? "bg-gradient-brand text-white shadow-glow-primary"
-                : "text-ink-muted hover:text-ink"
+                ? "bg-gradient-button text-white"
+                : "bg-surface-4 text-[color:var(--color-ink-button)] hover:text-ink"
             }`}
           >
             {t.label}
@@ -43,36 +47,34 @@ export function TabSwitcher({ tabs }: { tabs: Tab[] }) {
         ))}
       </div>
 
-      <div key={active} className="mt-10 grid items-center gap-10 md:grid-cols-2">
+      <div key={active} className="mt-12 grid items-center gap-10 md:grid-cols-2 md:gap-16">
         <div>
           <p className="kicker">{tab.kicker}</p>
           <h3 className="h2 mt-3">{tab.title}</h3>
-          <p className="body-base mt-4">{tab.description}</p>
-          <ul className="mt-5 space-y-2">
-            {tab.points.map((point) => (
-              <li key={point} className="flex items-start gap-2.5 text-[15px] text-ink">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-brand" />
-                {point}
-              </li>
-            ))}
-          </ul>
+          <p className="body-lg mt-4">{tab.description}</p>
+          <div className="mt-6">
+            <BulletList items={tab.points} />
+          </div>
           <Link
             href={tab.href}
-            className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-600 hover:text-primary-700"
+            className="mt-6 inline-flex items-center gap-2 font-semibold text-primary-500 transition-colors hover:text-primary-600"
           >
             Learn more about {tab.label}
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path
-                d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ArrowRight />
           </Link>
         </div>
-        <MockPanel variant={tab.variant} kind={tab.kind} />
+        {tab.image ? (
+          <Image
+            src={tab.image.src}
+            alt={tab.image.alt}
+            width={tab.image.width}
+            height={tab.image.height}
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="h-auto w-full rounded-2xl bg-surface-4 object-cover"
+          />
+        ) : (
+          <MockPanel variant={tab.variant} kind={tab.kind} />
+        )}
       </div>
     </div>
   );

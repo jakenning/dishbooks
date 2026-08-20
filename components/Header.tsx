@@ -29,7 +29,7 @@ function Dropdown({
       onMouseLeave={() => setOpen(false)}
     >
       <button
-        className="flex items-center gap-1 py-2 text-sm text-ink-muted hover:text-ink transition-colors"
+        className="flex items-center gap-1 py-2 text-xs text-ink hover:text-primary-500 transition-colors"
         aria-expanded={open}
       >
         {label}
@@ -95,15 +95,15 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 rail border-b border-border bg-surface-4/90 backdrop-blur">
-      <div className="container-page flex h-[72px] items-center justify-between">
+    <header className="sticky top-0 z-40 rail border-b border-border-soft bg-surface-4/90 backdrop-blur">
+      <div className="container-page flex h-[68px] items-center justify-between">
         <div className="flex items-center gap-8">
           <Logo />
           <nav className="hidden items-center gap-6 lg:flex">
             <Dropdown label="Features" columns={[{ items: featureLinks }]} />
             <Link
               href="/why-dishbooks"
-              className="py-2 text-sm text-ink-muted hover:text-ink transition-colors"
+              className="py-2 text-xs text-ink hover:text-primary-500 transition-colors"
             >
               Why DishBooks
             </Link>
@@ -117,14 +117,14 @@ export function Header() {
             <Dropdown label="Compare" columns={[{ items: compareLinks }]} />
             <Link
               href="/pricing"
-              className="py-2 text-sm text-ink-muted hover:text-ink transition-colors"
+              className="py-2 text-xs text-ink hover:text-primary-500 transition-colors"
             >
               Pricing
             </Link>
             <Dropdown label="Resources" columns={[{ items: resourceLinks }]} />
             <Link
               href="/contact"
-              className="py-2 text-sm text-ink-muted hover:text-ink transition-colors"
+              className="py-2 text-xs text-ink hover:text-primary-500 transition-colors"
             >
               Contact
             </Link>
@@ -162,7 +162,7 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="max-h-[calc(100vh-72px)] overflow-y-auto border-t border-border bg-surface-4 lg:hidden">
+        <div className="max-h-[calc(100vh-68px)] overflow-y-auto border-t border-border bg-surface-4 lg:hidden">
           <div className="container-page grid gap-8 py-6 sm:grid-cols-2">
             <MobileGroup heading="Features" items={featureLinks} />
             <MobileGroup heading="Who We Serve — Business Type" items={whoWeServeBusiness} />

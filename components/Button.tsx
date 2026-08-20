@@ -4,26 +4,30 @@ import type { ReactNode } from "react";
 type ButtonProps = {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "secondary" | "ghost" | "inverse";
+  variant?: "primary" | "secondary" | "gradient" | "ghost" | "inverse";
   size?: "md" | "lg";
   className?: string;
 };
 
 const base =
-  "inline-flex items-center justify-center gap-1.5 font-semibold rounded-full transition-all duration-200 whitespace-nowrap";
+  "relative inline-flex items-center justify-center gap-2 rounded-full transition-all duration-200 whitespace-nowrap";
 
 const variants = {
-  primary:
-    "bg-gradient-brand text-white shadow-glow-primary hover:shadow-glow-violet hover:-translate-y-0.5",
+  // `btn-glow` paints the blurred halo the design puts behind solid buttons.
+  primary: "btn-glow bg-gradient-button text-white hover:-translate-y-0.5",
   secondary:
-    "bg-surface-4 text-ink border border-border hover:border-primary-300 hover:text-primary-600",
+    "bg-surface-4 text-[color:var(--color-ink-button)] shadow-[0_2px_15px_rgb(130_130_130/0.18)] hover:-translate-y-0.5",
+  // White pill whose label carries the display gradient — the "Meet Dex" CTA.
+  gradient:
+    "bg-surface-4 text-gradient-brand shadow-[0_2px_15px_rgb(130_130_130/0.18)] hover:-translate-y-0.5",
   ghost: "text-ink-muted hover:text-ink",
-  inverse: "bg-white text-primary-900 hover:bg-primary-100",
+  inverse:
+    "bg-white text-[color:var(--color-ink-button)] hover:-translate-y-0.5",
 };
 
 const sizes = {
-  md: "px-5 py-2.5 text-sm",
-  lg: "px-6 py-3.5 text-[15px]",
+  md: "px-4 py-2 text-xs font-medium",
+  lg: "px-6 py-3 text-base font-semibold",
 };
 
 export function Button({

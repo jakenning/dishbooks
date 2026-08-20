@@ -1,0 +1,97 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>DishBooks sync — preview</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0; padding: 32px;
+    background: #f2f4f7; color: #0b0c0d;
+    font: 400 15px/1.6 "Albert Sans", ui-sans-serif, system-ui, sans-serif;
+  }
+  h1 { font-size: 20px; font-weight: 600; margin: 0 0 4px; }
+  p  { margin: 0 0 24px; color: rgb(11 12 13 / 60%); }
+  .row { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+  .card { background: #f2f4f7; border: 1px solid #eaecf2; border-radius: 12px; padding: 12px; }
+  .card h2 { font-size: 12px; font-weight: 600; letter-spacing: .08em;
+             text-transform: uppercase; color: #2255d6; margin: 0 0 8px; }
+  .lg { width: 720px; } .md { width: 420px; } .sm { width: 240px; }
+  .card > div { width: 100%; }
+  .controls { margin: 28px 0 0; display: flex; gap: 12px; align-items: center; }
+  input[type=range] { width: 420px; }
+  code { font: 500 13px ui-monospace, monospace; background: #fff;
+         border: 1px solid #eaecf2; border-radius: 4px; padding: 2px 6px; }
+</style>
+
+<h1>DishBooks integration hub</h1>
+<p>Seamless 6s loop &middot; 180 frames @ 30fps &middot; scales to its container.</p>
+<p style="margin-top:-16px">
+  <button id="variant" data-v="wide">Showing: wide (1188&times;800) — click for compact</button>
+</p>
+
+<div class="row">
+  <div class="card lg"><h2>720px</h2><div id="a"></div></div>
+  <div class="card md"><h2>420px</h2><div id="b"></div></div>
+  <div class="card sm"><h2>240px</h2><div id="c"></div></div>
+</div>
+
+<div class="controls">
+  <button id="play">Pause</button>
+  <input type="range" id="scrub" min="0" max="179" value="0" step="1">
+  <code id="frame">frame 0</code>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lottie-web@5.12.2/build/player/lottie.min.js"></script>
+<script>
+  const FILES = {
+    wide: { path: 'dishbooks-sync.json', label: 'wide (1188\u00d7800)' },
+    compact: { path: 'dishbooks-sync-compact.json', label: 'compact (1000\u00d7800)' },
+  };
+  let anims = [], main = null;
+
+  function load(which) {
+    anims.forEach(a => a.destroy());
+    anims = ['a', 'b', 'c'].map(id => {
+      const el = document.getElementById(id);
+      el.replaceChildren();
+      return lottie.loadAnimation({
+        renderer: 'svg', loop: true, autoplay: true,
+        path: FILES[which].path, container: el,
+      });
+    });
+    main = anims[0];
+    main.addEventListener('enterFrame', onFrame);
+    running = true;
+    play.textContent = 'Pause';
+  }
+  const play = document.getElementById('play');
+  const scrub = document.getElementById('scrub');
+  const label = document.getElementById('frame');
+  let running = true;
+
+  function onFrame() {
+    if (!running) return;
+    const f = Math.round(main.currentFrame);
+    scrub.value = f; label.textContent = 'frame ' + f;
+  }
+  load('wide');
+
+  const variantBtn = document.getElementById('variant');
+  variantBtn.addEventListener('click', () => {
+    const next = variantBtn.dataset.v === 'wide' ? 'compact' : 'wide';
+    variantBtn.dataset.v = next;
+    variantBtn.textContent = 'Showing: ' + FILES[next].label
+      + ' \u2014 click for ' + (next === 'wide' ? 'compact' : 'wide');
+    load(next);
+  });
+  scrub.addEventListener('input', () => {
+    running = false; play.textContent = 'Play';
+    anims.forEach(a => a.goToAndStop(+scrub.value, true));
+    label.textContent = 'frame ' + scrub.value;
+  });
+  play.addEventListener('click', () => {
+    running = !running;
+    play.textContent = running ? 'Pause' : 'Play';
+    anims.forEach(a => running ? a.play() : a.pause());
+  });
+</script>

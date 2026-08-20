@@ -4,7 +4,7 @@ import { ChecklistBlock } from "@/components/ChecklistBlock";
 import { FinalCTA } from "@/components/FinalCTA";
 import { DataTable } from "@/components/DataTable";
 import { TabSwitcher } from "@/components/TabSwitcher";
-import { IntegrationHub } from "@/components/IntegrationHub";
+import { IntegrationHubLottie } from "@/components/IntegrationHubLottie";
 
 const featureTabs = [
   {
@@ -187,7 +187,7 @@ export default function Home() {
               ))}
             </ul>
           </div>
-          <IntegrationHub />
+          <IntegrationHubLottie className="max-w-[560px]" />
         </div>
       </section>
 

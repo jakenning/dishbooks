@@ -14,6 +14,7 @@ animations/
   lib/                   timeline + player shared by every scene
   render.mjs             records scenes → dist/
   deliver.mjs            dist/ → a shareable folder with "Open deliverables.html"
+  mockup.mjs             "Section mockup.html": the homepage tabs with the animations in place
   dist/                  output (git-ignored) — what you upload to Webflow
 ```
 

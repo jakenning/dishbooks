@@ -1,7 +1,11 @@
 // Copies everything in dist/ to one folder (default: ~/Desktop/DishBooks
-// Animations) and writes "Open deliverables.html" there: every animation
-// playing, with its files, copy-to-clipboard Webflow embeds, and the other
-// audiences' versions. Re-run after rendering to refresh it.
+// Animations) and writes two pages there:
+//   Open deliverables.html  every animation playing, with its files,
+//                           copy-to-clipboard Webflow embeds, and the other
+//                           audiences' versions
+//   Section mockup.html     the homepage tabs section with the animations in
+//                           place (desktop / phone), see mockup.mjs
+// Re-run after rendering to refresh it.
 //
 //   npm run anim:deliver
 //   npm run anim:deliver -- --out ~/Dropbox/DishBooks\ Animations
@@ -12,6 +16,7 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { ROOT, listScenarios } from './serve.mjs';
+import { sectionMockup } from './mockup.mjs';
 
 const { values: args } = parseArgs({
   options: { out: { type: 'string', default: join(homedir(), 'Desktop', 'DishBooks Animations') } },
@@ -144,6 +149,7 @@ body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 'Al
 header { padding: 32px 24px 8px; max-width: 1180px; margin: 0 auto; }
 h1 { font-size: 26px; font-weight: 600; letter-spacing: -0.4px; margin: 0 0 4px; }
 header p { margin: 0; color: var(--muted); }
+header a { color: var(--primary-ink); font-weight: 600; }
 main { max-width: 1180px; margin: 0 auto; padding: 16px 24px 80px; display: grid; gap: 24px; }
 section, .help { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
 .sh h2 { font-size: 19px; font-weight: 600; margin: 0; }
@@ -178,7 +184,7 @@ code { font: 12px ui-monospace, Menlo, monospace; background: var(--bg); padding
 <body>
 <header>
   <h1>DishBooks animations</h1>
-  <p>Updated ${esc(when)}${commit ? ` · commit ${esc(commit)}` : ''} · all names and numbers are fictional</p>
+  <p>Updated ${esc(when)}${commit ? ` · commit ${esc(commit)}` : ''} · all names and numbers are fictional · <a href="Section mockup.html">See them in the homepage section ↗</a></p>
 </header>
 <main>
 ${body}
@@ -222,4 +228,8 @@ await mkdir(OUT, { recursive: true });
 await rm(join(OUT, 'files'), { recursive: true, force: true }); // only ever our own copy
 await cp(DIST, join(OUT, 'files'), { recursive: true, filter: (src) => !/\/\.|\.DS_Store$/.test(src.slice(DIST.length)) });
 await writeFile(join(OUT, 'Open deliverables.html'), page);
+const videos = new Set();
+for (const s of rendered) if (await exists(join(DIST, s, 'home', `${s}.webm`))) videos.add(s);
+await writeFile(join(OUT, 'Section mockup.html'), sectionMockup({ fontCss, has: (s) => videos.has(s) }));
 console.log(`✓ ${OUT}/Open deliverables.html`);
+console.log(`✓ ${OUT}/Section mockup.html`);

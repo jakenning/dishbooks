@@ -1,0 +1,151 @@
+/* Ops Calendar — 880 × 616 stage (10:7, matches the homepage slot).
+   Three app components floating on the page background, styled with the
+   DishBooks app's light-theme tokens. Everything is scoped under .db-anim.opc. */
+
+.db-anim.opc {
+  --surface-1: #f2f4f7;
+  --surface-2: #f9fafc;
+  --surface-3: #fdfdff;
+  --border-1: rgb(130 133 140 / 8%);
+  --border-2: rgb(130 133 140 / 16%);
+  --text-50: #0b0c0d;
+  --text-100: rgb(11 12 13 / 72%);
+  --text-200: rgb(11 12 13 / 60%);
+  --text-300: rgb(11 12 13 / 40%);
+  --primary-500: #326cff;
+  --primary-700: #1440ad;
+  --primary-a12: rgb(50 108 255 / 12%);
+  --soft-primary: rgb(50 108 255 / 24%);
+  --indigo-600: #4f39f6;
+  --indigo-300: #a3b3ff;
+  --green-600: #00a63e;
+  --amber-500: #fe9a00;
+  background:
+    radial-gradient(circle at 1px 1px, rgb(130 133 140 / 14%) 1px, transparent 0) 0 0 / 20px 20px,
+    radial-gradient(600px 360px at 85% 0%, rgb(46 178 255 / 10%), transparent 70%),
+    var(--surface-2);
+  color: var(--text-50);
+  font-size: 13px;
+  line-height: 18px;
+}
+.db-anim .pi { width: 1em; height: 1em; flex: none; display: block; }
+.db-anim .card {
+  position: absolute;
+  left: 40px;
+  width: 800px;
+  background: #fff;
+  border: 1px solid var(--border-2);
+  border-radius: 8px;
+  box-shadow: 0 12px 32px -14px rgb(31 18 143 / 18%), 0 2px 6px rgb(16 24 40 / 4%);
+  opacity: 0;
+}
+.db-anim .ch { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.db-anim .ct { font-size: 15px; line-height: 22px; font-weight: 500; letter-spacing: -0.2px; white-space: nowrap; }
+.db-anim .ct b { font-weight: 600; color: var(--primary-700); }
+.db-anim .legend { display: flex; gap: 14px; font-size: 11px; color: var(--text-200); }
+.db-anim .legend span { display: flex; align-items: center; gap: 6px; }
+.db-anim .lw { width: 8px; height: 10px; border-radius: 2px; background: var(--indigo-300); }
+.db-anim .lf { width: 7px; height: 7px; border-radius: 99px; background: var(--amber-500); }
+
+/* 1 · Calendars grid row (AG Grid look) */
+.db-anim .cal { top: 24px; z-index: 3; }
+.db-anim .gr { display: grid; grid-template-columns: 84px 190px 128px 150px 124px 124px; align-items: center; }
+.db-anim .gr > span { display: flex; align-items: center; gap: 6px; padding: 0 12px; white-space: nowrap; overflow: hidden; }
+.db-anim .gh { height: 34px; border-bottom: 1px solid var(--border-2); }
+.db-anim .gh > span { font-size: 10.5px; line-height: 12px; white-space: normal; color: var(--text-200); text-transform: uppercase; letter-spacing: 0.5px; }
+.db-anim .row { height: 40px; background: rgb(50 108 255 / 6%); border-radius: 0 0 8px 8px; }
+.db-anim .row > span { height: 100%; }
+.db-anim .yr { font-weight: 500; }
+.db-anim .chev { font-size: 12px; color: var(--text-200); }
+.db-anim .ent { overflow: hidden; text-overflow: ellipsis; }
+.db-anim .selc { justify-content: space-between; }
+.db-anim .selc b { font-weight: 400; }
+.db-anim .op b { font-weight: 600; }
+.db-anim .car { font-size: 11px; color: var(--text-300); }
+.db-anim .selc.editing { box-shadow: inset 0 0 0 1.5px var(--primary-500); background: #fff; }
+.db-anim .end b { font-weight: 400; padding: 2px 4px; margin: 0 -4px; border-radius: 4px; background: rgb(0 166 62 / calc(var(--flash, 0) * 16%)); }
+.db-anim .rs {
+  display: none;
+  position: absolute;
+  top: 74px;
+  width: 150px;
+  padding: 4px;
+  background: #fff;
+  border: 1px solid var(--border-2);
+  border-radius: 6px;
+  box-shadow: 0 16px 32px -12px rgb(16 24 40 / 25%), 0 2px 6px rgb(16 24 40 / 6%);
+}
+.db-anim .rs-i { display: flex; align-items: center; justify-content: space-between; height: 28px; padding: 0 10px; border-radius: 4px; }
+.db-anim .rs-i.hi { background: var(--primary-a12); color: var(--primary-700); }
+.db-anim .tick { font-size: 12px; color: var(--primary-500); }
+
+/* 2 · Year timeline */
+.db-anim .tl { top: 112px; padding: 14px 16px 10px; z-index: 1; }
+.db-anim .tl-svg { display: block; margin-top: 12px; }
+.db-anim .tl-svg text { font-family: inherit; font-size: 11px; fill: var(--text-200); }
+.db-anim .rowlbl .cap { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.5px; }
+.db-anim .rowlbl .val { font-size: 14px; font-weight: 500; fill: var(--text-50); }
+.db-anim .rowlbl .val.on { fill: var(--primary-700); font-weight: 600; }
+.db-anim .rowlbl .sub { font-size: 11px; }
+.db-anim .rowlbl .opsub2 { fill: var(--green-600); font-weight: 500; opacity: 0; }
+.db-anim .fbar .bg,
+.db-anim .obar .bg { fill: var(--surface-1); stroke: var(--border-2); }
+.db-anim .pbar .bg { fill: var(--primary-a12); stroke: var(--soft-primary); }
+.db-anim .wk { fill: var(--indigo-300); opacity: 0.9; }
+.db-anim .pbar .wk { fill: var(--indigo-600); opacity: 0.7; }
+.db-anim .pbar { opacity: 0; }
+.db-anim .plbl { opacity: 0; fill: var(--primary-700) !important; font-weight: 500; }
+.db-anim .five { fill: var(--amber-500); opacity: 0; }
+.db-anim .q path { fill: none; stroke: var(--text-300); }
+.db-anim .q text { font-size: 10.5px !important; }
+.db-anim .q { opacity: 0; }
+
+/* 3 · Sales report */
+.db-anim .rep { top: 334px; padding: 14px 16px 12px; z-index: 4; }
+.db-anim .chips { display: flex; gap: 8px; }
+.db-anim .chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--border-2);
+  background: var(--surface-3);
+  white-space: nowrap;
+}
+.db-anim .chip em { font-style: normal; font-size: 10.5px; color: var(--text-200); text-transform: uppercase; letter-spacing: 0.5px; }
+.db-anim .chip b { font-weight: 500; }
+.db-anim .chip.editing { border-color: var(--primary-500); box-shadow: 0 0 0 3px var(--primary-a12); }
+.db-anim .ch-svg { display: block; margin-top: 8px; }
+.db-anim .ch-svg text { font-family: inherit; font-size: 11px; fill: var(--text-100); }
+.db-anim .grid line { stroke: var(--border-2); stroke-dasharray: 4 4; }
+.db-anim .mb { fill: var(--indigo-300); }
+.db-anim .pb { fill: var(--indigo-600); }
+.db-anim .mdot { opacity: 0; }
+.db-anim .xp { opacity: 0; }
+.db-anim .foot { position: relative; height: 18px; margin-top: 4px; font-size: 12px; }
+.db-anim .foot span { position: absolute; left: 52px; top: 0; display: flex; align-items: center; gap: 6px; opacity: 0; }
+.db-anim .f1 { color: var(--text-200); }
+.db-anim .f2 { color: var(--green-600); font-weight: 500; }
+.db-anim .ok { font-size: 13px; }
+.db-anim .menu {
+  display: none;
+  position: absolute;
+  right: 16px;
+  bottom: calc(100% - 44px);
+  width: 200px;
+  padding: 4px;
+  background: #fff;
+  border: 1px solid var(--border-2);
+  border-radius: 6px;
+  box-shadow: 0 16px 32px -12px rgb(16 24 40 / 25%), 0 2px 6px rgb(16 24 40 / 6%);
+}
+.db-anim .mi { height: 24px; padding: 0 10px; display: flex; align-items: center; border-radius: 4px; }
+.db-anim .mg { padding: 8px 10px 2px; font-size: 10.5px; font-weight: 600; color: var(--text-200); text-transform: uppercase; letter-spacing: 0.5px; }
+.db-anim .mg ~ .mi { padding-left: 18px; }
+.db-anim .mi.hi { background: var(--primary-a12); color: var(--primary-700); }
+
+/* Cursor */
+.db-anim .cursor { position: absolute; left: 0; top: 0; width: 22px; height: 22px; pointer-events: none; z-index: 9; }
+.db-anim .cursor svg { width: 22px; height: 22px; filter: drop-shadow(0 2px 3px rgb(0 0 0 / 25%)); }
+.db-anim .ripple { position: absolute; left: -14px; top: -14px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--primary-500); opacity: 0; }

@@ -18,6 +18,7 @@ export const window_ = (t, start, end, fade = 0.3) =>
 // Easings — the curves the DishBooks app itself uses are close to these.
 export const ease = {
   linear: (p) => p,
+  inCubic: (p) => p ** 3,
   outCubic: (p) => 1 - (1 - p) ** 3,
   outQuart: (p) => 1 - (1 - p) ** 4,
   outExpo: (p) => (p >= 1 ? 1 : 1 - 2 ** (-10 * p)),

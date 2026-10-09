@@ -294,6 +294,22 @@ anim:deliver`):
   (≤ 767px) in a 320px-wide slot, with -90% and 90% (half of 720/400).
   Webflow's visibility settings swap the two, as with the other scenes.
 
+**On dishbooks.com it's video** (Webflow's Background Video element).
+The HTML embeds mis-measure inside Webflow's page CSS. The window is
+`.wdb-slot > .wdb-win`, already on the site, and holds two Background Videos:
+
+| Element | Upload | Classes | Size |
+|---|---|---|---|
+| Desktop | `dist/why-dishbooks/home/why-dishbooks.mp4` (1920 × 1080) | `anim-desktop` + `wdb-video` | width 100%, aspect ratio 16 / 9 |
+| Phone | `dist/why-dishbooks-mobile/home/why-dishbooks-mobile.mp4` (1000 × 1800) | `anim-phone` + `wdb-video-phone` | width 100%, aspect ratio 5 / 9 |
+
+Each video's box must have the same aspect ratio as its video, so cover-fit
+crops nothing. Then the −28.125% / −90% overhang is exactly half the
+window's height. Keep Webflow's play/pause button switched on. `.wdb-spacer`
+starts the next section. Webflow re-encodes uploads, so upload the MP4 (the
+higher-quality file). Its poster is the video's first frame: the empty page
+at 0s.
+
 **Embed size.** The embeds are about 48.9k characters at most (the multi-unit
 groups scenario), close to Webflow's 50k limit. To keep them there:
 

@@ -15,7 +15,7 @@
 import { seg, ease, lerp, clamp, riseIn, countUp } from '../../lib/timeline.js';
 import { icon } from '../../shared/icons.js';
 
-export const meta = { width: 880, height: 616, duration: 10, fps: 30, posterTime: 9.2 };
+export const meta = { width: 880, height: 616, duration: 10, fps: 30, posterTime: 9.2, videoStart: 9.2 };
 
 const VW = 1440; // virtual browser viewport the app is laid out in
 const VH = 1008;

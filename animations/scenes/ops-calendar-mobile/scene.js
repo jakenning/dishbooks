@@ -7,7 +7,7 @@
 import { makeScene } from '../ops-calendar/opscal.js';
 
 const S = makeScene({
-  meta: { width: 400, height: 632, duration: 10, fps: 30, posterTime: 8.6, scale: 2.5 },
+  meta: { width: 400, height: 632, duration: 10, fps: 30, posterTime: 8.6, videoStart: 8.6, scale: 2.5 },
   compact: true,
   touch: true, // phones have no pointer: fingertip taps instead
   tl: { w: 338, x0: 0, x1: 338, fy: 18, oy: 88, bh: 24, lbl: 14, qy: 22, H: 156, five: 12, stacked: true },

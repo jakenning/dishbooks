@@ -6,7 +6,7 @@
 import { makeScene } from '../custom-reports/reports.js';
 
 const S = makeScene({
-  meta: { width: 400, height: 720, duration: 10, fps: 30, posterTime: 8.6, scale: 2.5 },
+  meta: { width: 400, height: 720, duration: 10, fps: 30, posterTime: 8.6, videoStart: 8.6, scale: 2.5 },
   compact: true,
   touch: true, // phones have no pointer: fingertip taps instead
   swapWho: true, // one slot under the report: recipients, then schedule

@@ -4,7 +4,7 @@
 import { makeScene } from './opscal.js';
 
 const S = makeScene({
-  meta: { width: 880, height: 616, duration: 10, fps: 30, posterTime: 8.6 },
+  meta: { width: 880, height: 616, duration: 10, fps: 30, posterTime: 8.6, videoStart: 8.6 },
   compact: false,
   tl: { w: 766, x0: 156, x1: 766, fy: 6, oy: 66, bh: 26, lbl: 16, qy: 24, H: 142, five: 14 },
   ch: { w: 766, h: 150, x0: 52, x1: 758, y0: 12, y1: 124 },

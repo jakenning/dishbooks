@@ -112,8 +112,12 @@ async function renderVideo(scenario, outDir) {
   });
   const done = new Promise((res, rej) => ff.on('close', (c) => (c === 0 ? res() : rej(new Error(`ffmpeg exited ${c}`)))));
 
+  // Videos may start partway into the (seamless) loop, so frame 0, which
+  // Webflow's Background Video and <video poster> fallbacks show first, is a
+  // fully loaded UI rather than the empty intro.
+  const start = Number(meta.videoStart ?? 0);
   for (let i = 0; i < frames; i++) {
-    await page.evaluate((t) => window.__anim.seek(t), i / fps);
+    await page.evaluate((t) => window.__anim.seek(t), (start + i / fps) % meta.duration);
     const png = await page.screenshot({ type: 'png' });
     if (!ff.stdin.write(png)) await new Promise((r) => ff.stdin.once('drain', r));
     if (i % fps === 0) process.stdout.write(`\r  ${scenario}: frame ${i}/${frames}`);

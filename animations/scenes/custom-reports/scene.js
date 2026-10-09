@@ -5,7 +5,7 @@
 import { makeScene } from './reports.js';
 
 const S = makeScene({
-  meta: { width: 640, height: 506, duration: 10, fps: 30, posterTime: 8.6, scale: 2 },
+  meta: { width: 640, height: 506, duration: 10, fps: 30, posterTime: 8.6, videoStart: 8.6, scale: 2 },
   compact: false,
   cursor: { start: { x: 300, y: 470 }, rest: { x: 600, y: 470 } },
 });

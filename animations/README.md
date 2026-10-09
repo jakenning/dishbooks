@@ -306,8 +306,8 @@ The HTML embeds mis-measure inside Webflow's page CSS. The window is
 
 | Element | Upload | Classes | Size |
 |---|---|---|---|
-| Desktop | `dist/why-dishbooks/home/why-dishbooks.mp4` (1920 × 1080) | `anim-desktop` + `wdb-video` | width 100%, aspect ratio 16 / 9 |
-| Phone | `dist/why-dishbooks-mobile/home/why-dishbooks-mobile.mp4` (1000 × 1800) | `anim-phone` + `wdb-video-phone` | width 100%, aspect ratio 5 / 9 |
+| Desktop | `dist/why-dishbooks/home/why-dishbooks.mp4` (1920 × 1080) | `anim-desktop` + `wdb-video` | width 100%, height auto, aspect ratio 16 / 9; position relative, z-index 0 |
+| Phone | `dist/why-dishbooks-mobile/home/why-dishbooks-mobile.mp4` (1000 × 1800) | `anim-phone` + `wdb-video-phone` | width 100%, height auto, aspect ratio 5 / 9; position relative, z-index 0 |
 
 Each video's box must have the same aspect ratio as its video, so cover-fit
 crops nothing. Then the −28.125% / −90% overhang is exactly half the
@@ -315,6 +315,43 @@ window's height. Keep Webflow's play/pause button switched on. `.wdb-spacer`
 starts the next section. Webflow re-encodes uploads, so upload the MP4 (the
 higher-quality file). Webflow uses the video's first frame as the poster,
 and that frame is the loaded dashboard (see `startAt` above).
+
+Three values that are easy to miss (all confirmed with the fixture below):
+
+- **Height auto.** Webflow gives `.w-background-video` a height of 500px, and
+  aspect-ratio is ignored while a height is set.
+- **z-index 0.** Webflow gives the `<video>` `z-index: -100`. Without a
+  stacking context on the wrapper, it paints behind `.wdb-win`'s own
+  background and the window looks empty.
+- **The hero's container on top.** Both sections' `v2-1512-container`s have
+  z-index 10, so the next one sits over the window's lower half. That doesn't
+  show, but it swallows clicks, and the play/pause button is down there. Give
+  the hero's container the combo `is-over-next` with z-index 11. The nav is
+  z-index 1000, so it stays above.
+
+**Checking it on staging** (`verify/`, all read-only):
+
+- `why-dishbooks-readback.mjs dump.json` checks the Designer work: structure,
+  classes, autoplay/loop, and the style values. The input is a dump from the
+  Webflow Data API; the script's header shows how to build it.
+- `why-dishbooks.mjs` loads `https://dish-books.webflow.io/why-dishbooks` in
+  Chrome at 1920, 1440, 1024, 768, 375 and 320 and checks:
+  - the window's centre against the section boundary, and the heading below
+  - which video shows, and that it plays, loops and is the right file
+  - that the box aspect ratio matches the video
+  - that the video's pixels are actually visible
+  - the play/pause button, with a real click
+  - horizontal overflow and console errors
+
+  It also compares Webflow's transcodes with our MP4 (SSIM). Output goes to
+  `dist/verify/why-dishbooks/`: `report.md`, `report.json`,
+  `contact-sheet.png`, and the screenshots. It refuses any host except
+  `*.webflow.io` and localhost.
+- `why-dishbooks-fixture.mjs --variant naive|planned|fixed` serves the
+  staging page locally with the planned elements added, to test the test.
+  - `naive` fails on the 500px box and the hidden video.
+  - `planned` fails only the play/pause click.
+  - `fixed` passes everything.
 
 **Embed size.** The embeds are about 48.9k characters at most (the multi-unit
 groups scenario), close to Webflow's 50k limit. To keep them there:

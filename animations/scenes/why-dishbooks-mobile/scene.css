@@ -1,0 +1,81 @@
+/* Why DishBooks, phone layout (400 × 720). Same components and tokens as the
+   desktop window (../why-dishbooks/app.css); this file places them: a top bar
+   with a menu button, the sidebar as a drawer over a scrim, stacked cards and
+   Dex as a sheet. render.mjs inlines the @import when it builds the embed. */
+
+@import url('../why-dishbooks/app.css');
+
+.wdb.m { font-size: 13px; line-height: 18px; }
+.wdb.m .card { padding: 12px; }
+.wdb.m .ct { font-size: 15px; line-height: 20px; }
+.wdb.m .lbl { font-size: 11px; line-height: 16px; letter-spacing: 0.4px; }
+
+/* Top bar */
+.wdb .mbar { position: absolute; left: 0; right: 0; top: 0; height: 52px; display: flex; align-items: center; gap: 12px; padding: 0 12px; background: var(--u4); border-bottom: 1px solid var(--b2); }
+.wdb .menu { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 4px; border: 1px solid var(--b2); background: var(--u3); font-size: 18px; color: var(--t1); }
+.wdb .mbar .logo { flex: 1; }
+.wdb .mbar .logo span { font-size: 17px; }
+.wdb .main { left: 12px; top: 52px; }
+.wdb .top { height: 44px; }
+.wdb.m .ttl { font-size: 20px; line-height: 28px; letter-spacing: -0.8px; }
+.wdb.m .crumb { font-size: 13px; }
+.wdb .views { top: 44px; }
+.wdb.m .view { gap: 10px; }
+
+/* Drawer */
+.wdb .side { left: 0; top: 0; bottom: 0; width: 272px; border-radius: 0 12px 12px 0; background: #fdfdff; z-index: 6; box-shadow: 0 24px 48px -12px rgb(16 24 40 / 30%); }
+.wdb .scrim { position: absolute; inset: 0; background: rgb(11 12 13 / 32%); z-index: 6; }
+
+/* Home: KPIs 2 × 2, then the two charts */
+.wdb .kpis { grid-template-columns: 1fr 1fr; gap: 8px; }
+.wdb .kpi { height: 84px; padding: 10px 12px; }
+.wdb .kv { font-size: 21px; line-height: 28px; letter-spacing: -1px; }
+.wdb .spark { height: 34px; }
+.wdb .hrow { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: 10px; }
+.wdb.m .legend { margin-top: 6px; }
+.wdb.m .chart { margin-top: 6px; }
+.wdb.m svg text { font-size: 10.5px; }
+.wdb .cost-b { gap: 16px; }
+.wdb .cl li { padding: 4px 0; font-size: 12px; }
+.wdb .dc span { font-size: 10px; line-height: 12px; }
+.wdb .dc b { font-size: 16px; line-height: 20px; }
+
+/* Banking: cash card on top, the feed as two-line rows */
+.wdb .bank { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+.wdb .big { font-size: 26px; line-height: 32px; }
+.wdb .acc { margin-top: 8px; }
+.wdb .acc li { padding: 7px 0; }
+.wdb .txh { align-items: flex-start; flex-direction: column; gap: 10px; }
+.wdb .txh > div { width: 100%; }
+.wdb .prog > i { flex: 1; }
+.wdb .btn { align-self: stretch; }
+.wdb .tx .tr { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; min-height: 58px; padding: 8px 0; row-gap: 4px; }
+.wdb .tx .tr > span { padding: 0 4px; }
+.wdb .d2 { grid-row: span 2; display: flex; flex-direction: column; gap: 2px; }
+.wdb .d2 b { font-weight: 500; overflow: hidden; text-overflow: ellipsis; }
+.wdb .d2 em { font-style: normal; font-size: 12px; color: var(--t2); overflow: hidden; text-overflow: ellipsis; }
+.wdb .st { justify-items: end; }
+.wdb .st > span { font-size: 11px; line-height: 16px; padding: 1px 7px; }
+
+/* P&L: the flagged location next to the total */
+.wdb .tiles { gap: 8px; }
+.wdb .tile { padding: 10px; }
+.wdb .tv { font-size: 20px; line-height: 26px; letter-spacing: -0.8px; }
+.wdb .ts { font-size: 10.5px; line-height: 14px; }
+.wdb .pt { margin-top: 8px; }
+.wdb .pt .tr { grid-template-columns: minmax(0, 1.25fr) repeat(var(--n), minmax(0, 1fr)); min-height: 34px; }
+.wdb .pt .tr > span { padding: 0 8px; }
+.wdb .pt .th > span { font-size: 10.5px; letter-spacing: 0.3px; }
+.wdb .pt .cr { min-height: 28px; }
+.wdb .cr > span { font-size: 12px; }
+.wdb .pt .cr > .lb { padding-left: 26px; }
+.wdb .pp { border-radius: 0 0 6px 6px; }
+
+/* Dex: a sheet over the page, under the top bar */
+.wdb .dex { left: 0; right: 0; top: 52px; bottom: 0; border-radius: 12px 12px 0 0; z-index: 4; }
+.wdb .dex-body { padding: 16px 14px; }
+
+/* Fingertip (replaces the mouse pointer): centred on the tap point */
+.wdb .cursor { width: 0; height: 0; }
+.wdb .tip { position: absolute; left: -17px; top: -17px; width: 34px; height: 34px; border-radius: 50%; background: rgb(11 12 13 / 20%); border: 1.5px solid rgb(255 255 255 / 85%); box-shadow: 0 2px 8px rgb(16 24 40 / 18%); }
+.wdb .ripple { left: -20px; top: -20px; width: 40px; height: 40px; border-color: rgb(11 12 13 / 30%); }

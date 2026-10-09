@@ -1,0 +1,192 @@
+/* Why DishBooks: the app's components, shared by both layouts. Each layout's
+   scene.css @imports this and adds its own positions and sizes (render.mjs
+   inlines the import, so each embed carries only its own layout's rules).
+
+   Look: the DishBooks app's light theme, the same tokens smart-ops-dashboard
+   copies from staging, under short names to keep the Webflow embed under 50k
+   characters. Everything is scoped under .wdb (the stage also has .db-anim). */
+
+.wdb {
+  --u1: #f2f4f7; /* surface 1–4 */
+  --u2: #f9fafc;
+  --u3: #fdfdff;
+  --u4: rgb(255 255 255 / 80%);
+  --b1: rgb(130 133 140 / 8%); /* borders */
+  --b2: rgb(130 133 140 / 16%);
+  --t0: #0b0c0d; /* text 50 / 100 / 200 / 300 */
+  --t1: rgb(11 12 13 / 72%);
+  --t2: rgb(11 12 13 / 60%);
+  --t3: rgb(11 12 13 / 40%);
+  --p5: #326cff; /* primary 500 / 700, tint, soft */
+  --p7: #1440ad;
+  --pa: rgb(50 108 255 / 12%);
+  --ps: rgb(50 108 255 / 24%);
+  --sn: rgb(34 35 38 / 8%); /* soft neutral */
+  --in: #4f39f6; /* chart indigo */
+  --gn: #00a63e;
+  --rd: #e7000b;
+  --dg: linear-gradient(100deg, #1f128f 0%, #3a2fd6 25%, #326cff 50%, #3a2fd6 75%, #1f128f 100%);
+  background: var(--u2);
+  color: var(--t0);
+  font-size: 14px;
+  line-height: 20px;
+}
+.wdb .pi { width: 1em; height: 1em; flex: none; display: block; }
+.wdb .grow { flex: 1; }
+.wdb .card { position: relative; background: var(--u4); border: 1px solid var(--b2); border-radius: 8px; padding: 16px; }
+.wdb .ct { font-size: 16px; line-height: 24px; font-weight: 500; letter-spacing: -0.2px; }
+.wdb .ct .sub { color: var(--t2); font-weight: 400; }
+.wdb .lbl { color: var(--t2); text-transform: uppercase; letter-spacing: 0.6px; white-space: nowrap; font-size: 13px; }
+.wdb .ch { display: flex; align-items: center; justify-content: space-between; }
+.wdb .sel { display: flex; align-items: center; gap: 6px; padding: 4px 8px; border: 1px solid var(--b2); border-radius: 4px; background: var(--u3); font-size: 12px; line-height: 16px; white-space: nowrap; }
+.wdb .car { font-size: 12px; color: var(--t2); }
+
+/* Sidebar (a drawer on phones) */
+.wdb .side { position: absolute; display: flex; flex-direction: column; gap: 12px; padding: 18px 16px 16px; border: 1px solid var(--b2); }
+.wdb .logo { display: flex; align-items: center; gap: 8px; height: 24px; }
+.wdb .logo .mark { width: 32px; height: 23px; }
+.wdb .logo span { font-size: 19px; font-weight: 600; letter-spacing: -0.6px; }
+.wdb .org { background: var(--u3); border: 1px solid var(--b1); border-radius: 8px; }
+.wdb .org-row { display: flex; align-items: center; gap: 8px; padding: 7px 8px; }
+.wdb .org-row + .org-row { border-top: 1px solid var(--b1); }
+.wdb .org-name,
+.wdb .nl,
+.wdb .me-name { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-weight: 500; }
+.wdb .ib { display: grid; place-items: center; flex: none; padding: 4px; border-radius: 4px; background: var(--sn); color: var(--t1); font-size: 12px; }
+.wdb .items { position: relative; display: flex; flex-direction: column; gap: 5px; }
+.wdb .ni { display: flex; align-items: center; gap: 8px; padding: 7px 8px; background: var(--u3); border: 1px solid var(--b1); border-radius: 8px; font-size: 11.5px; line-height: 16px; font-weight: 500; letter-spacing: 0.4px; text-transform: uppercase; color: var(--t1); }
+.wdb .ni.on { color: var(--p7); }
+.wdb .ni.on .ib { background: var(--p5); color: #fff; }
+/* The active item's tint is one element that slides between items. */
+.wdb .nhl { position: absolute; left: 0; right: 0; top: 0; border-radius: 8px; background: var(--pa); border: 1px solid var(--ps); z-index: 1; }
+.wdb .setup { padding: 10px 12px; background: var(--u3); border: 1px solid var(--b1); border-radius: 8px; font-size: 12px; line-height: 16px; }
+.wdb .setup > div { display: flex; justify-content: space-between; }
+.wdb .setup b { font-weight: 500; text-transform: uppercase; letter-spacing: 0.4px; }
+.wdb .setup span { color: var(--t2); }
+.wdb .setup > i { display: block; height: 4px; margin-top: 8px; border-radius: 99px; background: #e3e5eb; }
+.wdb .setup > i > i { display: block; width: 75%; height: 100%; border-radius: inherit; background: var(--p5); }
+.wdb .dex-btn { padding: 1px; border-radius: 4px; background: linear-gradient(180deg, rgb(255 255 255 / 45%), rgb(255 255 255 / 5%)), #1f128f; box-shadow: 0 2px 4px -2px #1f128f99, 0 4px 8px -4px #1f128f33; }
+.wdb .dex-btn-in { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 4px 24px; border-radius: 3px; background: var(--dg); background-size: 200% 100%; color: #faf8f5; font-weight: 500; letter-spacing: -0.6px; }
+.wdb .ai { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 4px; background: rgb(31 18 143 / 24%); font-size: 10px; font-weight: 600; letter-spacing: 0; }
+.wdb .me { display: flex; align-items: center; gap: 8px; }
+.wdb .av { display: grid; place-items: center; flex: none; width: 28px; height: 28px; border-radius: 4px; border: 1px solid var(--b1); background: var(--pa); color: var(--p7); font-size: 12px; font-weight: 500; }
+.wdb .mode { padding: 6px; border-radius: 4px; background: var(--sn); color: var(--t1); }
+
+/* Page column */
+.wdb .main { position: absolute; right: 12px; bottom: 12px; }
+.wdb .top { display: flex; align-items: center; gap: 8px; }
+.wdb .tt { flex: 1; display: flex; align-items: baseline; gap: 8px; }
+.wdb .crumb { color: var(--t2); }
+.wdb .crumb:not(:empty)::after { content: '/'; margin-left: 8px; color: var(--t3); }
+.wdb .ttl { font-size: 24px; line-height: 32px; font-weight: 500; letter-spacing: -1.2px; }
+.wdb .views { position: absolute; left: 0; right: 0; bottom: 0; }
+.wdb .view { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 12px; }
+
+/* Home */
+.wdb .kpis { display: grid; gap: 12px; }
+.wdb .kpi { overflow: hidden; }
+.wdb .kv { font-weight: 500; white-space: nowrap; }
+.wdb .spark { position: absolute; left: 0; bottom: 0; width: 100%; }
+.wdb .hrow { flex: 1; display: grid; gap: 12px; }
+.wdb .hrow > .card { display: flex; flex-direction: column; }
+.wdb .legend { display: flex; gap: 16px; margin-top: 12px; font-size: 12px; line-height: 16px; color: var(--t2); }
+.wdb .legend span { display: flex; align-items: center; gap: 6px; }
+.wdb .legend i { width: 16px; height: 3px; border-radius: 2px; background: var(--in); }
+.wdb .legend .dash { height: 0; border-top: 2px dashed var(--in); background: none; }
+.wdb .chart { display: block; margin-top: auto; overflow: visible; }
+.wdb svg text { font-family: inherit; font-size: 12px; fill: var(--t1); }
+.wdb .grid line { stroke: var(--b2); stroke-dasharray: 4 4; }
+.wdb .cost-b { flex: 1; display: flex; align-items: center; justify-content: center; }
+.wdb .dw { position: relative; flex: none; }
+.wdb .donut { display: block; }
+.wdb .dc { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.wdb .dc span { color: var(--t2); }
+.wdb .dc b { font-weight: 600; letter-spacing: -0.5px; }
+.wdb .cl { align-self: stretch; list-style: none; display: flex; flex-direction: column; justify-content: center; }
+.wdb .cl li { display: flex; align-items: center; gap: 10px; }
+.wdb .cl li + li { border-top: 1px solid var(--b1); }
+.wdb .cl i { width: 10px; height: 10px; border-radius: 99px; flex: none; }
+.wdb .cl span { flex: 1; color: var(--t1); }
+.wdb .cl b { font-weight: 500; }
+
+/* Banking */
+.wdb .big { margin-top: 4px; font-weight: 500; letter-spacing: -1.4px; white-space: nowrap; }
+.wdb .cs { color: var(--t2); font-size: 12px; line-height: 16px; }
+.wdb .acc { list-style: none; }
+.wdb .acc li { display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--b2); }
+.wdb .acc .ai2 { font-size: 16px; color: var(--t2); }
+.wdb .acc span { flex: 1; font-weight: 500; }
+.wdb .acc em { font-style: normal; font-weight: 400; color: var(--t2); }
+.wdb .acc b { font-weight: 500; }
+.wdb .txh { display: flex; justify-content: space-between; gap: 10px; padding-bottom: 12px; }
+.wdb .prog { display: flex; align-items: center; gap: 4px; margin-top: 2px; color: var(--t2); font-size: 12px; line-height: 16px; }
+.wdb .pn { color: var(--t0); font-weight: 600; }
+.wdb .prog > i { display: block; height: 4px; margin-left: 8px; border-radius: 99px; background: #e3e5eb; }
+.wdb .prog > i > i { display: block; height: 100%; border-radius: inherit; background: var(--gn); }
+.wdb .btn { display: grid; height: 34px; padding: 0 14px; border-radius: 4px; background: var(--p5); color: #faf8f5; font-weight: 500; white-space: nowrap; }
+.wdb .btn > span { grid-area: 1 / 1; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.wdb .btn .b2,
+.wdb .btn.done .b1 { visibility: hidden; }
+.wdb .btn.done { background: var(--gn); }
+.wdb .btn.done .b2 { visibility: visible; }
+.wdb .tx .tr { position: relative; display: grid; align-items: center; border-top: 1px solid var(--b2); }
+.wdb .tx .tr::before { content: ''; position: absolute; inset: 0; background: rgb(0 166 62 / 7%); opacity: var(--hl, 0); }
+.wdb .tx .tr > span { position: relative; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wdb .am { text-align: right; font-weight: 500; }
+.wdb .am.in { color: var(--gn); }
+.wdb .st { display: grid; }
+.wdb .st > span { grid-area: 1 / 1; display: flex; align-items: center; gap: 4px; border-radius: 99px; font-weight: 500; white-space: nowrap; }
+.wdb .s1 { background: var(--pa); color: var(--p7); }
+.wdb .s2 { background: rgb(0 166 62 / 12%); color: #016630; }
+.wdb .tr.m .s2,
+.wdb .tr.ok .s1,
+.wdb .tr.m.done .s1 { visibility: hidden; }
+.wdb .tr.m.done .s2 { visibility: visible; }
+
+/* Prime Cost P&L */
+.wdb .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.wdb .tv { font-weight: 500; }
+.wdb .ts { color: var(--t2); }
+.wdb .pt .tr { position: relative; display: grid; align-items: center; border-top: 1px solid var(--b2); }
+.wdb .pt .tr > span { position: relative; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; }
+.wdb .pt .tr > .lb { display: flex; align-items: center; gap: 6px; text-align: left; font-weight: 500; }
+.wdb .pt .th { min-height: 32px; border-top: 0; }
+/* Long location names wrap onto a second line rather than truncating. */
+.wdb .pt .th > span { padding-left: 4px; font-size: 12px; line-height: 14px; color: var(--t2); text-transform: uppercase; letter-spacing: 0.4px; white-space: normal; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.wdb .pt .tot { background: rgb(130 133 140 / 5%); font-weight: 500; }
+.wdb .tw { font-size: 12px; color: var(--t2); }
+.wdb .cats { height: 0; overflow: hidden; }
+.wdb .cr > span { color: var(--t1); }
+.wdb .pt .cr > .lb { font-weight: 400; }
+.wdb .pr > span,
+.wdb .pp > span { font-weight: 600; }
+.wdb .pp { background: var(--u1); }
+/* The outlier: a red outline drawn in, then red figures. */
+.wdb .pt .fl { overflow: visible; }
+.wdb .pt .fl::before { content: ''; position: absolute; inset: 4px 2px 4px 10px; border-radius: 4px; border: 1.5px solid var(--rd); background: rgb(231 0 11 / 8%); opacity: var(--fl, 0); transform: scale(calc(1.25 - 0.25 * var(--fl, 0))); }
+.wdb .pt .fl.on { color: var(--rd); font-weight: 600; }
+
+/* Dex */
+.wdb .dex { position: absolute; display: flex; flex-direction: column; background: #fff; border: 1px solid var(--b2); box-shadow: 0 24px 48px -12px rgb(31 18 143 / 28%), 0 4px 12px rgb(16 24 40 / 8%); }
+.wdb .dex header { display: flex; align-items: center; gap: 8px; padding: 14px 16px; border-bottom: 1px solid var(--b2); }
+.wdb .dex header b { font-size: 16px; font-weight: 500; }
+.wdb .dex header .ai { color: #1f128f; }
+.wdb .dex header .pi { font-size: 16px; color: var(--t2); }
+.wdb .orb { flex: none; width: 24px; height: 24px; border-radius: 4px; background: var(--dg); background-size: 200% 100%; }
+.wdb .orb.sm { width: 20px; height: 20px; margin-top: 1px; }
+.wdb .dex-body { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+.wdb .msg { display: flex; gap: 10px; }
+.wdb .dex-message { position: relative; flex: 1; display: flex; flex-direction: column; gap: 8px; line-height: 1.5; color: var(--t1); }
+.wdb .dex-message b { font-weight: 600; color: var(--t0); }
+.wdb .bubble { align-self: flex-end; max-width: 82%; padding: 8px 12px; border-radius: 8px 8px 2px 8px; background: var(--pa); }
+.wdb .dots { position: absolute; left: 0; top: 6px; display: flex; gap: 4px; }
+.wdb .dots i { width: 6px; height: 6px; border-radius: 99px; background: var(--t3); }
+.wdb .dex footer { padding: 0 16px 16px; }
+.wdb .input { position: relative; display: flex; align-items: center; min-height: 44px; padding: 8px 48px 8px 12px; border: 1px solid var(--b2); border-radius: 8px; background: var(--u3); white-space: nowrap; overflow: hidden; }
+.wdb .ph { color: var(--t3); }
+.wdb .caret { width: 1.5px; height: 18px; margin-left: 1px; background: var(--p5); }
+.wdb .send { position: absolute; right: 8px; top: 8px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 4px; background: var(--p5); color: #fff; }
+
+/* Pointer */
+.wdb .cursor { position: absolute; left: 0; top: 0; pointer-events: none; z-index: 8; }
+.wdb .ripple { position: absolute; border-radius: 50%; border: 2px solid var(--p5); opacity: 0; }

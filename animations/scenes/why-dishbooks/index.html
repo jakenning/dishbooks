@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why DishBooks</title>
+  <link rel="stylesheet" href="../../shared/base.css">
+  <link rel="stylesheet" href="scene.css">
+  <style>
+    html, body { margin: 0; background: #f2f4f7; }
+    .db-anim-wrap { width: 100%; max-width: 1280px; margin: 0 auto; }
+    body[data-record] .db-anim-wrap { max-width: none; }
+  </style>
+</head>
+<body>
+  <div class="db-anim-wrap"><div id="stage"></div></div>
+  <script type="module">
+    import * as scene from './scene.js';
+    import { run } from '../../lib/player.js';
+    if (location.search.includes('record')) document.body.dataset.record = '';
+    run(scene);
+  </script>
+</body>
+</html>

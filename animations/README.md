@@ -10,11 +10,12 @@ animations/
     scene.css            ← the look
   scenarios/<name>.json  fictional company / people / financials, one per audience
   scenarios/generate.mjs the assumptions that produce those JSON files
-  shared/                brand tokens (base.css) + Albert Sans
+  shared/                brand tokens (base.css), Albert Sans, icons, COGS categories
   lib/                   timeline + player shared by every scene
   render.mjs             records scenes → dist/
   deliver.mjs            dist/ → a shareable folder with "Open deliverables.html"
-  mockup.mjs             "Section mockup.html": the homepage tabs with the animations in place
+  mockup.mjs             "Section mockup.html" (homepage tabs) and "Why DishBooks mockup.html"
+                         (that page's hero), with the animations in place
   dist/                  output (git-ignored) — what you upload to Webflow
 ```
 
@@ -118,8 +119,9 @@ all of its CSS under `.db-anim`, so it won't affect the rest of the page.
 ### Mobile versions
 
 A scene can have a phone layout in a sibling folder named `<scene>-mobile`
-(today: `ops-calendar-mobile`, 400 × 632, and `custom-reports-mobile`, 400 × 720,
-both rendered at 2.5× → 1000 × 1580 / 1000 × 1800). The
+(today: `ops-calendar-mobile`, 400 × 632, and `custom-reports-mobile` and
+`why-dishbooks-mobile`, 400 × 720, all rendered at 2.5× → 1000 × 1580 /
+1000 × 1800). The
 preview's phone slot shows it automatically. In Webflow, add both versions to
 the section and use the breakpoint visibility settings: hide the desktop
 version on Mobile Landscape and Mobile Portrait, and hide the mobile version
@@ -231,13 +233,135 @@ The numbers are one week (1/52) of each scenario's annual P&L, rounded to
 dollars before summing, so prime cost = COGS + labor and the categories add up
 to COGS exactly. The group uses the scenario's P&L. The GM's location uses its
 row in `locations` (food + bev = COGS %, labor %). Categories are per concept
-(`CATS` in `reports.js`: proteins/produce/… for casual dining, liquor/beer/…
+(`CATS` in `shared/categories.js`, shared with Why DishBooks: proteins/produce/… for casual dining, liquor/beer/…
 for bars, coffee/dairy/cups for cafés). The food and beverage shares come from
 the location data. The GM's name and title are in `GMS`, also in
 `reports.js`, and are fictional. Last week's email shows slightly higher
 percentages, to suggest a recurring weekly report. Single-location scenarios
 (`fine-dining`, `independent-restaurants`) show the same location for both
 people.
+
+### Why DishBooks
+
+A full-app window for the Why DishBooks page. It sits under the hero copy and
+straddles the hero and the section below. There are no camera moves: everything
+happens inside the UI (pointer clicks, the nav highlight sliding, page
+cross-fades, count-ups, charts drawing). The story lives in
+`scenes/why-dishbooks/app.js`, and each layout's `scene.js` holds only geometry.
+The components' CSS is in `scenes/why-dishbooks/app.css`, which both layouts
+`@import`. The desktop stage is 1280 × 720 (16:9) at 1.5× (1920 × 1080). The
+phone layout, `why-dishbooks-mobile`, is 400 × 720 at 2.5× (1000 × 1800). It
+loops every 12s.
+
+Four views, picked to cover what the page promises ("prime cost, COGS by
+category, labor, cash … ready the moment you log in", AI):
+
+The times below are story time. The loop is rotated so that each video
+starts with Home loaded: the desktop at 2.3s (`startAt` in `scene.js`), and
+the phone at 1.8s, since by 2.3s its menu drawer is opening. Frame 0, which is
+also the poster and the frame Webflow shows before the video plays, is the
+full dashboard.
+
+| Time | Beat |
+|---|---|
+| 0–2s | **Home.** The KPIs rise in and count up, Sales Performance draws, and the Cost Breakdown donut sweeps. |
+| 2–3.7s | Pointer → **Banking**. The cash balance counts up, and the bank feed cascades in with "Match found" chips. Pointer clicks **Accept N matches**: every row turns Reconciled, the progress bar fills, and the button turns green. |
+| 4.55–6.9s | Pointer → **Reports**, which opens the **Prime Cost P&L** by location. The tiles and rows count up. Pointer opens **COGS**, which unfolds into the company's categories, and the outlier location's cell gets a red outline. |
+| 7–10.2s | Pointer → **Ask Dex**. The panel slides in and the page narrows to make room. "Which location needs attention?" types out, sends, and the answer streams in, naming the flagged location. |
+| 10.7–12s | Pointer goes back to **Home**. Dex closes and the page clears, so 12s = 0s. |
+
+The P&L comes just before Dex, so the outlier Dex names is the one just
+flagged. On phones, the sidebar is a drawer: a fingertip taps the menu button
+and then the item. The page shows 4 KPIs, the flagged location next to Total
+in the P&L, two-line bank rows, and Dex as a sheet.
+
+**Numbers.** Everything comes from the scenario. Home's KPIs and the P&L tiles
+use the same P&L, so they match. The by-location table is worked in hundreds of
+dollars so that each column foots: categories add up to COGS, and COGS + labor
+= prime cost. Total is the sum of the location columns, and a single location
+has no Total column. The bank feed is one week of the P&L (deposits per
+location, food and beverage purchases, payroll, rent, utilities), and its
+accounts add up to the Cash Balance KPI. The vendor names (Larkfield
+Provisions, Copperleaf Beverage Co., Valecrest Power & Light) are invented:
+search them before publishing.
+
+**Placement** (see "Why DishBooks mockup.html", written by `npm run
+anim:deliver`):
+
+- **Desktop.** Use the width of the hero content (about 1200px at a 1440
+  viewport). Pull the window's lower half into the next section with
+  `margin-bottom: -28.125%`, which is half of 720/1280. Percentage margins are
+  of the parent's width, so wrap the window in a block that is exactly as wide
+  as the window. Give the wrapper `position: relative; z-index: 2`. Start the
+  next section with a same-width block with `padding-top: 28.125%`, so its
+  content starts below the window.
+- **Phones.** Keep the straddle. It reads as the same page, and the phone
+  version is tall enough to anchor both sections. Use the mobile version
+  (≤ 767px) in a 320px-wide slot, with -90% and 90% (half of 720/400).
+  Webflow's visibility settings swap the two, as with the other scenes.
+
+**On dishbooks.com it's video** (Webflow's Background Video element).
+The HTML embeds mis-measure inside Webflow's page CSS. The window is
+`.wdb-slot > .wdb-win`, already on the site, and holds two Background Videos:
+
+| Element | Upload | Classes | Size |
+|---|---|---|---|
+| Desktop | `dist/why-dishbooks/home/why-dishbooks.mp4` (1920 × 1080) | `anim-desktop` + `wdb-video` | width 100%, height auto, aspect ratio 16 / 9; position relative, z-index 0 |
+| Phone | `dist/why-dishbooks-mobile/home/why-dishbooks-mobile.mp4` (1000 × 1800) | `anim-phone` + `wdb-video-phone` | width 100%, height auto, aspect ratio 5 / 9; position relative, z-index 0 |
+
+Each video's box must have the same aspect ratio as its video, so cover-fit
+crops nothing. Then the −28.125% / −90% overhang is exactly half the
+window's height. Keep Webflow's play/pause button switched on. `.wdb-spacer`
+starts the next section. Webflow re-encodes uploads, so upload the MP4 (the
+higher-quality file). Webflow uses the video's first frame as the poster,
+and that frame is the loaded dashboard (see `startAt` above).
+
+Three values that are easy to miss (all confirmed with the fixture below):
+
+- **Height auto.** Webflow gives `.w-background-video` a height of 500px, and
+  aspect-ratio is ignored while a height is set.
+- **z-index 0.** Webflow gives the `<video>` `z-index: -100`. Without a
+  stacking context on the wrapper, it paints behind `.wdb-win`'s own
+  background and the window looks empty.
+- **The hero's container on top.** Both sections' `v2-1512-container`s have
+  z-index 10, so the next one sits over the window's lower half. That doesn't
+  show, but it swallows clicks, and the play/pause button is down there. Give
+  the hero's container the combo `is-over-next` with z-index 11. The nav is
+  z-index 1000, so it stays above.
+
+**Checking it on staging** (`verify/`, all read-only):
+
+- `why-dishbooks-readback.mjs dump.json` checks the Designer work: structure,
+  classes, autoplay/loop, and the style values. The input is a dump from the
+  Webflow Data API; the script's header shows how to build it.
+- `why-dishbooks.mjs` loads `https://dish-books.webflow.io/why-dishbooks` in
+  Chrome at 1920, 1440, 1024, 768, 375 and 320 and checks:
+  - the window's centre against the section boundary, and the heading below
+  - which video shows, and that it plays, loops and is the right file
+  - that the box aspect ratio matches the video
+  - that the video's pixels are actually visible
+  - the play/pause button, with a real click
+  - horizontal overflow and console errors
+
+  It also compares Webflow's transcodes with our MP4 (SSIM). Output goes to
+  `dist/verify/why-dishbooks/`: `report.md`, `report.json`,
+  `contact-sheet.png`, and the screenshots. It refuses any host except
+  `*.webflow.io` and localhost.
+- `why-dishbooks-fixture.mjs --variant naive|planned|fixed` serves the
+  staging page locally with the planned elements added, to test the test.
+  - `naive` fails on the 500px box and the hidden video.
+  - `planned` fails only the play/pause click.
+  - `fixed` passes everything.
+
+**Embed size.** The embeds are about 48.9k characters at most (the multi-unit
+groups scenario), close to Webflow's 50k limit. To keep them there:
+
+- The CSS uses short token names under `.wdb`.
+- The settings gear and the sun are drawn locally rather than with Phosphor
+  paths.
+- `render.mjs` drops icons a bundle never names.
+
+If an edit pushes an embed over 50k, use the video.
 
 The recorder drives your installed Google Chrome through Playwright and pipes
 PNG frames into ffmpeg (both already on this machine: `brew install ffmpeg` if

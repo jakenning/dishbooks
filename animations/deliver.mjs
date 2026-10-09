@@ -35,6 +35,10 @@ const SECTIONS = {
     title: 'Ops Calendar & 13-Period Accounting',
     section: 'OPS CALENDAR & 13-PERIOD ACCOUNTING — Your restaurant runs on weeks. Your books should too.',
   },
+  'custom-reports': {
+    title: 'Custom Reporting',
+    section: 'CUSTOM REPORTS — The right numbers, to exactly the right person.',
+  },
 };
 
 const exists = (p) => stat(p).then(() => true, () => false);

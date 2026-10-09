@@ -4,8 +4,7 @@
   "audience": "Pizzerias",
   "company": {
     "name": "Forno Ottavio",
-    "scope": "All locations",
-    "scopeCount": "2 locations"
+    "scopeLabel": "2 Locations"
   },
   "user": {
     "firstName": "Gina",
@@ -13,216 +12,256 @@
     "role": "Owner",
     "initials": "GR"
   },
-  "greeting": "Good morning",
-  "period": {
-    "label": "This period",
-    "wtdLabel": "Week to date"
-  },
+  "period": "Last 12 months",
+  "months": [
+    "Oct",
+    "Nov",
+    "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+  ],
   "kpis": [
     {
-      "key": "cash",
-      "label": "Cash balance",
-      "value": 131800,
-      "format": "money",
-      "delta": 2.4,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
-      "spark": [
-        128524.63,
-        128979.93,
-        129829.43,
-        130366.95,
-        129878.2,
-        130249.91,
-        130758.68,
-        130940.13,
-        131320.49,
-        131784.82,
-        132394.78,
-        131800
-      ]
-    },
-    {
       "key": "sales",
-      "label": "Net sales (week to date)",
-      "value": 18369,
-      "format": "money",
-      "delta": 3.6,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
+      "label": "Total Sales",
+      "value": 2750000,
+      "format": "k",
       "spark": [
-        9405,
-        6695,
-        5600,
-        5573,
-        6558,
-        6967,
-        10684,
-        9544,
-        6777,
-        5931,
-        5913,
-        6525
-      ]
+        236456,
+        232315,
+        241359,
+        233445,
+        243346,
+        226534,
+        221967,
+        220178,
+        219987,
+        219718,
+        225789,
+        228906
+      ],
+      "trend": "improving"
     },
     {
       "key": "prime",
-      "label": "Prime cost",
-      "value": 56.9,
+      "label": "Prime Cost %",
+      "value": 59.3,
       "format": "pct",
-      "delta": 0.5,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
       "spark": [
-        56.29,
-        56.31,
-        56.58,
-        56.44,
-        56.57,
-        56.59,
-        56.57,
-        56.64,
-        56.7,
-        56.95,
-        56.9,
-        56.9
-      ]
+        58.5,
+        59,
+        58.7,
+        59,
+        59,
+        59,
+        59.1,
+        59.1,
+        59.2,
+        59.5,
+        59.6,
+        59.3
+      ],
+      "trend": "declining"
     },
     {
-      "key": "food",
-      "label": "Food cost",
-      "value": 28.7,
-      "format": "pct",
-      "delta": 0.8,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
+      "key": "ebitda",
+      "label": "EBITDA",
+      "value": 368390,
+      "format": "k",
       "spark": [
-        27.72,
-        27.97,
-        28.28,
-        28.12,
-        28.01,
-        28.24,
-        28.18,
-        28.36,
-        28.43,
-        28.4,
-        28.64,
-        28.7
-      ]
-    },
-    {
-      "key": "labor",
-      "label": "Labor cost",
-      "value": 28.2,
-      "format": "pct",
-      "delta": -0.3,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
-      "spark": [
-        28.47,
-        28.5,
-        28.43,
-        28.36,
-        28.38,
-        28.36,
-        28.32,
-        28.27,
-        28.32,
-        28.34,
-        28.18,
-        28.2
-      ]
+        32266,
+        32118,
+        33127,
+        32204,
+        33913,
+        32170,
+        30986,
+        28221,
+        27960,
+        30566,
+        29123,
+        30510
+      ],
+      "trend": "improving"
     },
     {
       "key": "net",
-      "label": "Net profit",
-      "value": 10.9,
-      "format": "pct",
-      "delta": -0.2,
-      "unit": "pts",
-      "goodWhen": "up",
-      "compare": "vs. last period",
+      "label": "Net Profit",
+      "value": 283140,
+      "format": "k",
       "spark": [
-        11.07,
-        11.08,
-        11.03,
-        11.08,
-        11.05,
-        10.99,
-        11.04,
-        10.93,
-        10.94,
-        10.97,
-        10.87,
-        10.9
-      ]
+        24936,
+        24916,
+        25645,
+        24967,
+        26369,
+        25147,
+        24105,
+        21395,
+        21140,
+        23755,
+        22124,
+        23414
+      ],
+      "trend": "improving"
+    },
+    {
+      "key": "cash",
+      "label": "Cash Balance",
+      "value": 132200,
+      "format": "k",
+      "spark": [
+        104900,
+        105900,
+        108800,
+        111600,
+        118600,
+        119000,
+        119100,
+        119900,
+        125000,
+        131100,
+        129900,
+        132200
+      ],
+      "trend": "improving"
     }
   ],
-  "salesTrend": {
-    "title": "Net sales",
-    "subtitle": "Daily · last 4 weeks",
-    "days": [
-      7343,
-      10556,
-      9968,
-      6824,
-      5578,
-      5849,
-      6207,
-      7535,
-      10348,
-      9587,
-      6310,
-      5538,
-      5656,
-      6471,
-      7585,
-      10856,
-      9405,
-      6695,
-      5600,
-      5573,
-      6558,
-      6967,
-      10684,
-      9544,
-      6777,
-      5931,
-      5913,
-      6525
+  "pnl": [
+    {
+      "metric": "Total Sales",
+      "actual": 2750000,
+      "lastYear": 2629063,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "COGS",
+      "actual": 858440,
+      "lastYear": 799656,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Labor",
+      "actual": 771870,
+      "lastYear": 745813,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Prime Cost",
+      "actual": 1630310,
+      "lastYear": 1545468,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Operating Expenses",
+      "actual": 751300,
+      "lastYear": 728776,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "EBITDA",
+      "actual": 368390,
+      "lastYear": 354818,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "Net Profit",
+      "actual": 283140,
+      "lastYear": 273317,
+      "goodWhenUp": true
+    }
+  ],
+  "sales": {
+    "guests": 100733,
+    "avgCheck": 27.3,
+    "thisPeriod": [
+      236456,
+      232315,
+      241359,
+      233445,
+      243346,
+      226534,
+      221967,
+      220178,
+      219987,
+      219718,
+      225789,
+      228906
     ],
-    "firstWeekday": 3,
-    "currentWeekBars": 3
-  },
-  "panel": {
-    "title": "Locations",
-    "subtitle": "Prime cost · period to date",
-    "mode": "entities",
-    "rows": [
-      {
-        "name": "North End",
-        "sales": 10290,
-        "pct": 56.1,
-        "target": 58,
-        "status": "ok"
-      },
-      {
-        "name": "Lakeview",
-        "sales": 8080,
-        "pct": 58.9,
-        "target": 58,
-        "status": "warn"
-      }
+    "lastYear": [
+      223089,
+      223145,
+      230518,
+      221972,
+      236380,
+      221149,
+      216845,
+      209192,
+      208937,
+      208989,
+      210655,
+      225618
     ]
   },
+  "costBreakdown": [
+    {
+      "label": "COGS",
+      "pct": 31.2
+    },
+    {
+      "label": "Labor",
+      "pct": 28.1
+    },
+    {
+      "label": "Operating Expenses",
+      "pct": 27.3
+    },
+    {
+      "label": "Other",
+      "pct": 3.1
+    }
+  ],
+  "rowLabel": "Location",
+  "locations": [
+    {
+      "name": "North End",
+      "sales": 1540000,
+      "food": 25.4,
+      "bev": 4.1,
+      "labor": 28.2,
+      "prime": 57.7,
+      "ebitda": 234080,
+      "netProfit": 186340,
+      "netPct": 12.1
+    },
+    {
+      "name": "Lakeview",
+      "sales": 1210000,
+      "food": 29.6,
+      "bev": 3.8,
+      "labor": 27.9,
+      "prime": 61.3,
+      "ebitda": 134310,
+      "netProfit": 96800,
+      "netPct": 8
+    }
+  ],
+  "flag": {
+    "row": 1,
+    "col": "food"
+  },
   "dex": {
-    "ask": "Why is Lakeview creeping up?",
-    "answer": "Cheese is 34% of Lakeview’s food spend vs. 29% at North End — portioning on large pies is running heavy. Delivery fees are flat."
+    "ask": "Why is Lakeview’s food cost higher?",
+    "answer": [
+      "Cheese is **34%** of Lakeview’s food spend vs. 29% at North End, so portioning on large pies is running heavy.",
+      "Bringing it in line saves about **$41k** a year. Delivery fees are flat."
+    ]
   }
 }

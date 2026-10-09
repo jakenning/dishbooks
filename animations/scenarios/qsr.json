@@ -4,8 +4,7 @@
   "audience": "QSR",
   "company": {
     "name": "Bolt & Bun Burgers",
-    "scope": "All locations",
-    "scopeCount": "12 locations"
+    "scopeLabel": "12 Locations"
   },
   "user": {
     "firstName": "Marcus",
@@ -13,230 +12,278 @@
     "role": "Franchise Owner",
     "initials": "MB"
   },
-  "greeting": "Good morning",
-  "period": {
-    "label": "This period",
-    "wtdLabel": "Week to date"
-  },
+  "period": "Last 12 months",
+  "months": [
+    "Oct",
+    "Nov",
+    "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+  ],
   "kpis": [
     {
-      "key": "cash",
-      "label": "Cash balance",
-      "value": 566370,
-      "format": "money",
-      "delta": 4.6,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
-      "spark": [
-        542745.39,
-        545265.95,
-        545573.11,
-        541796.59,
-        554857.81,
-        548328.8,
-        556449.83,
-        561484.22,
-        561421.16,
-        557979.05,
-        569523.73,
-        566370
-      ]
-    },
-    {
       "key": "sales",
-      "label": "Net sales (week to date)",
-      "value": 127255,
-      "format": "money",
-      "delta": 3.8,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
+      "label": "Total Sales",
+      "value": 5890000,
+      "format": "k",
       "spark": [
-        50720,
-        41976,
-        39083,
-        40493,
-        43020,
-        44471,
-        48953,
-        48829,
-        41276,
-        40550,
-        41353,
-        45352
-      ]
+        487112,
+        484421,
+        492628,
+        459444,
+        452417,
+        492599,
+        495284,
+        511373,
+        519997,
+        516575,
+        494021,
+        484129
+      ],
+      "trend": "improving"
     },
     {
       "key": "prime",
-      "label": "Prime cost",
-      "value": 56.4,
+      "label": "Prime Cost %",
+      "value": 57.4,
       "format": "pct",
-      "delta": -0.1,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
       "spark": [
-        56.47,
-        56.52,
-        56.47,
-        56.49,
-        56.48,
-        56.46,
-        56.47,
-        56.42,
-        56.4,
-        56.41,
-        56.42,
-        56.4
-      ]
+        57.5,
+        57.4,
+        57.6,
+        57.4,
+        57.7,
+        57.5,
+        57.9,
+        57.6,
+        57.6,
+        57.5,
+        57.2,
+        57.4
+      ],
+      "trend": "improving"
     },
     {
-      "key": "food",
-      "label": "Food cost",
-      "value": 29.6,
-      "format": "pct",
-      "delta": -0.4,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
+      "key": "ebitda",
+      "label": "EBITDA",
+      "value": 758160,
+      "format": "k",
       "spark": [
-        30.07,
-        29.85,
-        29.93,
-        29.86,
-        29.9,
-        29.93,
-        29.87,
-        29.79,
-        29.66,
-        29.75,
-        29.58,
-        29.6
-      ]
-    },
-    {
-      "key": "labor",
-      "label": "Labor cost",
-      "value": 26.8,
-      "format": "pct",
-      "delta": 0.3,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
-      "spark": [
-        26.53,
-        26.54,
-        26.51,
-        26.66,
-        26.64,
-        26.55,
-        26.61,
-        26.7,
-        26.67,
-        26.75,
-        26.8,
-        26.8
-      ]
+        58021,
+        60593,
+        63141,
+        58081,
+        54923,
+        64415,
+        61439,
+        61453,
+        69413,
+        63755,
+        66057,
+        63819
+      ],
+      "trend": "improving"
     },
     {
       "key": "net",
-      "label": "Net profit",
-      "value": 11.2,
-      "format": "pct",
-      "delta": 0.5,
-      "unit": "pts",
-      "goodWhen": "up",
-      "compare": "vs. last period",
+      "label": "Net Profit",
+      "value": 575570,
+      "format": "k",
       "spark": [
-        10.67,
-        10.62,
-        10.88,
-        10.73,
-        10.86,
-        11.04,
-        11.07,
-        11.14,
-        11.14,
-        11.11,
-        11.22,
-        11.2
-      ]
+        42921,
+        45576,
+        47870,
+        43838,
+        40898,
+        49144,
+        46085,
+        45600,
+        53293,
+        47741,
+        50742,
+        48811
+      ],
+      "trend": "improving"
+    },
+    {
+      "key": "cash",
+      "label": "Cash Balance",
+      "value": 203900,
+      "format": "k",
+      "spark": [
+        163800,
+        171000,
+        167500,
+        170200,
+        176300,
+        184100,
+        189900,
+        192400,
+        187200,
+        196800,
+        198500,
+        203900
+      ],
+      "trend": "improving"
     }
   ],
-  "salesTrend": {
-    "title": "Net sales",
-    "subtitle": "Daily · last 4 weeks",
-    "days": [
-      46358,
-      50603,
-      50389,
-      43418,
-      41511,
-      43837,
-      43767,
-      42595,
-      50432,
-      47967,
-      42049,
-      39500,
-      39991,
-      46202,
-      46496,
-      52377,
-      50720,
-      41976,
-      39083,
-      40493,
-      43020,
-      44471,
-      48953,
-      48829,
-      41276,
-      40550,
-      41353,
-      45352
+  "pnl": [
+    {
+      "metric": "Total Sales",
+      "actual": 5890000,
+      "lastYear": 5647172,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "COGS",
+      "actual": 1801990,
+      "lastYear": 1755935,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Labor",
+      "actual": 1581810,
+      "lastYear": 1499655,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Prime Cost",
+      "actual": 3383800,
+      "lastYear": 3255590,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Operating Expenses",
+      "actual": 1748040,
+      "lastYear": 1698562,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "EBITDA",
+      "actual": 758160,
+      "lastYear": 693020,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "Net Profit",
+      "actual": 575570,
+      "lastYear": 517958,
+      "goodWhenUp": true
+    }
+  ],
+  "sales": {
+    "guests": 456589,
+    "avgCheck": 12.9,
+    "thisPeriod": [
+      487112,
+      484421,
+      492628,
+      459444,
+      452417,
+      492599,
+      495284,
+      511373,
+      519997,
+      516575,
+      494021,
+      484129
     ],
-    "firstWeekday": 3,
-    "currentWeekBars": 3
-  },
-  "panel": {
-    "title": "Locations",
-    "subtitle": "Prime cost · period to date",
-    "mode": "entities",
-    "rows": [
-      {
-        "name": "#104 — Route 9",
-        "sales": 11960,
-        "pct": 55.1,
-        "target": 58,
-        "status": "ok"
-      },
-      {
-        "name": "#107 — Airport Blvd",
-        "sales": 11580,
-        "pct": 55.9,
-        "target": 58,
-        "status": "ok"
-      },
-      {
-        "name": "#112 — Canal St",
-        "sales": 10310,
-        "pct": 60.7,
-        "target": 58,
-        "status": "warn"
-      },
-      {
-        "name": "#115 — Mill Creek",
-        "sales": 10690,
-        "pct": 56.4,
-        "target": 58,
-        "status": "ok"
-      }
+    "lastYear": [
+      469551,
+      461656,
+      472323,
+      425328,
+      444092,
+      470933,
+      480716,
+      499842,
+      491803,
+      485996,
+      476295,
+      458797
     ]
   },
+  "costBreakdown": [
+    {
+      "label": "COGS",
+      "pct": 30.6
+    },
+    {
+      "label": "Labor",
+      "pct": 26.9
+    },
+    {
+      "label": "Operating Expenses",
+      "pct": 29.7
+    },
+    {
+      "label": "Other",
+      "pct": 3.1
+    }
+  ],
+  "rowLabel": "Location",
+  "locations": [
+    {
+      "name": "#104 · Route 9",
+      "sales": 1620000,
+      "food": 28.4,
+      "bev": 1.9,
+      "labor": 25.8,
+      "prime": 56.1,
+      "ebitda": 231660,
+      "netProfit": 181440,
+      "netPct": 11.2
+    },
+    {
+      "name": "#107 · Airport Blvd",
+      "sales": 1570000,
+      "food": 28.9,
+      "bev": 1.8,
+      "labor": 26.1,
+      "prime": 56.8,
+      "ebitda": 219800,
+      "netProfit": 171130,
+      "netPct": 10.9
+    },
+    {
+      "name": "#112 · Canal St",
+      "sales": 1310000,
+      "food": 28.6,
+      "bev": 1.8,
+      "labor": 30.4,
+      "prime": 60.8,
+      "ebitda": 121830,
+      "netProfit": 81220,
+      "netPct": 6.2
+    },
+    {
+      "name": "#115 · Mill Creek",
+      "sales": 1390000,
+      "food": 29.1,
+      "bev": 1.9,
+      "labor": 25.6,
+      "prime": 56.6,
+      "ebitda": 184870,
+      "netProfit": 141780,
+      "netPct": 10.2
+    }
+  ],
+  "flag": {
+    "row": 2,
+    "col": "labor"
+  },
   "dex": {
-    "ask": "Why is #112 over target?",
-    "answer": "Labor at #112 is 2.4 pts above the group — the overnight shift is staffed at 4 while drive-thru sales after 11pm fell 18%."
+    "ask": "Why is #112’s labor above the rest?",
+    "answer": [
+      "#112 is running **30.4% labor**, about 4.5 pts above your other stores.",
+      "The overnight shift is still staffed at 4 while drive-thru sales after 11pm are down 18%. Moving to 3 saves about **$38k** a year."
+    ]
   }
 }

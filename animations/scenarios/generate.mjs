@@ -1,17 +1,21 @@
 // Generates the scenario JSON files from a handful of operating assumptions
 // per audience. Every company, location and person here is fictional.
 //
-//   node animations/scenarios/generate.mjs           # rewrite all scenarios
-//   node animations/scenarios/generate.mjs qsr home  # just these
+//   npm run anim:data                 # rewrite all scenarios
+//   npm run anim:data -- qsr home     # just these
 //
-// You can also hand-edit the JSON it writes — the scenes only read the JSON.
-// Re-running this script overwrites hand edits, so for one-off tweaks edit the
-// JSON; for changes you want to keep, edit the PROFILES below.
+// The scenes only read the JSON, so you can hand-edit a scenario file for a
+// one-off tweak. Re-running this script overwrites hand edits — for changes you
+// want to keep, edit PROFILES below.
 //
-// Benchmarks the numbers are tuned to (US, % of net sales):
-//   prime cost 55–65% (bars ~45–50%, fine dining / hotel F&B up to ~68%)
-//   food/bev cost 28–32% (bars: pour cost ~20–24%)
-//   labor 25–35%, net profit 3–15%
+// The data mirrors the DishBooks Home dashboard ("Last 12 months" view):
+// KPI cards, P&L summary vs. last year, monthly sales vs. last year, cost
+// breakdown, prime cost by location, and the location performance table.
+//
+// Benchmarks the numbers are tuned to (US, % of sales):
+//   food 24–32 · beverage 2–9 (bars: pour cost ~20) · labor 25–38
+//   prime cost 55–65 (bars ~45–50, fine dining / hotel F&B to ~68)
+//   operating expenses 20–30 · EBITDA 8–16 · net profit 4–12
 
 import { writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -19,493 +23,425 @@ import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 
-// Day-of-week sales mix, Monday first. Sums to ~1.
-const MIX = {
-  casual: [0.1, 0.11, 0.12, 0.14, 0.19, 0.2, 0.14],
-  qsr: [0.13, 0.135, 0.14, 0.145, 0.16, 0.155, 0.135],
-  fastCasual: [0.14, 0.145, 0.15, 0.15, 0.16, 0.13, 0.125],
-  fine: [0, 0.12, 0.14, 0.16, 0.22, 0.24, 0.12],
-  coffee: [0.155, 0.155, 0.15, 0.15, 0.15, 0.135, 0.105],
-  pizza: [0.11, 0.11, 0.12, 0.14, 0.2, 0.19, 0.13],
-  bar: [0.04, 0.06, 0.09, 0.16, 0.3, 0.31, 0.04],
-  hotel: [0.135, 0.14, 0.145, 0.15, 0.15, 0.145, 0.135],
+const MONTHS = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+
+// Relative monthly sales, Oct → Sep.
+const SEASON = {
+  casual: [1.0, 0.97, 1.08, 0.86, 0.88, 0.99, 1.0, 1.05, 1.06, 1.08, 1.05, 0.98],
+  qsr: [1.0, 0.98, 1.02, 0.93, 0.92, 0.99, 1.0, 1.04, 1.05, 1.06, 1.04, 0.99],
+  fine: [1.02, 1.04, 1.22, 0.82, 0.92, 0.95, 0.97, 1.03, 1.0, 0.96, 0.94, 1.03],
+  coffee: [1.02, 1.0, 1.04, 0.98, 0.97, 1.0, 1.0, 0.99, 0.95, 0.93, 0.94, 1.03],
+  pizza: [1.02, 1.04, 1.06, 1.01, 1.05, 0.98, 0.96, 0.97, 0.95, 0.96, 0.97, 1.0],
+  bar: [0.98, 0.96, 1.18, 0.84, 0.86, 1.02, 0.98, 1.04, 1.07, 1.1, 1.06, 0.96],
+  hotel: [1.03, 0.95, 1.02, 0.84, 0.88, 0.98, 1.02, 1.07, 1.1, 1.12, 1.08, 1.02],
 };
 
-// One profile per scenario. `weekly` is net sales per week for the whole
-// entity shown. `food`/`labor`/`net` are period-to-date % of sales; `d*` are
-// the change vs last period in points. `rows` drive the right-hand panel.
+// One profile per scenario.
+//   locations: [name, annual sales, food %, beverage %, labor %, opex %]
+//   flag: the cell the story calls out — { row, col: 'food'|'bev'|'labor'|'prime' }
+//   growth: sales vs. last year · ly: last year's ratio offsets (pts)
+//   dex.answer: paragraphs; **bold** is supported
 const PROFILES = {
   home: {
     audience: 'Homepage — multi-unit casual dining',
     company: 'Fernhollow Hospitality',
-    scope: 'All locations',
-    scopeCount: '4 locations',
     user: ['Maya', 'Ortiz', 'Owner'],
-    mix: 'casual',
-    weekly: 238_400,
-    growth: 0.052,
-    cashWeeks: 0.86,
-    cashDelta: 3.8,
-    food: 28.9, dFood: -0.6,
-    labor: 30.1, dLabor: 0.4,
-    net: 9.8, dNet: 0.7,
-    panel: {
-      title: 'Locations',
-      subtitle: 'Prime cost · period to date',
-      target: 60,
-      rows: [
-        ['Downtown', 0.31, 58.4],
-        ['Northgate', 0.26, 57.9],
-        ['Eastside', 0.23, 63.6, 'warn'],
-        ['Riverside', 0.2, 59.1],
-      ],
-    },
+    season: 'casual',
+    growth: 0.064,
+    avgCheck: 38.6,
+    cashWeeks: 2.3,
+    ly: { food: 0.9, bev: 0.1, labor: -0.2, opex: 0.6 },
+    locations: [
+      ['Downtown', 3_480_000, 24.1, 6.6, 28.9, 26.4],
+      ['Northgate', 2_960_000, 23.6, 6.2, 29.1, 27.2],
+      ['Eastside', 2_310_000, 24.8, 5.9, 33.4, 27.9],
+      ['Riverside', 2_050_000, 24.4, 6.1, 29.6, 28.1],
+    ],
+    flag: { row: 2, col: 'labor' },
     dex: {
-      ask: 'Why is Eastside over target?',
-      answer:
-        'Labor at Eastside is up 3.1 pts vs. last period — two extra closing shifts on Tue and Wed while covers were flat. Food cost is on target.',
+      ask: 'Why is Eastside’s prime cost so high?',
+      answer: [
+        'Labor is the driver. Eastside ran **33.4% labor** vs. about 29% at your other locations — roughly **$100k** over the last 12 months.',
+        'Most of it is overtime on Friday and Saturday closes since March. Food and beverage are in line with the group.',
+      ],
     },
   },
 
   'independent-restaurants': {
     audience: 'Independent Restaurants',
     company: 'Little Wren Bistro',
-    scope: 'Single location',
-    scopeCount: '1 location',
     user: ['Daniel', 'Reyes', 'Chef-Owner'],
-    mix: 'casual',
-    weekly: 41_800,
-    growth: 0.034,
-    cashWeeks: 1.4,
-    cashDelta: 2.1,
-    food: 30.2, dFood: 1.1,
-    labor: 29.6, dLabor: -0.4,
-    net: 8.4, dNet: -0.3,
-    panel: {
-      title: 'Cost breakdown',
-      subtitle: '% of net sales · period to date',
-      categories: true,
-      rows: [
-        ['Food', null, 26.1, 'warn', 24.5],
-        ['Beverage', null, 4.1, null, 5],
-        ['Labor — Kitchen', null, 15.2, null, 15.5],
-        ['Labor — Front of house', null, 14.4, null, 14.5],
-      ],
-    },
+    season: 'casual',
+    growth: 0.048,
+    avgCheck: 46.2,
+    cashWeeks: 3.1,
+    ly: { food: -1.2, bev: 0.2, labor: 0.5, opex: 0.4 },
+    locations: [['Little Wren Bistro', 2_180_000, 27.4, 5.3, 30.2, 25.6]],
+    flag: { row: 0, col: 'food' },
     dex: {
-      ask: 'What pushed food cost up?',
-      answer:
-        'Produce invoices from your main distributor are up 14% over four weeks — mostly avocados and berries. Your short rib special is now plating at a 38% food cost.',
+      ask: 'Why did food cost go up this year?',
+      answer: [
+        'Food cost is **27.4%**, up **1.2 pts** on last year — about **$26k**.',
+        'Produce from your main distributor is up 14% since spring, and the short rib special now plates at a 38% food cost.',
+      ],
     },
   },
 
   'multi-unit-groups': {
     audience: 'Multi-Unit Groups',
     company: 'Brasswick Restaurant Group',
-    scope: 'All concepts',
-    scopeCount: '7 locations · 3 concepts',
     user: ['Hannah', 'Cole', 'COO'],
-    mix: 'casual',
-    weekly: 352_600,
-    growth: 0.041,
-    cashWeeks: 0.92,
-    cashDelta: 1.6,
-    food: 29.4, dFood: -0.3,
-    labor: 29.9, dLabor: 0.5,
-    net: 8.9, dNet: 0.2,
-    panel: {
-      title: 'Locations',
-      subtitle: 'Prime cost · period to date',
-      target: 61,
-      rows: [
-        ['Brasswick Tavern · Old Town', 0.19, 59.6],
-        ['Brasswick Tavern · Harbor', 0.17, 60.2],
-        ['Mosswood Noodle · Midtown', 0.14, 56.8],
-        ['Cinderhollow BBQ · Westfield', 0.15, 64.1, 'warn'],
-      ],
-    },
+    scopeLabel: '7 Locations',
+    season: 'casual',
+    growth: 0.052,
+    avgCheck: 34.8,
+    cashWeeks: 2.1,
+    ly: { food: 0.6, bev: 0.1, labor: -0.4, opex: 0.5 },
+    locations: [
+      ['Brasswick Tavern · Old Town', 3_620_000, 24.9, 7.1, 28.4, 26.1],
+      ['Brasswick Tavern · Harbor', 3_240_000, 25.2, 7.0, 28.9, 26.6],
+      ['Mosswood Noodle · Midtown', 2_410_000, 26.8, 3.2, 27.1, 27.4],
+      ['Cinderhollow BBQ · Westfield', 2_690_000, 31.6, 4.4, 28.2, 25.9],
+    ],
+    flag: { row: 3, col: 'food' },
     dex: {
       ask: 'Which location needs attention?',
-      answer:
-        'Cinderhollow BBQ — Westfield is 3.1 pts over target. Brisket costs rose 9% on the last two invoices and weren’t reflected in menu prices.',
+      answer: [
+        '**Cinderhollow BBQ · Westfield.** Food cost is **31.6%**, about 6 pts above your other concepts.',
+        'Brisket invoices are up 9% since June and menu prices haven’t moved. Repricing the platters recovers about **$70k** a year.',
+      ],
     },
   },
 
   'accounting-firms': {
     audience: 'Accounting Firms',
     company: 'Tallis & Penn CPAs',
-    scope: 'Client: Marigold Cantina',
-    scopeCount: '23 restaurant clients',
     user: ['Priya', 'Raman', 'Partner'],
-    mix: 'casual',
-    weekly: 64_200,
-    growth: 0.027,
-    cashWeeks: 1.1,
-    cashDelta: -2.4,
-    food: 29.8, dFood: 0.2,
-    labor: 31.2, dLabor: 0.9,
-    net: 6.7, dNet: -0.8,
-    panel: {
-      title: 'Client portfolio',
-      subtitle: 'Prime cost · period to date',
-      target: 62,
-      rows: [
-        ['Marigold Cantina', 0.3, 61.0],
-        ['Bluefin Poke Co.', 0.22, 57.3],
-        ['Haverly’s Diner', 0.26, 65.8, 'warn'],
-        ['Sunbridge Bakery', 0.22, 59.4],
-      ],
-    },
+    scopeLabel: '4 Clients',
+    rowLabel: 'Client',
+    season: 'casual',
+    growth: 0.041,
+    avgCheck: 31.4,
+    cashWeeks: 2.6,
+    ly: { food: 0.3, bev: 0, labor: -0.6, opex: 0.3 },
+    locations: [
+      ['Marigold Cantina', 2_840_000, 25.6, 7.4, 29.8, 26.9],
+      ['Bluefin Poke Co.', 1_920_000, 28.9, 2.1, 26.1, 27.8],
+      ['Haverly’s Diner', 1_460_000, 29.4, 1.6, 35.1, 25.3],
+      ['Sunbridge Bakery', 1_130_000, 27.1, 2.8, 30.2, 28.4],
+    ],
+    flag: { row: 2, col: 'labor' },
     dex: {
-      ask: 'Which clients should I call this week?',
-      answer:
-        'Haverly’s Diner — prime cost is 3.8 pts over target and 6 vendor bills are awaiting approval. Every other client is closed through last period.',
+      ask: 'Which client should I call this week?',
+      answer: [
+        '**Haverly’s Diner.** Labor is **35.1%** and prime cost is **66.1%**, the highest in your portfolio.',
+        'They also have 6 vendor bills waiting on approval. Every other client is closed through last period.',
+      ],
     },
   },
 
   qsr: {
     audience: 'QSR',
     company: 'Bolt & Bun Burgers',
-    scope: 'All locations',
-    scopeCount: '12 locations',
     user: ['Marcus', 'Bell', 'Franchise Owner'],
-    mix: 'qsr',
-    weekly: 318_900,
-    growth: 0.038,
-    cashWeeks: 0.74,
-    cashDelta: 4.6,
-    food: 29.6, dFood: -0.4,
-    labor: 26.8, dLabor: 0.3,
-    net: 11.2, dNet: 0.5,
-    panel: {
-      title: 'Locations',
-      subtitle: 'Prime cost · period to date',
-      target: 58,
-      rows: [
-        ['#104 — Route 9', 0.094, 55.1],
-        ['#107 — Airport Blvd', 0.091, 55.9],
-        ['#112 — Canal St', 0.081, 60.7, 'warn'],
-        ['#115 — Mill Creek', 0.084, 56.4],
-      ],
-    },
+    scopeLabel: '12 Locations',
+    season: 'qsr',
+    growth: 0.043,
+    avgCheck: 12.9,
+    cashWeeks: 1.8,
+    ly: { food: 0.5, bev: 0, labor: -0.3, opex: 0.4 },
+    locations: [
+      ['#104 · Route 9', 1_620_000, 28.4, 1.9, 25.8, 29.6],
+      ['#107 · Airport Blvd', 1_570_000, 28.9, 1.8, 26.1, 29.2],
+      ['#112 · Canal St', 1_310_000, 28.6, 1.8, 30.4, 29.9],
+      ['#115 · Mill Creek', 1_390_000, 29.1, 1.9, 25.6, 30.1],
+    ],
+    flag: { row: 2, col: 'labor' },
     dex: {
-      ask: 'Why is #112 over target?',
-      answer:
-        'Labor at #112 is 2.4 pts above the group — the overnight shift is staffed at 4 while drive-thru sales after 11pm fell 18%.',
+      ask: 'Why is #112’s labor above the rest?',
+      answer: [
+        '#112 is running **30.4% labor**, about 4.5 pts above your other stores.',
+        'The overnight shift is still staffed at 4 while drive-thru sales after 11pm are down 18%. Moving to 3 saves about **$38k** a year.',
+      ],
     },
   },
 
   'fast-casual': {
     audience: 'Fast Casual',
     company: 'Field & Fold',
-    scope: 'All locations',
-    scopeCount: '5 locations',
     user: ['Jordan', 'Kim', 'Founder'],
-    mix: 'fastCasual',
-    weekly: 131_700,
-    growth: 0.061,
-    cashWeeks: 0.95,
-    cashDelta: 5.2,
-    food: 30.4, dFood: -0.8,
-    labor: 27.9, dLabor: 0.2,
-    net: 9.1, dNet: 0.9,
-    panel: {
-      title: 'Locations',
-      subtitle: 'Prime cost · period to date',
-      target: 59,
-      rows: [
-        ['Union Square', 0.24, 56.6],
-        ['University', 0.21, 57.8],
-        ['Tech Park', 0.18, 61.9, 'warn'],
-        ['Riverside', 0.19, 58.2],
-      ],
-    },
+    scopeLabel: '5 Locations',
+    season: 'qsr',
+    growth: 0.071,
+    avgCheck: 16.4,
+    cashWeeks: 2.2,
+    ly: { food: 0.8, bev: 0, labor: -0.2, opex: 0.5 },
+    locations: [
+      ['Union Square', 1_840_000, 29.1, 1.6, 26.9, 27.3],
+      ['University', 1_620_000, 29.6, 1.5, 27.4, 27.9],
+      ['Tech Park', 1_280_000, 29.8, 1.4, 31.2, 28.6],
+      ['Riverside', 1_410_000, 29.3, 1.5, 27.8, 27.6],
+    ],
+    flag: { row: 2, col: 'labor' },
     dex: {
       ask: 'What’s happening at Tech Park?',
-      answer:
-        'Tech Park sales are down 11% on Mondays and Fridays since the office hybrid schedule changed — labor hasn’t moved with it.',
+      answer: [
+        'Sales at Tech Park are down 11% on Mondays and Fridays since the office hybrid schedule changed, but labor hasn’t moved with it.',
+        'Trimming one opener on those days brings labor from **31.2%** back to about **28%**.',
+      ],
     },
   },
 
   'casual-dining': {
     audience: 'Casual Dining',
     company: 'Hollis Street Grill',
-    scope: 'All locations',
-    scopeCount: '3 locations',
     user: ['Tom', 'Alvarez', 'Owner'],
-    mix: 'casual',
-    weekly: 176_300,
-    growth: 0.029,
-    cashWeeks: 0.88,
-    cashDelta: 2.7,
-    food: 30.6, dFood: -0.2,
-    labor: 31.4, dLabor: 0.6,
-    net: 7.2, dNet: 0.3,
-    panel: {
-      title: 'Locations',
-      subtitle: 'Prime cost · period to date',
-      target: 62,
-      rows: [
-        ['Main St', 0.38, 61.1],
-        ['Brookside', 0.33, 60.4],
-        ['Airport', 0.29, 65.3, 'warn'],
-      ],
-    },
+    season: 'casual',
+    growth: 0.037,
+    avgCheck: 41.2,
+    cashWeeks: 2.4,
+    ly: { food: 0.4, bev: 0.2, labor: -0.5, opex: 0.3 },
+    locations: [
+      ['Main St', 3_310_000, 24.6, 6.8, 29.9, 26.1],
+      ['Brookside', 2_870_000, 24.2, 6.5, 30.2, 26.8],
+      ['Airport', 2_540_000, 25.1, 7.2, 33.6, 25.4],
+    ],
+    flag: { row: 2, col: 'labor' },
     dex: {
-      ask: 'Why is the Airport location over?',
-      answer:
-        'Overtime at Airport is 41 hours this period, all in the kitchen. Two line cooks are covering a vacancy — the other locations have none.',
+      ask: 'Why is labor so high at Airport?',
+      answer: [
+        'Overtime at Airport is **41 hours a period**, all in the kitchen. Two line cooks are covering an open position; the other locations have none.',
+        'Filling it brings labor from **33.6%** to about **30.5%**.',
+      ],
     },
   },
 
   'fine-dining': {
     audience: 'Fine Dining',
     company: 'Maison Verrault',
-    scope: 'Single location',
-    scopeCount: '1 location',
     user: ['Elena', 'Moreau', 'Proprietor'],
-    mix: 'fine',
-    weekly: 96_400,
-    growth: 0.044,
-    cashWeeks: 1.6,
-    cashDelta: 1.9,
-    food: 32.1, dFood: 0.9,
-    labor: 35.2, dLabor: -0.5,
-    net: 6.3, dNet: 0.2,
-    panel: {
-      title: 'Cost breakdown',
-      subtitle: '% of net sales · period to date',
-      categories: true,
-      rows: [
-        ['Food', null, 22.6, 'warn', 21],
-        ['Wine & spirits', null, 9.5, null, 10],
-        ['Labor — Kitchen', null, 19.8, null, 20],
-        ['Labor — Dining room', null, 15.4, null, 15.5],
-      ],
-    },
+    season: 'fine',
+    growth: 0.052,
+    avgCheck: 142.5,
+    cashWeeks: 3.4,
+    ly: { food: -1.1, bev: 0.3, labor: 0.4, opex: 0.2 },
+    locations: [['Maison Verrault', 5_120_000, 23.9, 8.4, 35.1, 22.8]],
+    flag: { row: 0, col: 'food' },
     dex: {
-      ask: 'Why is food cost up this period?',
-      answer:
-        'Seafood is up 1.6 pts — your langoustine and turbot invoices rose 12% and the tasting menu price hasn’t changed since spring.',
+      ask: 'Why is food cost up on last year?',
+      answer: [
+        'Food cost is **23.9%**, up **1.1 pts** — about **$56k** over 12 months.',
+        'Seafood drove most of it: langoustine and turbot invoices are up 12%, and the tasting menu price hasn’t changed since spring.',
+      ],
     },
   },
 
   'coffee-shops': {
     audience: 'Coffee Shops',
     company: 'Lanternfish Coffee',
-    scope: 'All cafés',
-    scopeCount: '3 cafés',
     user: ['Sam', 'Whitaker', 'Owner'],
-    mix: 'coffee',
-    weekly: 38_900,
-    growth: 0.048,
-    cashWeeks: 1.2,
-    cashDelta: 3.1,
-    food: 27.6, dFood: 0.5,
-    labor: 33.4, dLabor: -0.7,
-    net: 10.6, dNet: 0.4,
-    panel: {
-      title: 'Cafés',
-      subtitle: 'Prime cost · period to date',
-      target: 62,
-      rows: [
-        ['Harbor St', 0.39, 59.8],
-        ['Old Mill', 0.34, 60.6],
-        ['Station Sq', 0.27, 64.2, 'warn'],
-      ],
-    },
+    scopeLabel: '3 Cafés',
+    rowLabel: 'Café',
+    season: 'coffee',
+    growth: 0.058,
+    avgCheck: 9.8,
+    cashWeeks: 2.8,
+    ly: { food: 0.4, bev: 0.2, labor: -0.6, opex: 0.3 },
+    locations: [
+      ['Harbor St', 890_000, 9.6, 17.4, 31.8, 27.9],
+      ['Old Mill', 780_000, 9.9, 17.8, 32.4, 28.1],
+      ['Station Sq', 640_000, 13.8, 17.6, 32.9, 28.6],
+    ],
+    flag: { row: 2, col: 'food' },
     dex: {
-      ask: 'What’s driving Station Sq?',
-      answer:
-        'Pastry waste at Station Sq is 2× the other cafés — afternoon bake counts haven’t dropped since commuter traffic thinned after 2pm.',
+      ask: 'Why is food cost higher at Station Sq?',
+      answer: [
+        'Pastry waste at Station Sq is **2× the other cafés**. Afternoon bake counts haven’t dropped since commuter traffic thinned after 2pm.',
+        'Matching Old Mill’s bake schedule saves about **$24k** a year.',
+      ],
     },
   },
 
   pizzerias: {
     audience: 'Pizzerias',
     company: 'Forno Ottavio',
-    scope: 'All locations',
-    scopeCount: '2 locations',
     user: ['Gina', 'Russo', 'Owner'],
-    mix: 'pizza',
-    weekly: 52_300,
-    growth: 0.036,
-    cashWeeks: 1.05,
-    cashDelta: 2.4,
-    food: 28.7, dFood: 0.8,
-    labor: 28.2, dLabor: -0.3,
-    net: 10.9, dNet: -0.2,
-    panel: {
-      title: 'Locations',
-      subtitle: 'Prime cost · period to date',
-      target: 58,
-      rows: [
-        ['North End', 0.56, 56.1],
-        ['Lakeview', 0.44, 58.9, 'warn'],
-      ],
-    },
+    season: 'pizza',
+    growth: 0.046,
+    avgCheck: 27.3,
+    cashWeeks: 2.5,
+    ly: { food: -0.9, bev: 0.1, labor: 0.3, opex: 0.4 },
+    locations: [
+      ['North End', 1_540_000, 25.4, 4.1, 28.2, 27.1],
+      ['Lakeview', 1_210_000, 29.6, 3.8, 27.9, 27.6],
+    ],
+    flag: { row: 1, col: 'food' },
     dex: {
-      ask: 'Why is Lakeview creeping up?',
-      answer:
-        'Cheese is 34% of Lakeview’s food spend vs. 29% at North End — portioning on large pies is running heavy. Delivery fees are flat.',
+      ask: 'Why is Lakeview’s food cost higher?',
+      answer: [
+        'Cheese is **34%** of Lakeview’s food spend vs. 29% at North End, so portioning on large pies is running heavy.',
+        'Bringing it in line saves about **$41k** a year. Delivery fees are flat.',
+      ],
     },
   },
 
   'bars-nightclubs': {
     audience: 'Bars & Nightclubs',
     company: 'The Velvet Ledger',
-    scope: 'All venues',
-    scopeCount: '2 venues',
     user: ['Andre', 'Lewis', 'Managing Partner'],
-    mix: 'bar',
-    weekly: 71_600,
-    growth: 0.057,
-    cashWeeks: 1.3,
-    cashDelta: 6.2,
-    food: 21.4, dFood: 0.6,
-    labor: 24.8, dLabor: -0.4,
-    net: 14.2, dNet: 0.8,
-    foodLabel: 'Pour cost',
-    panel: {
-      title: 'Venues',
-      subtitle: 'Prime cost · period to date',
-      target: 47,
-      rows: [
-        ['The Velvet Ledger', 0.58, 45.2],
-        ['Afterglow Room', 0.42, 48.9, 'warn'],
-      ],
-    },
+    scopeLabel: '2 Venues',
+    rowLabel: 'Venue',
+    season: 'bar',
+    growth: 0.069,
+    avgCheck: 31.5,
+    cashWeeks: 3.0,
+    ly: { food: 0.1, bev: -0.8, labor: 0.2, opex: 0.5 },
+    locations: [
+      ['The Velvet Ledger', 2_210_000, 3.8, 18.9, 23.6, 34.2],
+      ['Afterglow Room', 1_640_000, 3.1, 22.7, 24.9, 35.1],
+    ],
+    flag: { row: 1, col: 'bev' },
     dex: {
       ask: 'Why is pour cost up at Afterglow?',
-      answer:
-        'Tequila depletion at Afterglow is 11% above what POS sales account for — likely over-pours or comps on Fri and Sat. Beer and wine are in line.',
+      answer: [
+        'Tequila usage at Afterglow is **11% higher** than POS sales account for, which points to over-pours or comps on Fridays and Saturdays.',
+        'Beer and wine are in line. Closing the gap is worth about **$46k** a year.',
+      ],
     },
   },
 
   'hotel-restaurants-bars': {
     audience: 'Hotel Restaurants & Bars',
     company: 'The Ashcombe Hotel',
-    scope: 'All F&B outlets',
-    scopeCount: '4 outlets',
     user: ['Claire', 'Donovan', 'Director of F&B'],
-    mix: 'hotel',
-    weekly: 148_200,
-    growth: 0.033,
-    cashWeeks: 0.8,
-    cashDelta: 1.2,
-    food: 29.8, dFood: -0.5,
-    labor: 37.6, dLabor: 0.8,
-    net: 8.1, dNet: -0.1,
-    panel: {
-      title: 'Outlets',
-      subtitle: 'Prime cost · period to date',
-      target: 68,
-      rows: [
-        ['Ashcombe Grill', 0.42, 66.8],
-        ['Lobby Bar', 0.21, 54.2],
-        ['Rooftop Terrace', 0.19, 63.1],
-        ['In-Room Dining', 0.18, 79.4, 'warn'],
-      ],
-    },
+    scopeLabel: '4 Outlets',
+    rowLabel: 'Outlet',
+    season: 'hotel',
+    growth: 0.039,
+    avgCheck: 48.7,
+    cashWeeks: 2.0,
+    ly: { food: 0.3, bev: 0.2, labor: -0.7, opex: 0.3 },
+    locations: [
+      ['Ashcombe Grill', 3_260_000, 25.8, 7.6, 33.4, 21.8],
+      ['Lobby Bar', 1_640_000, 4.2, 19.8, 27.1, 24.6],
+      ['Rooftop Terrace', 1_480_000, 18.9, 13.6, 30.6, 23.4],
+      ['In-Room Dining', 1_120_000, 27.4, 4.1, 46.8, 18.2],
+    ],
+    flag: { row: 3, col: 'labor' },
     dex: {
-      ask: 'Why is in-room dining so high?',
-      answer:
-        'In-room dining is staffed for 92% occupancy but averaged 71% this period. Shifting one overnight server to on-call saves about $4,800 a month.',
+      ask: 'Why is In-Room Dining labor so high?',
+      answer: [
+        'In-Room Dining is staffed for 92% occupancy but averaged **71%** this year, putting labor at **46.8%** of its sales.',
+        'Moving one overnight server to on-call saves about **$58k** a year.',
+      ],
     },
   },
 };
 
-// Deterministic noise so re-running produces the same numbers.
+// Interest, depreciation, amortisation, taxes — the gap between EBITDA and net.
+const BELOW_EBITDA = 3.1;
+
 function rng(seed) {
   let s = [...seed].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
-  return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 2 ** 32);
+  return () => (s = (s * 1664525 + 1013904223) >>> 0) / 2 ** 32;
 }
-
 const round = (v, dp = 0) => Math.round(v * 10 ** dp) / 10 ** dp;
-
-// 28 days ending yesterday. Today is Thursday, so the last three bars are
-// Mon–Wed of the current week — exactly what "week to date" sums.
-function salesDays(p, r) {
-  const mix = MIX[p.mix];
-  const days = [];
-  for (let w = 0; w < 5; w++) {
-    const weekBase = p.weekly * (1 + p.growth * (w - 4) / 4);
-    for (let d = 0; d < 7; d++) {
-      if (w === 4 && d > 2) break; // Thu–Sun of this week haven't happened yet
-      const noise = mix[d] === 0 ? 0 : 1 + (r() - 0.5) * 0.12;
-      days.push(round(weekBase * mix[d] * noise));
-    }
-  }
-  // Keep the last 28 days, so the oldest bar is a Thursday.
-  return days.slice(days.length - 28);
-}
-
-function spark(r, end, drift, n = 12) {
-  const out = [];
-  for (let i = 0; i < n; i++) {
-    const back = n - 1 - i;
-    out.push(round(end - drift * (back / (n - 1)) + (r() - 0.5) * Math.abs(drift || end * 0.02) * 0.6, 2));
-  }
-  out[n - 1] = end;
-  return out;
-}
+const sum = (a) => a.reduce((x, y) => x + y, 0);
 
 function build(id, p) {
   const r = rng(id);
-  const days = salesDays(p, r);
-  // Pin week-to-date vs. the same days last week to the profile's growth, so
-  // the noise can't flip the headline tile negative.
-  const sum = (a) => a.reduce((x, y) => x + y, 0);
-  const lastWeekSameDays = sum(days.slice(-10, -7));
-  const want = lastWeekSameDays * (1 + (p.wtdDelta ?? p.growth * 100) / 100);
-  const k = want / sum(days.slice(-3));
-  for (let i = days.length - 3; i < days.length; i++) days[i] = round(days[i] * k);
-  const wtd = sum(days.slice(-3));
-  const salesDelta = round(((wtd - lastWeekSameDays) / lastWeekSameDays) * 100, 1);
-  // cashWeeks = weeks of sales held in the bank (healthy range ~1.5–3).
-  const cash = round(p.weekly * p.cashWeeks * 2.4 / 10) * 10;
-  const prime = round(p.food + p.labor, 1);
-  const dPrime = round(p.dFood + p.dLabor, 1);
+  const noise = (amt) => 1 + (r() - 0.5) * 2 * amt;
 
-  const panelRows = p.panel.rows.map(([name, share, pct, status, target]) => ({
-    name,
-    sales: share == null ? null : round(wtd * share / 10) * 10,
-    pct,
-    target: target ?? p.panel.target,
-    status: status ?? (pct > (target ?? p.panel.target) ? 'warn' : 'ok'),
-  }));
+  const locs = p.locations.map(([name, sales, food, bev, labor, opex]) => {
+    const ebitdaPct = 100 - food - bev - labor - opex;
+    const netPct = ebitdaPct - BELOW_EBITDA;
+    return {
+      name,
+      sales,
+      food,
+      bev,
+      labor,
+      prime: round(food + bev + labor, 1),
+      opex,
+      ebitda: round((sales * ebitdaPct) / 100),
+      netProfit: round((sales * netPct) / 100),
+      netPct: round(netPct, 1),
+    };
+  });
+
+  const totalSales = sum(locs.map((l) => l.sales));
+  const w = (k) => sum(locs.map((l) => l.sales * l[k])) / totalSales;
+  const pct = { food: w('food'), bev: w('bev'), labor: w('labor'), opex: w('opex') };
+  const lyPct = Object.fromEntries(Object.entries(pct).map(([k, v]) => [k, v + (p.ly[k] ?? 0)]));
+  const lySales = totalSales / (1 + p.growth);
+
+  const pnlFor = (sales, q) => {
+    const cogs = (sales * (q.food + q.bev)) / 100;
+    const labor = (sales * q.labor) / 100;
+    const opex = (sales * q.opex) / 100;
+    const ebitda = sales - cogs - labor - opex;
+    return { sales, cogs, labor, prime: cogs + labor, opex, ebitda, net: ebitda - (sales * BELOW_EBITDA) / 100 };
+  };
+  const now = pnlFor(totalSales, pct);
+  const then = pnlFor(lySales, lyPct);
+
+  // Monthly sales, this year and last. This year sums exactly to the total.
+  const season = SEASON[p.season];
+  const sw = sum(season);
+  const monthly = season.map((s) => ((totalSales * s) / sw) * noise(0.025));
+  const k = totalSales / sum(monthly);
+  const thisYear = monthly.map((m) => round(m * k));
+  const lastYear = season.map((s) => round(((lySales * s) / sw) * noise(0.03)));
+
+  // KPI sparklines: 12 monthly points drifting from last year's level to this year's.
+  const at = (i, a, b) => a + ((b - a) * i) / 11;
+  const primeNow = (now.prime / now.sales) * 100;
+  const primeLY = (then.prime / then.sales) * 100;
+  const primeSpark = thisYear.map((_, i) => round(at(i, primeLY, primeNow) + (r() - 0.5) * 0.8, 1));
+  primeSpark[11] = round(primeNow, 1);
+  const ebitdaSpark = thisYear.map((m, i) => round(m * at(i, then.ebitda / then.sales, now.ebitda / now.sales) * noise(0.06)));
+  const netSpark = ebitdaSpark.map((e, i) => round(e - (thisYear[i] * BELOW_EBITDA) / 100));
+  const cash = round((totalSales / 52) * p.cashWeeks, -2);
+  const cashSpark = thisYear.map((_, i) => round(cash * at(i, 0.8, 1) * noise(0.03), -2));
+  cashSpark[11] = cash;
+  // Trend colour follows the year-over-year change, as the app's cards do.
+  const trend = (nowV, thenV, goodWhenUp = true) => ((nowV > thenV) === goodWhenUp ? 'improving' : 'declining');
 
   return {
     $comment: 'Fictional data for marketing animations. Generated by generate.mjs — see animations/README.md.',
     id,
     audience: p.audience,
-    company: { name: p.company, scope: p.scope, scopeCount: p.scopeCount },
+    company: { name: p.company, scopeLabel: p.scopeLabel ?? `${locs.length} Location${locs.length > 1 ? 's' : ''}` },
     user: { firstName: p.user[0], lastName: p.user[1], role: p.user[2], initials: p.user[0][0] + p.user[1][0] },
-    greeting: 'Good morning',
-    period: { label: 'This period', wtdLabel: 'Week to date' },
+    period: 'Last 12 months',
+    months: MONTHS,
     kpis: [
-      { key: 'cash', label: 'Cash balance', value: cash, format: 'money', delta: p.cashDelta, unit: '%', goodWhen: 'up', compare: 'vs. last week', spark: spark(r, cash, cash * p.cashDelta / 100) },
-      { key: 'sales', label: 'Net sales (week to date)', value: round(wtd), format: 'money', delta: salesDelta, unit: '%', goodWhen: 'up', compare: 'vs. last week', spark: days.slice(-12) },
-      { key: 'prime', label: 'Prime cost', value: prime, format: 'pct', delta: dPrime, unit: 'pts', goodWhen: 'down', compare: 'vs. last period', spark: spark(r, prime, dPrime) },
-      { key: 'food', label: p.foodLabel ?? 'Food cost', value: p.food, format: 'pct', delta: p.dFood, unit: 'pts', goodWhen: 'down', compare: 'vs. last period', spark: spark(r, p.food, p.dFood) },
-      { key: 'labor', label: 'Labor cost', value: p.labor, format: 'pct', delta: p.dLabor, unit: 'pts', goodWhen: 'down', compare: 'vs. last period', spark: spark(r, p.labor, p.dLabor) },
-      { key: 'net', label: 'Net profit', value: p.net, format: 'pct', delta: p.dNet, unit: 'pts', goodWhen: 'up', compare: 'vs. last period', spark: spark(r, p.net, p.dNet) },
+      { key: 'sales', label: 'Total Sales', value: round(now.sales), format: 'k', spark: thisYear, trend: trend(now.sales, then.sales) },
+      { key: 'prime', label: 'Prime Cost %', value: round(primeNow, 1), format: 'pct', spark: primeSpark, trend: trend(primeNow, primeLY, false) },
+      { key: 'ebitda', label: 'EBITDA', value: round(now.ebitda), format: 'k', spark: ebitdaSpark, trend: trend(now.ebitda, then.ebitda) },
+      { key: 'net', label: 'Net Profit', value: round(now.net), format: 'k', spark: netSpark, trend: trend(now.net, then.net) },
+      { key: 'cash', label: 'Cash Balance', value: cash, format: 'k', spark: cashSpark, trend: trend(cashSpark[11], cashSpark[0]) },
     ],
-    salesTrend: {
-      title: 'Net sales',
-      subtitle: 'Daily · last 4 weeks',
-      days,
-      // Weekday of the first bar (0 = Mon). 28 bars ending on a Wednesday.
-      firstWeekday: 3,
-      currentWeekBars: 3,
-    },
-    panel: {
-      title: p.panel.title,
-      subtitle: p.panel.subtitle,
-      mode: p.panel.categories ? 'categories' : 'entities',
-      rows: panelRows,
-    },
-    dex: p.dex,
+    pnl: [
+      ['Total Sales', 'sales', true],
+      ['COGS', 'cogs', false],
+      ['Labor', 'labor', false],
+      ['Prime Cost', 'prime', false],
+      ['Operating Expenses', 'opex', false],
+      ['EBITDA', 'ebitda', true],
+      ['Net Profit', 'net', true],
+    ].map(([metric, key, goodWhenUp]) => ({ metric, actual: round(now[key]), lastYear: round(then[key]), goodWhenUp })),
+    sales: { guests: round(totalSales / p.avgCheck), avgCheck: p.avgCheck, thisPeriod: thisYear, lastYear },
+    costBreakdown: [
+      { label: 'COGS', pct: round(pct.food + pct.bev, 1) },
+      { label: 'Labor', pct: round(pct.labor, 1) },
+      { label: 'Operating Expenses', pct: round(pct.opex, 1) },
+      { label: 'Other', pct: BELOW_EBITDA },
+    ],
+    rowLabel: p.rowLabel ?? 'Location',
+    locations: locs.map(({ opex, ...l }) => l),
+    flag: p.flag,
+    dex: { ask: p.dex.ask, answer: p.dex.answer },
   };
 }
 
@@ -515,5 +451,6 @@ for (const [id, p] of Object.entries(PROFILES)) {
   const out = build(id, p);
   writeFileSync(join(here, `${id}.json`), JSON.stringify(out, null, 2) + '\n');
   const k = Object.fromEntries(out.kpis.map((x) => [x.key, x.value]));
-  console.log(`${id.padEnd(24)} cash ${String(k.cash).padStart(8)}  wtd ${String(k.sales).padStart(8)}  prime ${k.prime}%  net ${k.net}%`);
+  const pc = (v) => ((v / k.sales) * 100).toFixed(1);
+  console.log(`${id.padEnd(24)} sales $${(k.sales / 1e6).toFixed(2)}M  prime ${k.prime}%  EBITDA ${pc(k.ebitda)}%  net ${pc(k.net)}%  cash $${Math.round(k.cash / 1e3)}k`);
 }

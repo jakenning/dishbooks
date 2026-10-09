@@ -4,8 +4,7 @@
   "audience": "Accounting Firms",
   "company": {
     "name": "Tallis & Penn CPAs",
-    "scope": "Client: Marigold Cantina",
-    "scopeCount": "23 restaurant clients"
+    "scopeLabel": "4 Clients"
   },
   "user": {
     "firstName": "Priya",
@@ -13,230 +12,278 @@
     "role": "Partner",
     "initials": "PR"
   },
-  "greeting": "Good morning",
-  "period": {
-    "label": "This period",
-    "wtdLabel": "Week to date"
-  },
+  "period": "Last 12 months",
+  "months": [
+    "Oct",
+    "Nov",
+    "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+  ],
   "kpis": [
     {
-      "key": "cash",
-      "label": "Cash balance",
-      "value": 169490,
-      "format": "money",
-      "delta": -2.4,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
-      "spark": [
-        173842.76,
-        172197.27,
-        172497.44,
-        173025.33,
-        172626.37,
-        172672.66,
-        170315.2,
-        171976.61,
-        170531.19,
-        170565.46,
-        170761.57,
-        169490
-      ]
-    },
-    {
       "key": "sales",
-      "label": "Net sales (week to date)",
-      "value": 22077,
-      "format": "money",
-      "delta": 2.7,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
+      "label": "Total Sales",
+      "value": 7350000,
+      "format": "k",
       "spark": [
-        12329,
-        9087,
-        6505,
-        7352,
-        7639,
-        9422,
-        12730,
-        12157,
-        9377,
-        6627,
-        7584,
-        7866
-      ]
+        604066,
+        586633,
+        675298,
+        529876,
+        548777,
+        600790,
+        609484,
+        637299,
+        648321,
+        659862,
+        645185,
+        604409
+      ],
+      "trend": "improving"
     },
     {
       "key": "prime",
-      "label": "Prime cost",
-      "value": 61,
+      "label": "Prime Cost %",
+      "value": 61.6,
       "format": "pct",
-      "delta": 1.1,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
       "spark": [
-        59.64,
-        59.74,
-        60.08,
-        60.13,
-        60.47,
-        60.66,
-        60.34,
-        60.59,
-        60.67,
-        60.86,
-        60.78,
-        61
-      ]
+        61.6,
+        61.6,
+        61,
+        61.7,
+        61.2,
+        61.5,
+        61.2,
+        61.5,
+        61.1,
+        61.4,
+        61.7,
+        61.6
+      ],
+      "trend": "declining"
     },
     {
-      "key": "food",
-      "label": "Food cost",
-      "value": 29.8,
-      "format": "pct",
-      "delta": 0.2,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
+      "key": "ebitda",
+      "label": "EBITDA",
+      "value": 837950,
+      "format": "k",
       "spark": [
-        29.62,
-        29.56,
-        29.68,
-        29.68,
-        29.63,
-        29.71,
-        29.68,
-        29.7,
-        29.71,
-        29.8,
-        29.74,
-        29.8
-      ]
-    },
-    {
-      "key": "labor",
-      "label": "Labor cost",
-      "value": 31.2,
-      "format": "pct",
-      "delta": 0.9,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
-      "spark": [
-        30.04,
-        30.52,
-        30.54,
-        30.57,
-        30.45,
-        30.71,
-        30.98,
-        31.12,
-        31.1,
-        30.91,
-        30.99,
-        31.2
-      ]
+        72131,
+        63514,
+        80802,
+        60207,
+        63597,
+        71531,
+        69630,
+        69236,
+        70405,
+        74920,
+        72558,
+        71094
+      ],
+      "trend": "improving"
     },
     {
       "key": "net",
-      "label": "Net profit",
-      "value": 6.7,
-      "format": "pct",
-      "delta": -0.8,
-      "unit": "pts",
-      "goodWhen": "up",
-      "compare": "vs. last period",
+      "label": "Net Profit",
+      "value": 610100,
+      "format": "k",
       "spark": [
-        7.72,
-        7.19,
-        7.43,
-        7.52,
-        7.09,
-        6.97,
-        7.1,
-        6.83,
-        6.75,
-        6.86,
-        6.92,
-        6.7
-      ]
+        53405,
+        45328,
+        59868,
+        43781,
+        46585,
+        52907,
+        50736,
+        49480,
+        50307,
+        54464,
+        52557,
+        52357
+      ],
+      "trend": "improving"
+    },
+    {
+      "key": "cash",
+      "label": "Cash Balance",
+      "value": 367500,
+      "format": "k",
+      "spark": [
+        301000,
+        296400,
+        307000,
+        313200,
+        322500,
+        323900,
+        340300,
+        344000,
+        337200,
+        362200,
+        365400,
+        367500
+      ],
+      "trend": "improving"
     }
   ],
-  "salesTrend": {
-    "title": "Net sales",
-    "subtitle": "Daily · last 4 weeks",
-    "days": [
-      8852,
-      12361,
-      12192,
-      8624,
-      6140,
-      6881,
-      7488,
-      8856,
-      12125,
-      12055,
-      9124,
-      6637,
-      7118,
-      7164,
-      8764,
-      12152,
-      12329,
-      9087,
-      6505,
-      7352,
-      7639,
-      9422,
-      12730,
-      12157,
-      9377,
-      6627,
-      7584,
-      7866
+  "pnl": [
+    {
+      "metric": "Total Sales",
+      "actual": 7350000,
+      "lastYear": 7060519,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "COGS",
+      "actual": 2322870,
+      "lastYear": 2252565,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Labor",
+      "actual": 2201160,
+      "lastYear": 2072104,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Prime Cost",
+      "actual": 4524030,
+      "lastYear": 4324669,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Operating Expenses",
+      "actual": 1988020,
+      "lastYear": 1930903,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "EBITDA",
+      "actual": 837950,
+      "lastYear": 804947,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "Net Profit",
+      "actual": 610100,
+      "lastYear": 586071,
+      "goodWhenUp": true
+    }
+  ],
+  "sales": {
+    "guests": 234076,
+    "avgCheck": 31.4,
+    "thisPeriod": [
+      604066,
+      586633,
+      675298,
+      529876,
+      548777,
+      600790,
+      609484,
+      637299,
+      648321,
+      659862,
+      645185,
+      604409
     ],
-    "firstWeekday": 3,
-    "currentWeekBars": 3
-  },
-  "panel": {
-    "title": "Client portfolio",
-    "subtitle": "Prime cost · period to date",
-    "mode": "entities",
-    "rows": [
-      {
-        "name": "Marigold Cantina",
-        "sales": 6620,
-        "pct": 61,
-        "target": 62,
-        "status": "ok"
-      },
-      {
-        "name": "Bluefin Poke Co.",
-        "sales": 4860,
-        "pct": 57.3,
-        "target": 62,
-        "status": "ok"
-      },
-      {
-        "name": "Haverly’s Diner",
-        "sales": 5740,
-        "pct": 65.8,
-        "target": 62,
-        "status": "warn"
-      },
-      {
-        "name": "Sunbridge Bakery",
-        "sales": 4860,
-        "pct": 59.4,
-        "target": 62,
-        "status": "ok"
-      }
+    "lastYear": [
+      576095,
+      581015,
+      650677,
+      511501,
+      502912,
+      579133,
+      591272,
+      609550,
+      631418,
+      641844,
+      632651,
+      576101
     ]
   },
+  "costBreakdown": [
+    {
+      "label": "COGS",
+      "pct": 31.6
+    },
+    {
+      "label": "Labor",
+      "pct": 29.9
+    },
+    {
+      "label": "Operating Expenses",
+      "pct": 27
+    },
+    {
+      "label": "Other",
+      "pct": 3.1
+    }
+  ],
+  "rowLabel": "Client",
+  "locations": [
+    {
+      "name": "Marigold Cantina",
+      "sales": 2840000,
+      "food": 25.6,
+      "bev": 7.4,
+      "labor": 29.8,
+      "prime": 62.8,
+      "ebitda": 292520,
+      "netProfit": 204480,
+      "netPct": 7.2
+    },
+    {
+      "name": "Bluefin Poke Co.",
+      "sales": 1920000,
+      "food": 28.9,
+      "bev": 2.1,
+      "labor": 26.1,
+      "prime": 57.1,
+      "ebitda": 289920,
+      "netProfit": 230400,
+      "netPct": 12
+    },
+    {
+      "name": "Haverly’s Diner",
+      "sales": 1460000,
+      "food": 29.4,
+      "bev": 1.6,
+      "labor": 35.1,
+      "prime": 66.1,
+      "ebitda": 125560,
+      "netProfit": 80300,
+      "netPct": 5.5
+    },
+    {
+      "name": "Sunbridge Bakery",
+      "sales": 1130000,
+      "food": 27.1,
+      "bev": 2.8,
+      "labor": 30.2,
+      "prime": 60.1,
+      "ebitda": 129950,
+      "netProfit": 94920,
+      "netPct": 8.4
+    }
+  ],
+  "flag": {
+    "row": 2,
+    "col": "labor"
+  },
   "dex": {
-    "ask": "Which clients should I call this week?",
-    "answer": "Haverly’s Diner — prime cost is 3.8 pts over target and 6 vendor bills are awaiting approval. Every other client is closed through last period."
+    "ask": "Which client should I call this week?",
+    "answer": [
+      "**Haverly’s Diner.** Labor is **35.1%** and prime cost is **66.1%**, the highest in your portfolio.",
+      "They also have 6 vendor bills waiting on approval. Every other client is closed through last period."
+    ]
   }
 }

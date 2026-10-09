@@ -4,8 +4,7 @@
   "audience": "Fine Dining",
   "company": {
     "name": "Maison Verrault",
-    "scope": "Single location",
-    "scopeCount": "1 location"
+    "scopeLabel": "1 Location"
   },
   "user": {
     "firstName": "Elena",
@@ -13,230 +12,245 @@
     "role": "Proprietor",
     "initials": "EM"
   },
-  "greeting": "Good morning",
-  "period": {
-    "label": "This period",
-    "wtdLabel": "Week to date"
-  },
+  "period": "Last 12 months",
+  "months": [
+    "Oct",
+    "Nov",
+    "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+  ],
   "kpis": [
     {
-      "key": "cash",
-      "label": "Cash balance",
-      "value": 370180,
-      "format": "money",
-      "delta": 1.9,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
-      "spark": [
-        364836.09,
-        364929.09,
-        366165.18,
-        366747.58,
-        364146.55,
-        366146.6,
-        368325.64,
-        368082.34,
-        367217.17,
-        367745.07,
-        367729.19,
-        370180
-      ]
-    },
-    {
       "key": "sales",
-      "label": "Net sales (week to date)",
-      "value": 25948,
-      "format": "money",
-      "delta": 4.4,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
+      "label": "Total Sales",
+      "value": 5120000,
+      "format": "k",
       "spark": [
-        21889,
-        10826,
-        0,
-        11879,
-        12975,
-        15668,
-        21350,
-        22853,
-        11578,
-        0,
-        11642,
-        14306
-      ]
+        445198,
+        448290,
+        524160,
+        348846,
+        402193,
+        401517,
+        422948,
+        442102,
+        437400,
+        410833,
+        404181,
+        432333
+      ],
+      "trend": "improving"
     },
     {
       "key": "prime",
-      "label": "Prime cost",
-      "value": 67.3,
+      "label": "Prime Cost %",
+      "value": 67.4,
       "format": "pct",
-      "delta": 0.4,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
       "spark": [
-        66.92,
-        66.93,
-        66.95,
-        67.06,
-        67.03,
-        67.13,
-        67.11,
-        67.04,
-        67.27,
-        67.25,
-        67.33,
-        67.3
-      ]
+        67,
+        67.4,
+        67.4,
+        67.3,
+        67.5,
+        67.5,
+        66.9,
+        67.2,
+        67.5,
+        67.4,
+        67.2,
+        67.4
+      ],
+      "trend": "declining"
     },
     {
-      "key": "food",
-      "label": "Food cost",
-      "value": 32.1,
-      "format": "pct",
-      "delta": 0.9,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
+      "key": "ebitda",
+      "label": "EBITDA",
+      "value": 501760,
+      "format": "k",
       "spark": [
-        30.98,
-        31.45,
-        31.12,
-        31.3,
-        31.47,
-        31.58,
-        31.96,
-        31.9,
-        31.88,
-        31.84,
-        31.77,
-        32.1
-      ]
-    },
-    {
-      "key": "labor",
-      "label": "Labor cost",
-      "value": 35.2,
-      "format": "pct",
-      "delta": -0.5,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
-      "spark": [
-        35.75,
-        35.73,
-        35.58,
-        35.6,
-        35.52,
-        35.47,
-        35.33,
-        35.5,
-        35.29,
-        35.42,
-        35.27,
-        35.2
-      ]
+        42227,
+        45522,
+        52806,
+        34630,
+        39453,
+        40821,
+        41586,
+        44734,
+        43012,
+        38169,
+        41308,
+        42826
+      ],
+      "trend": "improving"
     },
     {
       "key": "net",
-      "label": "Net profit",
-      "value": 6.3,
-      "format": "pct",
-      "delta": 0.2,
-      "unit": "pts",
-      "goodWhen": "up",
-      "compare": "vs. last period",
+      "label": "Net Profit",
+      "value": 343040,
+      "format": "k",
       "spark": [
-        6.08,
-        6.14,
-        6.08,
-        6.2,
-        6.13,
-        6.19,
-        6.22,
-        6.22,
-        6.22,
-        6.21,
-        6.3,
-        6.3
-      ]
+        28426,
+        31625,
+        36557,
+        23816,
+        26985,
+        28374,
+        28475,
+        31029,
+        29453,
+        25433,
+        28778,
+        29424
+      ],
+      "trend": "improving"
+    },
+    {
+      "key": "cash",
+      "label": "Cash Balance",
+      "value": 334800,
+      "format": "k",
+      "spark": [
+        272100,
+        271900,
+        273200,
+        291400,
+        284200,
+        293400,
+        302300,
+        309600,
+        325800,
+        327100,
+        329600,
+        334800
+      ],
+      "trend": "improving"
     }
   ],
-  "salesTrend": {
-    "title": "Net sales",
-    "subtitle": "Daily · last 4 weeks",
-    "days": [
-      14764,
-      19823,
-      23077,
-      10641,
-      0,
-      11600,
-      13037,
-      15581,
-      20341,
-      22444,
-      10582,
-      0,
-      11179,
-      13872,
-      15372,
-      19932,
-      21889,
-      10826,
-      0,
-      11879,
-      12975,
-      15668,
-      21350,
-      22853,
-      11578,
-      0,
-      11642,
-      14306
+  "pnl": [
+    {
+      "metric": "Total Sales",
+      "actual": 5120000,
+      "lastYear": 4866920,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "COGS",
+      "actual": 1653760,
+      "lastYear": 1533080,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Labor",
+      "actual": 1797120,
+      "lastYear": 1727757,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Prime Cost",
+      "actual": 3450880,
+      "lastYear": 3260837,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Operating Expenses",
+      "actual": 1167360,
+      "lastYear": 1119392,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "EBITDA",
+      "actual": 501760,
+      "lastYear": 486692,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "Net Profit",
+      "actual": 343040,
+      "lastYear": 335817,
+      "goodWhenUp": true
+    }
+  ],
+  "sales": {
+    "guests": 35930,
+    "avgCheck": 142.5,
+    "thisPeriod": [
+      445198,
+      448290,
+      524160,
+      348846,
+      402193,
+      401517,
+      422948,
+      442102,
+      437400,
+      410833,
+      404181,
+      432333
     ],
-    "firstWeekday": 3,
-    "currentWeekBars": 3
-  },
-  "panel": {
-    "title": "Cost breakdown",
-    "subtitle": "% of net sales · period to date",
-    "mode": "categories",
-    "rows": [
-      {
-        "name": "Food",
-        "sales": null,
-        "pct": 22.6,
-        "target": 21,
-        "status": "warn"
-      },
-      {
-        "name": "Wine & spirits",
-        "sales": null,
-        "pct": 9.5,
-        "target": 10,
-        "status": "ok"
-      },
-      {
-        "name": "Labor — Kitchen",
-        "sales": null,
-        "pct": 19.8,
-        "target": 20,
-        "status": "ok"
-      },
-      {
-        "name": "Labor — Dining room",
-        "sales": null,
-        "pct": 15.4,
-        "target": 15.5,
-        "status": "ok"
-      }
+    "lastYear": [
+      414677,
+      436188,
+      503717,
+      328825,
+      370131,
+      380158,
+      404321,
+      415369,
+      414526,
+      396140,
+      384209,
+      423789
     ]
   },
+  "costBreakdown": [
+    {
+      "label": "COGS",
+      "pct": 32.3
+    },
+    {
+      "label": "Labor",
+      "pct": 35.1
+    },
+    {
+      "label": "Operating Expenses",
+      "pct": 22.8
+    },
+    {
+      "label": "Other",
+      "pct": 3.1
+    }
+  ],
+  "rowLabel": "Location",
+  "locations": [
+    {
+      "name": "Maison Verrault",
+      "sales": 5120000,
+      "food": 23.9,
+      "bev": 8.4,
+      "labor": 35.1,
+      "prime": 67.4,
+      "ebitda": 501760,
+      "netProfit": 343040,
+      "netPct": 6.7
+    }
+  ],
+  "flag": {
+    "row": 0,
+    "col": "food"
+  },
   "dex": {
-    "ask": "Why is food cost up this period?",
-    "answer": "Seafood is up 1.6 pts — your langoustine and turbot invoices rose 12% and the tasting menu price hasn’t changed since spring."
+    "ask": "Why is food cost up on last year?",
+    "answer": [
+      "Food cost is **23.9%**, up **1.1 pts** — about **$56k** over 12 months.",
+      "Seafood drove most of it: langoustine and turbot invoices are up 12%, and the tasting menu price hasn’t changed since spring."
+    ]
   }
 }

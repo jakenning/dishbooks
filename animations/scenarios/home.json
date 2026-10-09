@@ -4,8 +4,7 @@
   "audience": "Homepage — multi-unit casual dining",
   "company": {
     "name": "Fernhollow Hospitality",
-    "scope": "All locations",
-    "scopeCount": "4 locations"
+    "scopeLabel": "4 Locations"
   },
   "user": {
     "firstName": "Maya",
@@ -13,230 +12,278 @@
     "role": "Owner",
     "initials": "MO"
   },
-  "greeting": "Good morning",
-  "period": {
-    "label": "This period",
-    "wtdLabel": "Week to date"
-  },
+  "period": "Last 12 months",
+  "months": [
+    "Oct",
+    "Nov",
+    "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+  ],
   "kpis": [
     {
-      "key": "cash",
-      "label": "Cash balance",
-      "value": 492060,
-      "format": "money",
-      "delta": 3.8,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
-      "spark": [
-        476120.17,
-        470997.24,
-        473041.21,
-        474302.63,
-        478615.51,
-        486684.44,
-        486745.6,
-        485257.11,
-        488415.58,
-        490498.88,
-        494475.59,
-        492060
-      ]
-    },
-    {
       "key": "sales",
-      "label": "Net sales (week to date)",
-      "value": 84818,
-      "format": "money",
-      "delta": 5.2,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
+      "label": "Total Sales",
+      "value": 10800000,
+      "format": "k",
       "spark": [
-        47031,
-        33573,
-        24319,
-        26768,
-        29538,
-        32736,
-        43638,
-        45189,
-        32401,
-        24363,
-        27709,
-        32746
-      ]
+        888047,
+        877612,
+        975525,
+        772141,
+        811920,
+        885573,
+        898334,
+        931789,
+        964384,
+        977090,
+        935761,
+        881824
+      ],
+      "trend": "improving"
     },
     {
       "key": "prime",
-      "label": "Prime cost",
-      "value": 59,
+      "label": "Prime Cost %",
+      "value": 60.5,
       "format": "pct",
-      "delta": -0.2,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
       "spark": [
-        59.24,
-        59.15,
-        59.16,
-        59.2,
-        59.14,
-        59.06,
-        59.04,
-        59.11,
-        59.04,
-        58.99,
-        59,
-        59
-      ]
+        61.2,
+        61,
+        60.9,
+        60.9,
+        60.6,
+        60.7,
+        61.2,
+        61,
+        60.4,
+        60.3,
+        60.2,
+        60.5
+      ],
+      "trend": "improving"
     },
     {
-      "key": "food",
-      "label": "Food cost",
-      "value": 28.9,
-      "format": "pct",
-      "delta": -0.6,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
+      "key": "ebitda",
+      "label": "EBITDA",
+      "value": 1325340,
+      "format": "k",
       "spark": [
-        29.51,
-        29.31,
-        29.4,
-        29.48,
-        29.19,
-        29.13,
-        29.28,
-        29.16,
-        29.1,
-        29.09,
-        29.04,
-        28.9
-      ]
-    },
-    {
-      "key": "labor",
-      "label": "Labor cost",
-      "value": 30.1,
-      "format": "pct",
-      "delta": 0.4,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
-      "spark": [
-        29.79,
-        29.72,
-        29.78,
-        29.8,
-        29.96,
-        29.91,
-        29.95,
-        30.02,
-        29.88,
-        30.01,
-        30.15,
-        30.1
-      ]
+        101527,
+        99816,
+        108535,
+        88245,
+        94220,
+        106398,
+        99844,
+        114505,
+        111451,
+        117351,
+        119746,
+        109200
+      ],
+      "trend": "improving"
     },
     {
       "key": "net",
-      "label": "Net profit",
-      "value": 9.8,
-      "format": "pct",
-      "delta": 0.7,
-      "unit": "pts",
-      "goodWhen": "up",
-      "compare": "vs. last period",
+      "label": "Net Profit",
+      "value": 990540,
+      "format": "k",
       "spark": [
-        9.27,
-        9,
-        9.39,
-        9.09,
-        9.55,
-        9.39,
-        9.64,
-        9.39,
-        9.49,
-        9.66,
-        9.91,
-        9.8
-      ]
+        73998,
+        72610,
+        78294,
+        64309,
+        69050,
+        78945,
+        71996,
+        85620,
+        81555,
+        87061,
+        90737,
+        81863
+      ],
+      "trend": "improving"
+    },
+    {
+      "key": "cash",
+      "label": "Cash Balance",
+      "value": 477700,
+      "format": "k",
+      "spark": [
+        373100,
+        381300,
+        407100,
+        405800,
+        408200,
+        420900,
+        438300,
+        444000,
+        441300,
+        460800,
+        480300,
+        477700
+      ],
+      "trend": "improving"
     }
   ],
-  "salesTrend": {
-    "title": "Net sales",
-    "subtitle": "Daily · last 4 weeks",
-    "days": [
-      30768,
-      44571,
-      43558,
-      30810,
-      21648,
-      25303,
-      27234,
-      30628,
-      42558,
-      48197,
-      33081,
-      22198,
-      25594,
-      29197,
-      33943,
-      46694,
-      47031,
-      33573,
-      24319,
-      26768,
-      29538,
-      32736,
-      43638,
-      45189,
-      32401,
-      24363,
-      27709,
-      32746
+  "pnl": [
+    {
+      "metric": "Total Sales",
+      "actual": 10800000,
+      "lastYear": 10150376,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "COGS",
+      "actual": 3284860,
+      "lastYear": 3188778,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Labor",
+      "actual": 3245420,
+      "lastYear": 3029906,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Prime Cost",
+      "actual": 6530280,
+      "lastYear": 6218684,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Operating Expenses",
+      "actual": 2944380,
+      "lastYear": 2828177,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "EBITDA",
+      "actual": 1325340,
+      "lastYear": 1103515,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "Net Profit",
+      "actual": 990540,
+      "lastYear": 788853,
+      "goodWhenUp": true
+    }
+  ],
+  "sales": {
+    "guests": 279793,
+    "avgCheck": 38.6,
+    "thisPeriod": [
+      888047,
+      877612,
+      975525,
+      772141,
+      811920,
+      885573,
+      898334,
+      931789,
+      964384,
+      977090,
+      935761,
+      881824
     ],
-    "firstWeekday": 3,
-    "currentWeekBars": 3
-  },
-  "panel": {
-    "title": "Locations",
-    "subtitle": "Prime cost · period to date",
-    "mode": "entities",
-    "rows": [
-      {
-        "name": "Downtown",
-        "sales": 26290,
-        "pct": 58.4,
-        "target": 60,
-        "status": "ok"
-      },
-      {
-        "name": "Northgate",
-        "sales": 22050,
-        "pct": 57.9,
-        "target": 60,
-        "status": "ok"
-      },
-      {
-        "name": "Eastside",
-        "sales": 19510,
-        "pct": 63.6,
-        "target": 60,
-        "status": "warn"
-      },
-      {
-        "name": "Riverside",
-        "sales": 16960,
-        "pct": 59.1,
-        "target": 60,
-        "status": "ok"
-      }
+    "lastYear": [
+      867804,
+      833368,
+      893430,
+      728180,
+      762168,
+      855882,
+      870554,
+      893803,
+      911306,
+      928842,
+      903334,
+      848055
     ]
   },
+  "costBreakdown": [
+    {
+      "label": "COGS",
+      "pct": 30.4
+    },
+    {
+      "label": "Labor",
+      "pct": 30.1
+    },
+    {
+      "label": "Operating Expenses",
+      "pct": 27.3
+    },
+    {
+      "label": "Other",
+      "pct": 3.1
+    }
+  ],
+  "rowLabel": "Location",
+  "locations": [
+    {
+      "name": "Downtown",
+      "sales": 3480000,
+      "food": 24.1,
+      "bev": 6.6,
+      "labor": 28.9,
+      "prime": 59.6,
+      "ebitda": 487200,
+      "netProfit": 379320,
+      "netPct": 10.9
+    },
+    {
+      "name": "Northgate",
+      "sales": 2960000,
+      "food": 23.6,
+      "bev": 6.2,
+      "labor": 29.1,
+      "prime": 58.9,
+      "ebitda": 411440,
+      "netProfit": 319680,
+      "netPct": 10.8
+    },
+    {
+      "name": "Eastside",
+      "sales": 2310000,
+      "food": 24.8,
+      "bev": 5.9,
+      "labor": 33.4,
+      "prime": 64.1,
+      "ebitda": 184800,
+      "netProfit": 113190,
+      "netPct": 4.9
+    },
+    {
+      "name": "Riverside",
+      "sales": 2050000,
+      "food": 24.4,
+      "bev": 6.1,
+      "labor": 29.6,
+      "prime": 60.1,
+      "ebitda": 241900,
+      "netProfit": 178350,
+      "netPct": 8.7
+    }
+  ],
+  "flag": {
+    "row": 2,
+    "col": "labor"
+  },
   "dex": {
-    "ask": "Why is Eastside over target?",
-    "answer": "Labor at Eastside is up 3.1 pts vs. last period — two extra closing shifts on Tue and Wed while covers were flat. Food cost is on target."
+    "ask": "Why is Eastside’s prime cost so high?",
+    "answer": [
+      "Labor is the driver. Eastside ran **33.4% labor** vs. about 29% at your other locations — roughly **$100k** over the last 12 months.",
+      "Most of it is overtime on Friday and Saturday closes since March. Food and beverage are in line with the group."
+    ]
   }
 }

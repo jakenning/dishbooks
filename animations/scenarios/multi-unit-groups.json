@@ -4,8 +4,7 @@
   "audience": "Multi-Unit Groups",
   "company": {
     "name": "Brasswick Restaurant Group",
-    "scope": "All concepts",
-    "scopeCount": "7 locations · 3 concepts"
+    "scopeLabel": "7 Locations"
   },
   "user": {
     "firstName": "Hannah",
@@ -13,230 +12,278 @@
     "role": "COO",
     "initials": "HC"
   },
-  "greeting": "Good morning",
-  "period": {
-    "label": "This period",
-    "wtdLabel": "Week to date"
-  },
+  "period": "Last 12 months",
+  "months": [
+    "Oct",
+    "Nov",
+    "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+  ],
   "kpis": [
     {
-      "key": "cash",
-      "label": "Cash balance",
-      "value": 778540,
-      "format": "money",
-      "delta": 1.6,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
-      "spark": [
-        768968.97,
-        765757.48,
-        765528.89,
-        767811.69,
-        771393.22,
-        768427.31,
-        775462.42,
-        774851.52,
-        777353.19,
-        776972.4,
-        773784.12,
-        778540
-      ]
-    },
-    {
       "key": "sales",
-      "label": "Net sales (week to date)",
-      "value": 119426,
-      "format": "money",
-      "delta": 4.1,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
+      "label": "Total Sales",
+      "value": 11960000,
+      "format": "k",
       "spark": [
-        72473,
-        47410,
-        36081,
-        38197,
-        40445,
-        47271,
-        62741,
-        68104,
-        50760,
-        34096,
-        40589,
-        44741
-      ]
+        978777,
+        966297,
+        1094261,
+        869883,
+        896243,
+        970809,
+        1018500,
+        1026311,
+        1037778,
+        1067328,
+        1030105,
+        1003707
+      ],
+      "trend": "improving"
     },
     {
       "key": "prime",
-      "label": "Prime cost",
-      "value": 59.3,
+      "label": "Prime Cost %",
+      "value": 60.8,
       "format": "pct",
-      "delta": 0.2,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
       "spark": [
-        59.09,
-        59.11,
-        59.12,
-        59.14,
-        59.21,
-        59.18,
-        59.22,
-        59.23,
-        59.2,
-        59.28,
-        59.24,
-        59.3
-      ]
+        60.9,
+        60.7,
+        60.9,
+        61.3,
+        60.6,
+        61.1,
+        61.2,
+        61.2,
+        60.7,
+        60.5,
+        60.6,
+        60.8
+      ],
+      "trend": "improving"
     },
     {
-      "key": "food",
-      "label": "Food cost",
-      "value": 29.4,
-      "format": "pct",
-      "delta": -0.3,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
+      "key": "ebitda",
+      "label": "EBITDA",
+      "value": 1527080,
+      "format": "k",
       "spark": [
-        29.67,
-        29.64,
-        29.73,
-        29.62,
-        29.62,
-        29.61,
-        29.5,
-        29.43,
-        29.45,
-        29.52,
-        29.45,
-        29.4
-      ]
-    },
-    {
-      "key": "labor",
-      "label": "Labor cost",
-      "value": 29.9,
-      "format": "pct",
-      "delta": 0.5,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
-      "spark": [
-        29.53,
-        29.57,
-        29.59,
-        29.51,
-        29.44,
-        29.62,
-        29.71,
-        29.69,
-        29.91,
-        29.87,
-        29.99,
-        29.9
-      ]
+        110901,
+        121180,
+        134346,
+        109770,
+        111102,
+        112754,
+        120964,
+        126666,
+        129145,
+        132266,
+        128355,
+        133426
+      ],
+      "trend": "improving"
     },
     {
       "key": "net",
-      "label": "Net profit",
-      "value": 8.9,
-      "format": "pct",
-      "delta": 0.2,
-      "unit": "pts",
-      "goodWhen": "up",
-      "compare": "vs. last period",
+      "label": "Net Profit",
+      "value": 1156320,
+      "format": "k",
       "spark": [
-        8.73,
-        8.72,
-        8.69,
-        8.77,
-        8.77,
-        8.81,
-        8.82,
-        8.83,
-        8.87,
-        8.85,
-        8.84,
-        8.9
-      ]
+        80559,
+        91225,
+        100424,
+        82804,
+        83318,
+        82659,
+        89391,
+        94850,
+        96974,
+        99179,
+        96422,
+        102311
+      ],
+      "trend": "improving"
+    },
+    {
+      "key": "cash",
+      "label": "Cash Balance",
+      "value": 483000,
+      "format": "k",
+      "spark": [
+        384400,
+        396700,
+        404900,
+        403500,
+        424400,
+        421200,
+        426400,
+        442900,
+        452400,
+        477900,
+        474300,
+        483000
+      ],
+      "trend": "improving"
     }
   ],
-  "salesTrend": {
-    "title": "Net sales",
-    "subtitle": "Daily · last 4 weeks",
-    "days": [
-      48548,
-      66961,
-      64348,
-      49344,
-      32257,
-      35627,
-      39774,
-      45575,
-      68569,
-      70068,
-      45213,
-      33838,
-      38686,
-      40301,
-      49365,
-      67502,
-      72473,
-      47410,
-      36081,
-      38197,
-      40445,
-      47271,
-      62741,
-      68104,
-      50760,
-      34096,
-      40589,
-      44741
+  "pnl": [
+    {
+      "metric": "Total Sales",
+      "actual": 11960000,
+      "lastYear": 11368821,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "COGS",
+      "actual": 3893080,
+      "lastYear": 3780228,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Labor",
+      "actual": 3376130,
+      "lastYear": 3163774,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Prime Cost",
+      "actual": 7269210,
+      "lastYear": 6944002,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Operating Expenses",
+      "actual": 3163710,
+      "lastYear": 3064173,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "EBITDA",
+      "actual": 1527080,
+      "lastYear": 1360646,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "Net Profit",
+      "actual": 1156320,
+      "lastYear": 1008213,
+      "goodWhenUp": true
+    }
+  ],
+  "sales": {
+    "guests": 343678,
+    "avgCheck": 34.8,
+    "thisPeriod": [
+      978777,
+      966297,
+      1094261,
+      869883,
+      896243,
+      970809,
+      1018500,
+      1026311,
+      1037778,
+      1067328,
+      1030105,
+      1003707
     ],
-    "firstWeekday": 3,
-    "currentWeekBars": 3
-  },
-  "panel": {
-    "title": "Locations",
-    "subtitle": "Prime cost · period to date",
-    "mode": "entities",
-    "rows": [
-      {
-        "name": "Brasswick Tavern · Old Town",
-        "sales": 22690,
-        "pct": 59.6,
-        "target": 61,
-        "status": "ok"
-      },
-      {
-        "name": "Brasswick Tavern · Harbor",
-        "sales": 20300,
-        "pct": 60.2,
-        "target": 61,
-        "status": "ok"
-      },
-      {
-        "name": "Mosswood Noodle · Midtown",
-        "sales": 16720,
-        "pct": 56.8,
-        "target": 61,
-        "status": "ok"
-      },
-      {
-        "name": "Cinderhollow BBQ · Westfield",
-        "sales": 17910,
-        "pct": 64.1,
-        "target": 61,
-        "status": "warn"
-      }
+    "lastYear": [
+      959301,
+      893697,
+      1012831,
+      822220,
+      822212,
+      947750,
+      960981,
+      1019248,
+      994465,
+      1040528,
+      992286,
+      912568
     ]
+  },
+  "costBreakdown": [
+    {
+      "label": "COGS",
+      "pct": 32.6
+    },
+    {
+      "label": "Labor",
+      "pct": 28.2
+    },
+    {
+      "label": "Operating Expenses",
+      "pct": 26.5
+    },
+    {
+      "label": "Other",
+      "pct": 3.1
+    }
+  ],
+  "rowLabel": "Location",
+  "locations": [
+    {
+      "name": "Brasswick Tavern · Old Town",
+      "sales": 3620000,
+      "food": 24.9,
+      "bev": 7.1,
+      "labor": 28.4,
+      "prime": 60.4,
+      "ebitda": 488700,
+      "netProfit": 376480,
+      "netPct": 10.4
+    },
+    {
+      "name": "Brasswick Tavern · Harbor",
+      "sales": 3240000,
+      "food": 25.2,
+      "bev": 7,
+      "labor": 28.9,
+      "prime": 61.1,
+      "ebitda": 398520,
+      "netProfit": 298080,
+      "netPct": 9.2
+    },
+    {
+      "name": "Mosswood Noodle · Midtown",
+      "sales": 2410000,
+      "food": 26.8,
+      "bev": 3.2,
+      "labor": 27.1,
+      "prime": 57.1,
+      "ebitda": 373550,
+      "netProfit": 298840,
+      "netPct": 12.4
+    },
+    {
+      "name": "Cinderhollow BBQ · Westfield",
+      "sales": 2690000,
+      "food": 31.6,
+      "bev": 4.4,
+      "labor": 28.2,
+      "prime": 64.2,
+      "ebitda": 266310,
+      "netProfit": 182920,
+      "netPct": 6.8
+    }
+  ],
+  "flag": {
+    "row": 3,
+    "col": "food"
   },
   "dex": {
     "ask": "Which location needs attention?",
-    "answer": "Cinderhollow BBQ — Westfield is 3.1 pts over target. Brisket costs rose 9% on the last two invoices and weren’t reflected in menu prices."
+    "answer": [
+      "**Cinderhollow BBQ · Westfield.** Food cost is **31.6%**, about 6 pts above your other concepts.",
+      "Brisket invoices are up 9% since June and menu prices haven’t moved. Repricing the platters recovers about **$70k** a year."
+    ]
   }
 }

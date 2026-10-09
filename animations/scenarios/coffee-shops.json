@@ -4,8 +4,7 @@
   "audience": "Coffee Shops",
   "company": {
     "name": "Lanternfish Coffee",
-    "scope": "All cafés",
-    "scopeCount": "3 cafés"
+    "scopeLabel": "3 Cafés"
   },
   "user": {
     "firstName": "Sam",
@@ -13,223 +12,267 @@
     "role": "Owner",
     "initials": "SW"
   },
-  "greeting": "Good morning",
-  "period": {
-    "label": "This period",
-    "wtdLabel": "Week to date"
-  },
+  "period": "Last 12 months",
+  "months": [
+    "Oct",
+    "Nov",
+    "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+  ],
   "kpis": [
     {
-      "key": "cash",
-      "label": "Cash balance",
-      "value": 112030,
-      "format": "money",
-      "delta": 3.1,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
-      "spark": [
-        108147.95,
-        109029.43,
-        109604.54,
-        109496.67,
-        110841.54,
-        109519.57,
-        111134.01,
-        110421.87,
-        111997.97,
-        112071.95,
-        112139.26,
-        112030
-      ]
-    },
-    {
       "key": "sales",
-      "label": "Net sales (week to date)",
-      "value": 18288,
-      "format": "money",
-      "delta": 4.8,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
+      "label": "Total Sales",
+      "value": 2310000,
+      "format": "k",
       "spark": [
-        4974,
-        4024,
-        5803,
-        5975,
-        5673,
-        5569,
-        5927,
-        5313,
-        4219,
-        6327,
-        5753,
-        6208
-      ]
+        197736,
+        191216,
+        203700,
+        190417,
+        186884,
+        196586,
+        195102,
+        192353,
+        188633,
+        182361,
+        179052,
+        205960
+      ],
+      "trend": "improving"
     },
     {
       "key": "prime",
-      "label": "Prime cost",
-      "value": 61,
+      "label": "Prime Cost %",
+      "value": 60.8,
       "format": "pct",
-      "delta": -0.2,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
       "spark": [
-        61.26,
-        61.23,
-        61.2,
-        61.19,
-        61.14,
-        61.08,
-        61.13,
-        61.11,
-        61.03,
-        61.02,
-        61.05,
-        61
-      ]
+        60.5,
+        61,
+        60.9,
+        61.1,
+        61,
+        60.4,
+        61.1,
+        60.6,
+        60.8,
+        60.9,
+        60.8,
+        60.8
+      ],
+      "trend": "declining"
     },
     {
-      "key": "food",
-      "label": "Food cost",
-      "value": 27.6,
-      "format": "pct",
-      "delta": 0.5,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
+      "key": "ebitda",
+      "label": "EBITDA",
+      "value": 255850,
+      "format": "k",
       "spark": [
-        26.96,
-        27.2,
-        27.13,
-        27.2,
-        27.23,
-        27.47,
-        27.48,
-        27.55,
-        27.57,
-        27.37,
-        27.62,
-        27.6
-      ]
-    },
-    {
-      "key": "labor",
-      "label": "Labor cost",
-      "value": 33.4,
-      "format": "pct",
-      "delta": -0.7,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
-      "spark": [
-        34.16,
-        33.85,
-        34.05,
-        33.84,
-        33.89,
-        33.8,
-        33.67,
-        33.7,
-        33.63,
-        33.7,
-        33.52,
-        33.4
-      ]
+        20552,
+        21469,
+        21623,
+        21764,
+        21131,
+        21977,
+        22356,
+        22260,
+        21740,
+        20745,
+        20594,
+        22999
+      ],
+      "trend": "improving"
     },
     {
       "key": "net",
-      "label": "Net profit",
-      "value": 10.6,
-      "format": "pct",
-      "delta": 0.4,
-      "unit": "pts",
-      "goodWhen": "up",
-      "compare": "vs. last period",
+      "label": "Net Profit",
+      "value": 184240,
+      "format": "k",
       "spark": [
-        10.11,
-        10.31,
-        10.29,
-        10.21,
-        10.41,
-        10.32,
-        10.36,
-        10.45,
-        10.58,
-        10.58,
-        10.52,
-        10.6
-      ]
+        14422,
+        15541,
+        15308,
+        15861,
+        15338,
+        15883,
+        16308,
+        16297,
+        15892,
+        15092,
+        15043,
+        16614
+      ],
+      "trend": "improving"
+    },
+    {
+      "key": "cash",
+      "label": "Cash Balance",
+      "value": 124400,
+      "format": "k",
+      "spark": [
+        98000,
+        103700,
+        106100,
+        104700,
+        107400,
+        112400,
+        114900,
+        112000,
+        118900,
+        118500,
+        121400,
+        124400
+      ],
+      "trend": "improving"
     }
   ],
-  "salesTrend": {
-    "title": "Net sales",
-    "subtitle": "Daily · last 4 weeks",
-    "days": [
-      5492,
-      5380,
-      5083,
-      3882,
-      5746,
-      6050,
-      5684,
-      5296,
-      5952,
-      5149,
-      3885,
-      5664,
-      5706,
-      5622,
-      5700,
-      5943,
-      4974,
-      4024,
-      5803,
-      5975,
-      5673,
-      5569,
-      5927,
-      5313,
-      4219,
-      6327,
-      5753,
-      6208
+  "pnl": [
+    {
+      "metric": "Total Sales",
+      "actual": 2310000,
+      "lastYear": 2183365,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "COGS",
+      "actual": 657320,
+      "lastYear": 634386,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Labor",
+      "actual": 746300,
+      "lastYear": 692287,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Prime Cost",
+      "actual": 1403620,
+      "lastYear": 1326673,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Operating Expenses",
+      "actual": 650530,
+      "lastYear": 621418,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "EBITDA",
+      "actual": 255850,
+      "lastYear": 235274,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "Net Profit",
+      "actual": 184240,
+      "lastYear": 167590,
+      "goodWhenUp": true
+    }
+  ],
+  "sales": {
+    "guests": 235714,
+    "avgCheck": 9.8,
+    "thisPeriod": [
+      197736,
+      191216,
+      203700,
+      190417,
+      186884,
+      196586,
+      195102,
+      192353,
+      188633,
+      182361,
+      179052,
+      205960
     ],
-    "firstWeekday": 3,
-    "currentWeekBars": 3
-  },
-  "panel": {
-    "title": "Cafés",
-    "subtitle": "Prime cost · period to date",
-    "mode": "entities",
-    "rows": [
-      {
-        "name": "Harbor St",
-        "sales": 7130,
-        "pct": 59.8,
-        "target": 62,
-        "status": "ok"
-      },
-      {
-        "name": "Old Mill",
-        "sales": 6220,
-        "pct": 60.6,
-        "target": 62,
-        "status": "ok"
-      },
-      {
-        "name": "Station Sq",
-        "sales": 4940,
-        "pct": 64.2,
-        "target": 62,
-        "status": "warn"
-      }
+    "lastYear": [
+      189542,
+      183017,
+      188025,
+      177827,
+      177575,
+      184327,
+      188265,
+      179713,
+      175868,
+      169141,
+      173453,
+      188271
     ]
   },
+  "costBreakdown": [
+    {
+      "label": "COGS",
+      "pct": 28.5
+    },
+    {
+      "label": "Labor",
+      "pct": 32.3
+    },
+    {
+      "label": "Operating Expenses",
+      "pct": 28.2
+    },
+    {
+      "label": "Other",
+      "pct": 3.1
+    }
+  ],
+  "rowLabel": "Café",
+  "locations": [
+    {
+      "name": "Harbor St",
+      "sales": 890000,
+      "food": 9.6,
+      "bev": 17.4,
+      "labor": 31.8,
+      "prime": 58.8,
+      "ebitda": 118370,
+      "netProfit": 90780,
+      "netPct": 10.2
+    },
+    {
+      "name": "Old Mill",
+      "sales": 780000,
+      "food": 9.9,
+      "bev": 17.8,
+      "labor": 32.4,
+      "prime": 60.1,
+      "ebitda": 92040,
+      "netProfit": 67860,
+      "netPct": 8.7
+    },
+    {
+      "name": "Station Sq",
+      "sales": 640000,
+      "food": 13.8,
+      "bev": 17.6,
+      "labor": 32.9,
+      "prime": 64.3,
+      "ebitda": 45440,
+      "netProfit": 25600,
+      "netPct": 4
+    }
+  ],
+  "flag": {
+    "row": 2,
+    "col": "food"
+  },
   "dex": {
-    "ask": "What’s driving Station Sq?",
-    "answer": "Pastry waste at Station Sq is 2× the other cafés — afternoon bake counts haven’t dropped since commuter traffic thinned after 2pm."
+    "ask": "Why is food cost higher at Station Sq?",
+    "answer": [
+      "Pastry waste at Station Sq is **2× the other cafés**. Afternoon bake counts haven’t dropped since commuter traffic thinned after 2pm.",
+      "Matching Old Mill’s bake schedule saves about **$24k** a year."
+    ]
   }
 }

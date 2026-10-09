@@ -4,8 +4,7 @@
   "audience": "Independent Restaurants",
   "company": {
     "name": "Little Wren Bistro",
-    "scope": "Single location",
-    "scopeCount": "1 location"
+    "scopeLabel": "1 Location"
   },
   "user": {
     "firstName": "Daniel",
@@ -13,230 +12,245 @@
     "role": "Chef-Owner",
     "initials": "DR"
   },
-  "greeting": "Good morning",
-  "period": {
-    "label": "This period",
-    "wtdLabel": "Week to date"
-  },
+  "period": "Last 12 months",
+  "months": [
+    "Oct",
+    "Nov",
+    "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+  ],
   "kpis": [
     {
-      "key": "cash",
-      "label": "Cash balance",
-      "value": 140450,
-      "format": "money",
-      "delta": 2.1,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
-      "spark": [
-        137996.41,
-        138026.93,
-        137382.22,
-        139099.8,
-        138730.64,
-        138032.42,
-        138548.01,
-        139545.12,
-        140036.68,
-        139978.99,
-        139758.13,
-        140450
-      ]
-    },
-    {
       "key": "sales",
-      "label": "Net sales (week to date)",
-      "value": 14350,
-      "format": "money",
-      "delta": 3.4,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
+      "label": "Total Sales",
+      "value": 2180000,
+      "format": "k",
       "spark": [
-        8265,
-        5615,
-        4290,
-        4636,
-        4952,
-        6082,
-        7715,
-        8248,
-        5838,
-        4546,
-        4801,
-        5003
-      ]
+        180859,
+        181028,
+        197500,
+        155722,
+        157914,
+        176608,
+        178588,
+        187069,
+        194143,
+        201099,
+        191591,
+        177879
+      ],
+      "trend": "improving"
     },
     {
       "key": "prime",
-      "label": "Prime cost",
-      "value": 59.8,
+      "label": "Prime Cost %",
+      "value": 62.9,
       "format": "pct",
-      "delta": 0.7,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
       "spark": [
-        59.05,
-        59.09,
-        59.27,
-        59.47,
-        59.24,
-        59.33,
-        59.6,
-        59.47,
-        59.67,
-        59.64,
-        59.66,
-        59.8
-      ]
+        62.7,
+        62.3,
+        62.5,
+        62.6,
+        62.9,
+        62.7,
+        62.4,
+        62.9,
+        62.9,
+        62.5,
+        63.2,
+        62.9
+      ],
+      "trend": "declining"
     },
     {
-      "key": "food",
-      "label": "Food cost",
-      "value": 30.2,
-      "format": "pct",
-      "delta": 1.1,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
+      "key": "ebitda",
+      "label": "EBITDA",
+      "value": 250700,
+      "format": "k",
       "spark": [
-        29.27,
-        29.22,
-        29.27,
-        29.24,
-        29.66,
-        29.53,
-        29.62,
-        29.57,
-        29.87,
-        30.08,
-        30.07,
-        30.2
-      ]
-    },
-    {
-      "key": "labor",
-      "label": "Labor cost",
-      "value": 29.6,
-      "format": "pct",
-      "delta": -0.4,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
-      "spark": [
-        30.06,
-        29.9,
-        29.89,
-        29.97,
-        29.87,
-        29.78,
-        29.67,
-        29.84,
-        29.81,
-        29.68,
-        29.55,
-        29.6
-      ]
+        19829,
+        20184,
+        23134,
+        18499,
+        18341,
+        19820,
+        21844,
+        21300,
+        21930,
+        23463,
+        23175,
+        19773
+      ],
+      "trend": "improving"
     },
     {
       "key": "net",
-      "label": "Net profit",
-      "value": 8.4,
-      "format": "pct",
-      "delta": -0.3,
-      "unit": "pts",
-      "goodWhen": "up",
-      "compare": "vs. last period",
+      "label": "Net Profit",
+      "value": 183120,
+      "format": "k",
       "spark": [
-        8.66,
-        8.74,
-        8.72,
-        8.64,
-        8.53,
-        8.48,
-        8.51,
-        8.58,
-        8.5,
-        8.51,
-        8.41,
-        8.4
-      ]
+        14222,
+        14572,
+        17012,
+        13672,
+        13446,
+        14345,
+        16308,
+        15501,
+        15912,
+        17229,
+        17236,
+        14259
+      ],
+      "trend": "improving"
+    },
+    {
+      "key": "cash",
+      "label": "Cash Balance",
+      "value": 130000,
+      "format": "k",
+      "spark": [
+        102700,
+        108200,
+        107600,
+        112100,
+        113000,
+        114600,
+        119300,
+        122400,
+        123200,
+        124900,
+        125700,
+        130000
+      ],
+      "trend": "improving"
     }
   ],
-  "salesTrend": {
-    "title": "Net sales",
-    "subtitle": "Daily · last 4 weeks",
-    "days": [
-      5549,
-      7366,
-      7642,
-      5364,
-      3842,
-      4521,
-      5128,
-      5702,
-      7641,
-      7685,
-      5364,
-      3957,
-      4549,
-      5126,
-      5764,
-      8125,
-      8265,
-      5615,
-      4290,
-      4636,
-      4952,
-      6082,
-      7715,
-      8248,
-      5838,
-      4546,
-      4801,
-      5003
+  "pnl": [
+    {
+      "metric": "Total Sales",
+      "actual": 2180000,
+      "lastYear": 2080153,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "COGS",
+      "actual": 712860,
+      "lastYear": 659408,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Labor",
+      "actual": 658360,
+      "lastYear": 638607,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Prime Cost",
+      "actual": 1371220,
+      "lastYear": 1298015,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Operating Expenses",
+      "actual": 558080,
+      "lastYear": 540840,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "EBITDA",
+      "actual": 250700,
+      "lastYear": 241298,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "Net Profit",
+      "actual": 183120,
+      "lastYear": 176813,
+      "goodWhenUp": true
+    }
+  ],
+  "sales": {
+    "guests": 47186,
+    "avgCheck": 46.2,
+    "thisPeriod": [
+      180859,
+      181028,
+      197500,
+      155722,
+      157914,
+      176608,
+      178588,
+      187069,
+      194143,
+      201099,
+      191591,
+      177879
     ],
-    "firstWeekday": 3,
-    "currentWeekBars": 3
-  },
-  "panel": {
-    "title": "Cost breakdown",
-    "subtitle": "% of net sales · period to date",
-    "mode": "categories",
-    "rows": [
-      {
-        "name": "Food",
-        "sales": null,
-        "pct": 26.1,
-        "target": 24.5,
-        "status": "warn"
-      },
-      {
-        "name": "Beverage",
-        "sales": null,
-        "pct": 4.1,
-        "target": 5,
-        "status": "ok"
-      },
-      {
-        "name": "Labor — Kitchen",
-        "sales": null,
-        "pct": 15.2,
-        "target": 15.5,
-        "status": "ok"
-      },
-      {
-        "name": "Labor — Front of house",
-        "sales": null,
-        "pct": 14.4,
-        "target": 14.5,
-        "status": "ok"
-      }
+    "lastYear": [
+      168434,
+      163148,
+      183747,
+      149551,
+      155567,
+      171787,
+      176881,
+      182530,
+      181549,
+      190511,
+      183562,
+      169519
     ]
   },
+  "costBreakdown": [
+    {
+      "label": "COGS",
+      "pct": 32.7
+    },
+    {
+      "label": "Labor",
+      "pct": 30.2
+    },
+    {
+      "label": "Operating Expenses",
+      "pct": 25.6
+    },
+    {
+      "label": "Other",
+      "pct": 3.1
+    }
+  ],
+  "rowLabel": "Location",
+  "locations": [
+    {
+      "name": "Little Wren Bistro",
+      "sales": 2180000,
+      "food": 27.4,
+      "bev": 5.3,
+      "labor": 30.2,
+      "prime": 62.9,
+      "ebitda": 250700,
+      "netProfit": 183120,
+      "netPct": 8.4
+    }
+  ],
+  "flag": {
+    "row": 0,
+    "col": "food"
+  },
   "dex": {
-    "ask": "What pushed food cost up?",
-    "answer": "Produce invoices from your main distributor are up 14% over four weeks — mostly avocados and berries. Your short rib special is now plating at a 38% food cost."
+    "ask": "Why did food cost go up this year?",
+    "answer": [
+      "Food cost is **27.4%**, up **1.2 pts** on last year — about **$26k**.",
+      "Produce from your main distributor is up 14% since spring, and the short rib special now plates at a 38% food cost."
+    ]
   }
 }

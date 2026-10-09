@@ -45,39 +45,42 @@ structure above is designed so those are small, targeted edits.
 
 ### Scenarios
 
-| File | Audience | Company (fictional) |
-|---|---|---|
-| `home` | Homepage — multi-unit casual dining | Fernhollow Hospitality (4 locations) |
-| `independent-restaurants` | Independent Restaurants | Little Wren Bistro |
-| `multi-unit-groups` | Multi-Unit Groups | Brasswick Restaurant Group (7 locations, 3 concepts) |
-| `accounting-firms` | Accounting Firms | Tallis & Penn CPAs → client Marigold Cantina |
-| `qsr` | QSR | Bolt & Bun Burgers (12 locations) |
-| `fast-casual` | Fast Casual | Field & Fold (5 locations) |
-| `casual-dining` | Casual Dining | Hollis Street Grill (3 locations) |
-| `fine-dining` | Fine Dining | Maison Verrault |
-| `coffee-shops` | Coffee Shops | Lanternfish Coffee (3 cafés) |
-| `pizzerias` | Pizzerias | Forno Ottavio (2 locations) |
-| `bars-nightclubs` | Bars & Nightclubs | The Velvet Ledger (2 venues) |
-| `hotel-restaurants-bars` | Hotel Restaurants & Bars | The Ashcombe Hotel (4 F&B outlets) |
+| File | Audience | Company (fictional) | Dex is asked about |
+|---|---|---|---|
+| `home` | Homepage — multi-unit casual dining | Fernhollow Hospitality (4 locations) | Eastside labor |
+| `independent-restaurants` | Independent Restaurants | Little Wren Bistro | food cost vs. last year |
+| `multi-unit-groups` | Multi-Unit Groups | Brasswick Restaurant Group (7 locations, 3 concepts) | which location needs attention |
+| `accounting-firms` | Accounting Firms | Tallis & Penn CPAs (rows are clients) | which client to call |
+| `qsr` | QSR | Bolt & Bun Burgers (12 stores, top 4 shown) | #112 overnight labor |
+| `fast-casual` | Fast Casual | Field & Fold (5 locations) | Tech Park labor |
+| `casual-dining` | Casual Dining | Hollis Street Grill (3 locations) | Airport overtime |
+| `fine-dining` | Fine Dining | Maison Verrault | food cost vs. last year |
+| `coffee-shops` | Coffee Shops | Lanternfish Coffee (3 cafés) | Station Sq pastry waste |
+| `pizzerias` | Pizzerias | Forno Ottavio (2 locations) | Lakeview cheese cost |
+| `bars-nightclubs` | Bars & Nightclubs | The Velvet Ledger (2 venues) | Afterglow pour cost |
+| `hotel-restaurants-bars` | Hotel Restaurants & Bars | The Ashcombe Hotel (4 F&B outlets) | In-Room Dining labor |
 
 All names are invented. Before publishing, do a quick web search on any name
 that will be prominent — an invented name can still collide with a real
 business somewhere.
 
-The numbers are internally consistent: prime cost = food + labor, the
-week-to-date sales tile is the sum of this week's bars in the chart, and the
-deltas match the sparklines. Ranges are tuned to restaurant benchmarks (prime
-cost 55–65%, ~46% for bars, ~67% for fine dining / hotel F&B; net profit
-6–14%; cash ≈ 1.5–3 weeks of sales). See the header of `generate.mjs`.
+Each file holds what the Home dashboard shows for "Last 12 months": the five
+KPI cards with monthly sparklines, the P&L summary vs. last year, monthly sales
+vs. last year with guests and average check, the cost breakdown, prime cost by
+location, the location performance table (up to 4 rows), the cell the story
+flags, and the question/answer for Dex. The numbers are internally consistent:
+prime cost = food + beverage + labor, EBITDA = sales − prime − opex, the KPI
+cards match the P&L, and every trend is year-over-year. Ranges are tuned to
+restaurant benchmarks — see the header of `generate.mjs`.
 
 ## Outputs (`dist/<scene>/<scenario>/`)
 
 | File | Use |
 |---|---|
-| `.webm` | **Recommended.** VP9, 1320 × 924, 10s seamless loop, ~0.7 MB |
-| `.mp4` | H.264 fallback for older Safari/iOS, ~0.6 MB |
+| `.webm` | **Recommended.** VP9, 1320 × 924, 10s seamless loop, ~2 MB |
+| `.mp4` | H.264 fallback for older Safari/iOS, ~2.4 MB |
 | `.jpg` | Poster frame (the Dex moment) — fallback image / reduced motion |
-| `.embed.html` | Paste into a Webflow **Embed** element (~38 KB; uses the site's Albert Sans) |
+| `.embed.html` | Paste into a Webflow **Embed** element (~47k characters, under Webflow's 50k limit; uses the site's Albert Sans) |
 | `.html` | Standalone page with fonts inlined — open locally, or host and iframe |
 
 ### Putting the video in Webflow
@@ -116,6 +119,30 @@ which is what makes the scrubber and the frame-exact recorder work. New scenes:
 copy `scenes/smart-ops-dashboard/`, keep that contract, and they show up in the
 preview picker automatically.
 
+### Smart Ops Dashboard
+
+The scene rebuilds the real DishBooks Home dashboard — same layout, Phosphor
+icons, colours, type scale and chart styles as the app (light theme, taken
+from staging in Oct 2026) — at a real 1440 × 1008 browser size, then films it
+with a virtual camera:
+
+| Time | Shot |
+|---|---|
+| 0–0.9s | Sign-in card, cursor clicks **Sign in** |
+| 0.9–2.3s | Wide shot: the dashboard loads, KPIs count up, charts draw |
+| 2.3–3.75s | Push in and pan along the KPI cards |
+| 3.75–5.2s | Sales Performance, hover tooltip on the latest month |
+| 5.2–6.5s | Pull back, scroll to Location Performance, the flagged cell lights up, cursor clicks **Ask Dex** |
+| 6.5–9.45s | Dex panel: question typed and sent, answer streams in |
+| 9.45–10s | Back to the sign-in card (seamless loop) |
+
+The camera keyframes are in `measure()` in `scene.js` (scale + centre per
+shot); the timings are in `CUES`. If the app's look changes, the tokens are at
+the top of `scene.css` and the icons in `shared/icons.js` (copied from the
+app's stylesheet). The Dex panel is designed from the app's tokens and
+`.dex-message` styles rather than copied from the live panel.
+
 The recorder drives your installed Google Chrome through Playwright and pipes
 PNG frames into ffmpeg (both already on this machine: `brew install ffmpeg` if
-you set this up elsewhere).
+you set this up elsewhere). The HTML embed is minified with the terser that
+ships inside Next.js.

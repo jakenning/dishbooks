@@ -4,8 +4,7 @@
   "audience": "Casual Dining",
   "company": {
     "name": "Hollis Street Grill",
-    "scope": "All locations",
-    "scopeCount": "3 locations"
+    "scopeLabel": "3 Locations"
   },
   "user": {
     "firstName": "Tom",
@@ -13,223 +12,267 @@
     "role": "Owner",
     "initials": "TA"
   },
-  "greeting": "Good morning",
-  "period": {
-    "label": "This period",
-    "wtdLabel": "Week to date"
-  },
+  "period": "Last 12 months",
+  "months": [
+    "Oct",
+    "Nov",
+    "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+  ],
   "kpis": [
     {
-      "key": "cash",
-      "label": "Cash balance",
-      "value": 372350,
-      "format": "money",
-      "delta": 2.7,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
-      "spark": [
-        364316.68,
-        364698.38,
-        364091.26,
-        365138.27,
-        366109.12,
-        368281.47,
-        370543.94,
-        371191.81,
-        371658.71,
-        367526.89,
-        374150.46,
-        372350
-      ]
-    },
-    {
       "key": "sales",
-      "label": "Net sales (week to date)",
-      "value": 58106,
-      "format": "money",
-      "delta": 2.9,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
+      "label": "Total Sales",
+      "value": 8720000,
+      "format": "k",
       "spark": [
-        36113,
-        25672,
-        17449,
-        18532,
-        20487,
-        23780,
-        35070,
-        36856,
-        24107,
-        17317,
-        18972,
-        21817
-      ]
+        723285,
+        701648,
+        796101,
+        612990,
+        653719,
+        700137,
+        733418,
+        749759,
+        777104,
+        801216,
+        767553,
+        703071
+      ],
+      "trend": "improving"
     },
     {
       "key": "prime",
-      "label": "Prime cost",
-      "value": 62,
+      "label": "Prime Cost %",
+      "value": 62.5,
       "format": "pct",
-      "delta": 0.4,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
       "spark": [
-        61.53,
-        61.54,
-        61.6,
-        61.59,
-        61.75,
-        61.75,
-        61.81,
-        61.84,
-        61.84,
-        61.92,
-        61.98,
-        62
-      ]
+        62.4,
+        63,
+        62.9,
+        62.5,
+        62.4,
+        62.4,
+        62.7,
+        62.8,
+        62.7,
+        62.5,
+        62.5,
+        62.5
+      ],
+      "trend": "improving"
     },
     {
-      "key": "food",
-      "label": "Food cost",
-      "value": 30.6,
-      "format": "pct",
-      "delta": -0.2,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
+      "key": "ebitda",
+      "label": "EBITDA",
+      "value": 991050,
+      "format": "k",
       "spark": [
-        30.84,
-        30.83,
-        30.75,
-        30.77,
-        30.71,
-        30.67,
-        30.68,
-        30.73,
-        30.6,
-        30.63,
-        30.64,
-        30.6
-      ]
-    },
-    {
-      "key": "labor",
-      "label": "Labor cost",
-      "value": 31.4,
-      "format": "pct",
-      "delta": 0.6,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
-      "spark": [
-        30.64,
-        30.8,
-        30.87,
-        30.93,
-        31.19,
-        30.9,
-        31.1,
-        31.15,
-        31.32,
-        31.31,
-        31.45,
-        31.4
-      ]
+        81543,
+        81437,
+        92240,
+        70654,
+        68305,
+        82259,
+        86152,
+        81339,
+        83210,
+        87147,
+        81784,
+        79945
+      ],
+      "trend": "improving"
     },
     {
       "key": "net",
-      "label": "Net profit",
-      "value": 7.2,
-      "format": "pct",
-      "delta": 0.3,
-      "unit": "pts",
-      "goodWhen": "up",
-      "compare": "vs. last period",
+      "label": "Net Profit",
+      "value": 720730,
+      "format": "k",
       "spark": [
-        6.88,
-        7.01,
-        6.95,
-        7.03,
-        6.94,
-        7.03,
-        6.99,
-        7.17,
-        7.18,
-        7.14,
-        7.22,
-        7.2
-      ]
+        59121,
+        59686,
+        67561,
+        51651,
+        48040,
+        60555,
+        63416,
+        58096,
+        59120,
+        62309,
+        57990,
+        58150
+      ],
+      "trend": "improving"
+    },
+    {
+      "key": "cash",
+      "label": "Cash Balance",
+      "value": 402500,
+      "format": "k",
+      "spark": [
+        319800,
+        328600,
+        335400,
+        339400,
+        351000,
+        360400,
+        358400,
+        380900,
+        390000,
+        385100,
+        400000,
+        402500
+      ],
+      "trend": "improving"
     }
   ],
-  "salesTrend": {
-    "title": "Net sales",
-    "subtitle": "Daily · last 4 weeks",
-    "days": [
-      23014,
-      34474,
-      32246,
-      24652,
-      16634,
-      19495,
-      21867,
-      24643,
-      31970,
-      33098,
-      24842,
-      16464,
-      19892,
-      21350,
-      25024,
-      34173,
-      36113,
-      25672,
-      17449,
-      18532,
-      20487,
-      23780,
-      35070,
-      36856,
-      24107,
-      17317,
-      18972,
-      21817
+  "pnl": [
+    {
+      "metric": "Total Sales",
+      "actual": 8720000,
+      "lastYear": 8408872,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "COGS",
+      "actual": 2740850,
+      "lastYear": 2693510,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Labor",
+      "actual": 2709870,
+      "lastYear": 2571138,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Prime Cost",
+      "actual": 5450720,
+      "lastYear": 5264648,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Operating Expenses",
+      "actual": 2278230,
+      "lastYear": 2222170,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "EBITDA",
+      "actual": 991050,
+      "lastYear": 922054,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "Net Profit",
+      "actual": 720730,
+      "lastYear": 661379,
+      "goodWhenUp": true
+    }
+  ],
+  "sales": {
+    "guests": 211650,
+    "avgCheck": 41.2,
+    "thisPeriod": [
+      723285,
+      701648,
+      796101,
+      612990,
+      653719,
+      700137,
+      733418,
+      749759,
+      777104,
+      801216,
+      767553,
+      703071
     ],
-    "firstWeekday": 3,
-    "currentWeekBars": 3
-  },
-  "panel": {
-    "title": "Locations",
-    "subtitle": "Prime cost · period to date",
-    "mode": "entities",
-    "rows": [
-      {
-        "name": "Main St",
-        "sales": 22080,
-        "pct": 61.1,
-        "target": 62,
-        "status": "ok"
-      },
-      {
-        "name": "Brookside",
-        "sales": 19170,
-        "pct": 60.4,
-        "target": 62,
-        "status": "ok"
-      },
-      {
-        "name": "Airport",
-        "sales": 16850,
-        "pct": 65.3,
-        "target": 62,
-        "status": "warn"
-      }
+    "lastYear": [
+      686568,
+      689522,
+      736971,
+      614935,
+      624050,
+      703720,
+      713069,
+      750222,
+      763366,
+      755654,
+      722017,
+      678288
     ]
   },
+  "costBreakdown": [
+    {
+      "label": "COGS",
+      "pct": 31.4
+    },
+    {
+      "label": "Labor",
+      "pct": 31.1
+    },
+    {
+      "label": "Operating Expenses",
+      "pct": 26.1
+    },
+    {
+      "label": "Other",
+      "pct": 3.1
+    }
+  ],
+  "rowLabel": "Location",
+  "locations": [
+    {
+      "name": "Main St",
+      "sales": 3310000,
+      "food": 24.6,
+      "bev": 6.8,
+      "labor": 29.9,
+      "prime": 61.3,
+      "ebitda": 417060,
+      "netProfit": 314450,
+      "netPct": 9.5
+    },
+    {
+      "name": "Brookside",
+      "sales": 2870000,
+      "food": 24.2,
+      "bev": 6.5,
+      "labor": 30.2,
+      "prime": 60.9,
+      "ebitda": 353010,
+      "netProfit": 264040,
+      "netPct": 9.2
+    },
+    {
+      "name": "Airport",
+      "sales": 2540000,
+      "food": 25.1,
+      "bev": 7.2,
+      "labor": 33.6,
+      "prime": 65.9,
+      "ebitda": 220980,
+      "netProfit": 142240,
+      "netPct": 5.6
+    }
+  ],
+  "flag": {
+    "row": 2,
+    "col": "labor"
+  },
   "dex": {
-    "ask": "Why is the Airport location over?",
-    "answer": "Overtime at Airport is 41 hours this period, all in the kitchen. Two line cooks are covering a vacancy — the other locations have none."
+    "ask": "Why is labor so high at Airport?",
+    "answer": [
+      "Overtime at Airport is **41 hours a period**, all in the kitchen. Two line cooks are covering an open position; the other locations have none.",
+      "Filling it brings labor from **33.6%** to about **30.5%**."
+    ]
   }
 }

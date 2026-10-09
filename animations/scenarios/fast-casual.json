@@ -4,8 +4,7 @@
   "audience": "Fast Casual",
   "company": {
     "name": "Field & Fold",
-    "scope": "All locations",
-    "scopeCount": "5 locations"
+    "scopeLabel": "5 Locations"
   },
   "user": {
     "firstName": "Jordan",
@@ -13,230 +12,278 @@
     "role": "Founder",
     "initials": "JK"
   },
-  "greeting": "Good morning",
-  "period": {
-    "label": "This period",
-    "wtdLabel": "Week to date"
-  },
+  "period": "Last 12 months",
+  "months": [
+    "Oct",
+    "Nov",
+    "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+  ],
   "kpis": [
     {
-      "key": "cash",
-      "label": "Cash balance",
-      "value": 300280,
-      "format": "money",
-      "delta": 5.2,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
-      "spark": [
-        280001.86,
-        281605.67,
-        286541.97,
-        285461.35,
-        294178.58,
-        295897.42,
-        293242.16,
-        295460.43,
-        295123.39,
-        297216,
-        300529.79,
-        300280
-      ]
-    },
-    {
       "key": "sales",
-      "label": "Net sales (week to date)",
-      "value": 59037,
-      "format": "money",
-      "delta": 6.1,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
+      "label": "Total Sales",
+      "value": 6150000,
+      "format": "k",
       "spark": [
-        17159,
-        15403,
-        18626,
-        18087,
-        18930,
-        19625,
-        20539,
-        17731,
-        16609,
-        19374,
-        19571,
-        20092
-      ]
+        505926,
+        505323,
+        518021,
+        477566,
+        468165,
+        514209,
+        511092,
+        539396,
+        535149,
+        532075,
+        537108,
+        505968
+      ],
+      "trend": "improving"
     },
     {
       "key": "prime",
-      "label": "Prime cost",
-      "value": 58.3,
+      "label": "Prime Cost %",
+      "value": 59.1,
       "format": "pct",
-      "delta": -0.6,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
       "spark": [
-        58.83,
+        59.7,
+        59.5,
+        59.9,
+        59.7,
+        59.3,
+        59.1,
+        59,
         58.9,
-        58.87,
-        58.74,
-        58.69,
-        58.75,
-        58.54,
-        58.6,
-        58.59,
-        58.49,
-        58.36,
-        58.3
-      ]
+        58.8,
+        59.1,
+        58.8,
+        59.1
+      ],
+      "trend": "improving"
     },
     {
-      "key": "food",
-      "label": "Food cost",
-      "value": 30.4,
-      "format": "pct",
-      "delta": -0.8,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
+      "key": "ebitda",
+      "label": "EBITDA",
+      "value": 807940,
+      "format": "k",
       "spark": [
-        31,
-        31.3,
-        31.14,
-        30.81,
-        31.11,
-        30.64,
-        30.69,
-        30.77,
-        30.49,
-        30.69,
-        30.63,
-        30.4
-      ]
-    },
-    {
-      "key": "labor",
-      "label": "Labor cost",
-      "value": 27.9,
-      "format": "pct",
-      "delta": 0.2,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
-      "spark": [
-        27.65,
-        27.73,
-        27.77,
-        27.71,
-        27.72,
-        27.82,
-        27.84,
-        27.83,
-        27.85,
-        27.84,
-        27.83,
-        27.9
-      ]
+        64125,
+        61379,
+        64088,
+        58241,
+        58059,
+        65846,
+        65583,
+        67064,
+        70015,
+        70549,
+        70162,
+        66701
+      ],
+      "trend": "improving"
     },
     {
       "key": "net",
-      "label": "Net profit",
-      "value": 9.1,
-      "format": "pct",
-      "delta": 0.9,
-      "unit": "pts",
-      "goodWhen": "up",
-      "compare": "vs. last period",
+      "label": "Net Profit",
+      "value": 617290,
+      "format": "k",
       "spark": [
-        8.13,
-        8.42,
-        8.28,
-        8.26,
-        8.38,
-        8.72,
-        8.44,
-        8.75,
-        8.84,
-        9.12,
-        9.25,
-        9.1
-      ]
+        48441,
+        45714,
+        48029,
+        43436,
+        43546,
+        49906,
+        49739,
+        50343,
+        53425,
+        54055,
+        53512,
+        51016
+      ],
+      "trend": "improving"
+    },
+    {
+      "key": "cash",
+      "label": "Cash Balance",
+      "value": 260200,
+      "format": "k",
+      "spark": [
+        212500,
+        211700,
+        220600,
+        227100,
+        230200,
+        232100,
+        230500,
+        235100,
+        251200,
+        253500,
+        249900,
+        260200
+      ],
+      "trend": "improving"
     }
   ],
-  "salesTrend": {
-    "title": "Net sales",
-    "subtitle": "Daily · last 4 weeks",
-    "days": [
-      18921,
-      19750,
-      16845,
-      15592,
-      18373,
-      18257,
-      18202,
-      19490,
-      20280,
-      16124,
-      15269,
-      17408,
-      18647,
-      19257,
-      18707,
-      19817,
-      17159,
-      15403,
-      18626,
-      18087,
-      18930,
-      19625,
-      20539,
-      17731,
-      16609,
-      19374,
-      19571,
-      20092
+  "pnl": [
+    {
+      "metric": "Total Sales",
+      "actual": 6150000,
+      "lastYear": 5742297,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "COGS",
+      "actual": 1902340,
+      "lastYear": 1822166,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Labor",
+      "actual": 1730180,
+      "lastYear": 1603996,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Prime Cost",
+      "actual": 3632520,
+      "lastYear": 3426162,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Operating Expenses",
+      "actual": 1709540,
+      "lastYear": 1624921,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "EBITDA",
+      "actual": 807940,
+      "lastYear": 691214,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "Net Profit",
+      "actual": 617290,
+      "lastYear": 513203,
+      "goodWhenUp": true
+    }
+  ],
+  "sales": {
+    "guests": 375000,
+    "avgCheck": 16.4,
+    "thisPeriod": [
+      505926,
+      505323,
+      518021,
+      477566,
+      468165,
+      514209,
+      511092,
+      539396,
+      535149,
+      532075,
+      537108,
+      505968
     ],
-    "firstWeekday": 3,
-    "currentWeekBars": 3
-  },
-  "panel": {
-    "title": "Locations",
-    "subtitle": "Prime cost · period to date",
-    "mode": "entities",
-    "rows": [
-      {
-        "name": "Union Square",
-        "sales": 14170,
-        "pct": 56.6,
-        "target": 59,
-        "status": "ok"
-      },
-      {
-        "name": "University",
-        "sales": 12400,
-        "pct": 57.8,
-        "target": 59,
-        "status": "ok"
-      },
-      {
-        "name": "Tech Park",
-        "sales": 10630,
-        "pct": 61.9,
-        "target": 59,
-        "status": "warn"
-      },
-      {
-        "name": "Riverside",
-        "sales": 11220,
-        "pct": 58.2,
-        "target": 59,
-        "status": "ok"
-      }
+    "lastYear": [
+      474604,
+      461619,
+      480913,
+      445877,
+      440711,
+      467447,
+      470571,
+      505224,
+      492858,
+      512930,
+      487347,
+      466580
     ]
+  },
+  "costBreakdown": [
+    {
+      "label": "COGS",
+      "pct": 30.9
+    },
+    {
+      "label": "Labor",
+      "pct": 28.1
+    },
+    {
+      "label": "Operating Expenses",
+      "pct": 27.8
+    },
+    {
+      "label": "Other",
+      "pct": 3.1
+    }
+  ],
+  "rowLabel": "Location",
+  "locations": [
+    {
+      "name": "Union Square",
+      "sales": 1840000,
+      "food": 29.1,
+      "bev": 1.6,
+      "labor": 26.9,
+      "prime": 57.6,
+      "ebitda": 277840,
+      "netProfit": 220800,
+      "netPct": 12
+    },
+    {
+      "name": "University",
+      "sales": 1620000,
+      "food": 29.6,
+      "bev": 1.5,
+      "labor": 27.4,
+      "prime": 58.5,
+      "ebitda": 220320,
+      "netProfit": 170100,
+      "netPct": 10.5
+    },
+    {
+      "name": "Tech Park",
+      "sales": 1280000,
+      "food": 29.8,
+      "bev": 1.4,
+      "labor": 31.2,
+      "prime": 62.4,
+      "ebitda": 115200,
+      "netProfit": 75520,
+      "netPct": 5.9
+    },
+    {
+      "name": "Riverside",
+      "sales": 1410000,
+      "food": 29.3,
+      "bev": 1.5,
+      "labor": 27.8,
+      "prime": 58.6,
+      "ebitda": 194580,
+      "netProfit": 150870,
+      "netPct": 10.7
+    }
+  ],
+  "flag": {
+    "row": 2,
+    "col": "labor"
   },
   "dex": {
     "ask": "What’s happening at Tech Park?",
-    "answer": "Tech Park sales are down 11% on Mondays and Fridays since the office hybrid schedule changed — labor hasn’t moved with it."
+    "answer": [
+      "Sales at Tech Park are down 11% on Mondays and Fridays since the office hybrid schedule changed, but labor hasn’t moved with it.",
+      "Trimming one opener on those days brings labor from **31.2%** back to about **28%**."
+    ]
   }
 }

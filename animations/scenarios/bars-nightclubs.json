@@ -4,8 +4,7 @@
   "audience": "Bars & Nightclubs",
   "company": {
     "name": "The Velvet Ledger",
-    "scope": "All venues",
-    "scopeCount": "2 venues"
+    "scopeLabel": "2 Venues"
   },
   "user": {
     "firstName": "Andre",
@@ -13,216 +12,256 @@
     "role": "Managing Partner",
     "initials": "AL"
   },
-  "greeting": "Good morning",
-  "period": {
-    "label": "This period",
-    "wtdLabel": "Week to date"
-  },
+  "period": "Last 12 months",
+  "months": [
+    "Oct",
+    "Nov",
+    "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+  ],
   "kpis": [
     {
-      "key": "cash",
-      "label": "Cash balance",
-      "value": 223390,
-      "format": "money",
-      "delta": 6.2,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
-      "spark": [
-        211312.48,
-        209162.81,
-        214487.58,
-        215765.27,
-        215944.76,
-        217814.33,
-        218474.12,
-        221159.93,
-        215638.04,
-        221835.8,
-        221873.55,
-        223390
-      ]
-    },
-    {
       "key": "sales",
-      "label": "Net sales (week to date)",
-      "value": 14008,
-      "format": "money",
-      "delta": 5.7,
-      "unit": "%",
-      "goodWhen": "up",
-      "compare": "vs. last week",
+      "label": "Total Sales",
+      "value": 3850000,
+      "format": "k",
       "spark": [
-        20893,
-        2840,
-        2806,
-        4259,
-        6188,
-        11175,
-        19948,
-        20786,
-        2734,
-        2940,
-        4353,
-        6715
-      ]
+        309123,
+        306432,
+        375308,
+        263009,
+        277532,
+        327115,
+        311381,
+        335769,
+        346846,
+        352251,
+        336113,
+        309121
+      ],
+      "trend": "improving"
     },
     {
       "key": "prime",
-      "label": "Prime cost",
-      "value": 46.2,
+      "label": "Prime Cost %",
+      "value": 48.2,
       "format": "pct",
-      "delta": 0.2,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
       "spark": [
-        46.04,
-        45.99,
-        46.02,
-        46.03,
-        46.12,
-        46.13,
-        46.09,
-        46.18,
-        46.17,
-        46.17,
-        46.17,
-        46.2
-      ]
+        47.6,
+        47.3,
+        47.4,
+        47.6,
+        47.9,
+        47.9,
+        48.1,
+        48.2,
+        47.9,
+        48.3,
+        48.4,
+        48.2
+      ],
+      "trend": "declining"
     },
     {
-      "key": "food",
-      "label": "Pour cost",
-      "value": 21.4,
-      "format": "pct",
-      "delta": 0.6,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
+      "key": "ebitda",
+      "label": "EBITDA",
+      "value": 663830,
+      "format": "k",
       "spark": [
-        20.8,
-        20.86,
-        20.9,
-        21.07,
-        21.15,
-        21.06,
-        21.2,
-        21.34,
-        21.35,
-        21.41,
-        21.33,
-        21.4
-      ]
-    },
-    {
-      "key": "labor",
-      "label": "Labor cost",
-      "value": 24.8,
-      "format": "pct",
-      "delta": -0.4,
-      "unit": "pts",
-      "goodWhen": "down",
-      "compare": "vs. last period",
-      "spark": [
-        25.12,
-        25.27,
-        25.23,
-        25.21,
-        25.03,
-        25.11,
-        25.08,
-        25.05,
-        24.96,
-        24.86,
-        24.95,
-        24.8
-      ]
+        54823,
+        53889,
+        67334,
+        42746,
+        48519,
+        56193,
+        55933,
+        60343,
+        57856,
+        59680,
+        56790,
+        55902
+      ],
+      "trend": "improving"
     },
     {
       "key": "net",
-      "label": "Net profit",
-      "value": 14.2,
-      "format": "pct",
-      "delta": 0.8,
-      "unit": "pts",
-      "goodWhen": "up",
-      "compare": "vs. last period",
+      "label": "Net Profit",
+      "value": 544480,
+      "format": "k",
       "spark": [
-        13.59,
-        13.67,
-        13.47,
-        13.58,
-        13.73,
-        13.63,
-        13.65,
-        14,
-        14.11,
-        13.87,
-        14.21,
-        14.2
-      ]
+        45240,
+        44390,
+        55699,
+        34593,
+        39916,
+        46052,
+        46280,
+        49934,
+        47104,
+        48760,
+        46370,
+        46319
+      ],
+      "trend": "improving"
+    },
+    {
+      "key": "cash",
+      "label": "Cash Balance",
+      "value": 222100,
+      "format": "k",
+      "spark": [
+        181200,
+        180100,
+        190700,
+        192000,
+        194000,
+        196800,
+        207600,
+        205800,
+        210200,
+        213700,
+        222100,
+        222100
+      ],
+      "trend": "improving"
     }
   ],
-  "salesTrend": {
-    "title": "Net sales",
-    "subtitle": "Daily · last 4 weeks",
-    "days": [
-      10418,
-      21004,
-      21386,
-      2699,
-      2846,
-      4309,
-      6281,
-      10905,
-      21211,
-      21363,
-      2702,
-      2635,
-      3934,
-      6507,
-      10891,
-      21021,
-      20893,
-      2840,
-      2806,
-      4259,
-      6188,
-      11175,
-      19948,
-      20786,
-      2734,
-      2940,
-      4353,
-      6715
+  "pnl": [
+    {
+      "metric": "Total Sales",
+      "actual": 3850000,
+      "lastYear": 3601497,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "COGS",
+      "actual": 924790,
+      "lastYear": 839888,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Labor",
+      "actual": 929920,
+      "lastYear": 877100,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Prime Cost",
+      "actual": 1854710,
+      "lastYear": 1716988,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "Operating Expenses",
+      "actual": 1331460,
+      "lastYear": 1263527,
+      "goodWhenUp": false
+    },
+    {
+      "metric": "EBITDA",
+      "actual": 663830,
+      "lastYear": 620982,
+      "goodWhenUp": true
+    },
+    {
+      "metric": "Net Profit",
+      "actual": 544480,
+      "lastYear": 509336,
+      "goodWhenUp": true
+    }
+  ],
+  "sales": {
+    "guests": 122222,
+    "avgCheck": 31.5,
+    "thisPeriod": [
+      309123,
+      306432,
+      375308,
+      263009,
+      277532,
+      327115,
+      311381,
+      335769,
+      346846,
+      352251,
+      336113,
+      309121
     ],
-    "firstWeekday": 3,
-    "currentWeekBars": 3
-  },
-  "panel": {
-    "title": "Venues",
-    "subtitle": "Prime cost · period to date",
-    "mode": "entities",
-    "rows": [
-      {
-        "name": "The Velvet Ledger",
-        "sales": 8120,
-        "pct": 45.2,
-        "target": 47,
-        "status": "ok"
-      },
-      {
-        "name": "Afterglow Room",
-        "sales": 5880,
-        "pct": 48.9,
-        "target": 47,
-        "status": "warn"
-      }
+    "lastYear": [
+      293703,
+      284837,
+      343355,
+      243864,
+      262102,
+      301584,
+      293975,
+      306000,
+      323121,
+      327759,
+      317715,
+      283222
     ]
+  },
+  "costBreakdown": [
+    {
+      "label": "COGS",
+      "pct": 24
+    },
+    {
+      "label": "Labor",
+      "pct": 24.2
+    },
+    {
+      "label": "Operating Expenses",
+      "pct": 34.6
+    },
+    {
+      "label": "Other",
+      "pct": 3.1
+    }
+  ],
+  "rowLabel": "Venue",
+  "locations": [
+    {
+      "name": "The Velvet Ledger",
+      "sales": 2210000,
+      "food": 3.8,
+      "bev": 18.9,
+      "labor": 23.6,
+      "prime": 46.3,
+      "ebitda": 430950,
+      "netProfit": 362440,
+      "netPct": 16.4
+    },
+    {
+      "name": "Afterglow Room",
+      "sales": 1640000,
+      "food": 3.1,
+      "bev": 22.7,
+      "labor": 24.9,
+      "prime": 50.7,
+      "ebitda": 232880,
+      "netProfit": 182040,
+      "netPct": 11.1
+    }
+  ],
+  "flag": {
+    "row": 1,
+    "col": "bev"
   },
   "dex": {
     "ask": "Why is pour cost up at Afterglow?",
-    "answer": "Tequila depletion at Afterglow is 11% above what POS sales account for — likely over-pours or comps on Fri and Sat. Beer and wine are in line."
+    "answer": [
+      "Tequila usage at Afterglow is **11% higher** than POS sales account for, which points to over-pours or comps on Fridays and Saturdays.",
+      "Beer and wine are in line. Closing the gap is worth about **$46k** a year."
+    ]
   }
 }

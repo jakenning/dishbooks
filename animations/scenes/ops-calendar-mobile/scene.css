@@ -1,0 +1,31 @@
+/* Ops Calendar, phone layout (400 × 632). Same components and tokens as the
+   desktop scene; only sizes and positions change here. render.mjs inlines the
+   @import when it builds the embed. */
+
+@import url('../ops-calendar/scene.css');
+
+.db-anim.opc.m .card { left: 16px; width: 368px; }
+
+/* 1 · Calendars row: Year + Entity move into a row header */
+.db-anim.opc.m .cal { top: 16px; }
+.db-anim.opc.m .yh { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-bottom: 1px solid var(--border-2); white-space: nowrap; }
+.db-anim.opc.m .yh .ent { margin-left: 4px; color: var(--text-100); }
+.db-anim.opc.m .gr { grid-template-columns: 106px 134px 1fr; }
+
+/* 2 · Timeline: labels above the bars */
+.db-anim.opc.m .tl { top: 140px; padding: 14px 14px 10px; }
+.db-anim.opc.m .tl-svg { margin-top: 10px; }
+.db-anim.opc.m .flbl text,
+.db-anim.opc.m .olbl text,
+.db-anim.opc.m .plbl,
+.db-anim.opc.m .sub,
+.db-anim.opc.m .q text { font-size: 10px !important; }
+.db-anim.opc.m .rowlbl .val { font-size: 13px; }
+
+/* 3 · Report: Columns picker on its own line */
+.db-anim.opc.m .rep { top: 366px; padding: 14px 14px 12px; }
+.db-anim.opc.m .when { font-size: 12px; color: var(--text-200); white-space: nowrap; }
+.db-anim.opc.m .chips { margin-top: 10px; }
+.db-anim.opc.m .ch-svg text { font-size: 10px; }
+.db-anim.opc.m .foot span { left: 40px; }
+.db-anim.opc.m .menu { right: auto; left: 14px; bottom: calc(100% - 76px); }

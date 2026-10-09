@@ -29,7 +29,7 @@ export async function run(scene, { scenarioBase = '../../scenarios/', root = doc
   };
   window.__anim = api;
 
-  fit(root, q.get('fit') !== '0');
+  fit(root, scene.meta, q.get('fit') !== '0');
 
   if (q.has('record')) {
     api.seek(0);
@@ -69,11 +69,13 @@ export async function run(scene, { scenarioBase = '../../scenarios/', root = doc
 }
 
 // Scale the fixed-size stage to fit its container, preserving aspect ratio.
-function fit(root, enabled) {
+// Uses the scene's own size, not a measurement, so an embed that starts out
+// hidden (display: none at one Webflow breakpoint) still scales once shown.
+function fit(root, { width, height }, enabled) {
   if (!enabled) return;
   const parent = root.parentElement;
-  const { width, height } = root.getBoundingClientRect();
   const apply = () => {
+    if (!parent.clientWidth) return;
     const s = Math.min(parent.clientWidth / width, (parent.clientHeight || Infinity) / height);
     root.style.transform = `scale(${s})`;
     root.style.transformOrigin = 'top left';

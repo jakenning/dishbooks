@@ -19,7 +19,7 @@
 import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
 import { mkdir, readFile, writeFile, stat } from 'node:fs/promises';
-import { join } from 'node:path';
+import { join, dirname, relative } from 'node:path';
 import { parseArgs } from 'node:util';
 import { createRequire } from 'node:module';
 import { serve, listScenarios, ROOT } from './serve.mjs';
@@ -38,14 +38,13 @@ const { values: args } = parseArgs({
     scene: { type: 'string', default: 'smart-ops-dashboard' },
     scenario: { type: 'string', default: 'home' },
     formats: { type: 'string', default: 'webm,mp4,poster,html' },
-    scale: { type: 'string', default: '1.5' }, // device pixel ratio → 1320×924
+    scale: { type: 'string' }, // device pixel ratio; default meta.scale ?? 1.5 (880×616 → 1320×924)
     fps: { type: 'string' },
   },
 });
 
 const formats = new Set(args.formats.split(','));
 const scenarios = args.scenario === 'all' ? await listScenarios() : args.scenario.split(',');
-const dpr = Number(args.scale);
 
 const server = await serve(0);
 const base = `http://127.0.0.1:${server.address().port}`;
@@ -74,7 +73,7 @@ try {
   server.close();
 }
 
-async function openScene(scenario, viewport) {
+async function openScene(scenario, viewport, dpr = 1) {
   const page = await browser.newPage({ viewport, deviceScaleFactor: dpr });
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto(`${base}/scenes/${args.scene}/index.html?scenario=${scenario}&record=1&fit=0`);
@@ -88,7 +87,8 @@ async function renderVideo(scenario, outDir) {
   const meta = await probe.evaluate(() => window.__anim.meta);
   await probe.close();
 
-  const page = await openScene(scenario, { width: meta.width, height: meta.height });
+  const dpr = Number(args.scale ?? meta.scale ?? 1.5);
+  const page = await openScene(scenario, { width: meta.width, height: meta.height }, dpr);
   const fps = Number(args.fps ?? meta.fps);
   const frames = Math.round(meta.duration * fps);
   const name = join(outDir, args.scene);
@@ -125,9 +125,9 @@ async function renderVideo(scenario, outDir) {
 }
 
 // ---- HTML bundling ---------------------------------------------------------
-// Inlines the shared runtime, the scene and the scenario into one file. The
-// modules are written to use only `import { … } from` / `export` at top level,
-// which is all this needs to strip.
+// Inlines the scene, everything it imports, the player and the scenario into
+// one file. The modules are written to use only `import { … } from './…'` /
+// `export` at top level and unique top-level names, which is all this needs.
 
 async function bundleHtml(scenario, outDir) {
   const read = (p) => readFile(join(ROOT, p), 'utf8');
@@ -136,13 +136,30 @@ async function bundleHtml(scenario, outDir) {
       .replace(/^import[^;]+;\s*$/gm, '')
       .replace(/^export (const|function|async function|let) /gm, '$1 ');
   const sceneDir = `scenes/${args.scene}`;
+  // Scene modules in dependency order (each file once).
+  const modules = [];
+  const visit = async (file) => {
+    if (modules.includes(file)) return;
+    const src = await read(file);
+    for (const [, dep] of src.matchAll(/^import[^;]+from '(\.[^']+)';/gm)) {
+      await visit(relative(ROOT, join(ROOT, dirname(file), dep)));
+    }
+    modules.push(file);
+  };
+  await visit(`${sceneDir}/scene.js`);
+  // Scene CSS with its relative @imports inlined.
+  const inlineCss = async (file) => {
+    let css = await read(file);
+    for (const [stmt, dep] of css.matchAll(/@import url\('(\.[^']+)'\);/g)) {
+      css = css.replace(stmt, await inlineCss(relative(ROOT, join(ROOT, dirname(file), dep))));
+    }
+    return css;
+  };
   const data = JSON.parse(await read(`scenarios/${scenario}.json`));
   delete data.$comment;
 
   const raw = `(() => {
-${strip(await read('lib/timeline.js'))}
-${strip(await read('shared/icons.js'))}
-${strip(await read(`${sceneDir}/scene.js`))}
+${(await Promise.all(modules.map(async (m) => strip(await read(m))))).join('\n')}
 const scene = { meta, build, frame };
 ${strip(await read('lib/player.js'))}
 const host = document.currentScript.previousElementSibling.querySelector('[data-db-anim]');
@@ -154,7 +171,7 @@ run(scene, { root: host });
   const js = terser ? (await terser.minify(raw, { compress: { passes: 2 } })).code.replace(/(?:\\n|\n)\s+/g, ' ') : raw;
 
   const baseCss = await read('shared/base.css');
-  const sceneCss = await read(`${sceneDir}/scene.css`);
+  const sceneCss = await inlineCss(`${sceneDir}/scene.css`);
   const cssNoFonts = baseCss.replace(/@font-face\s*{[^}]*}/g, '').replace(/\/\* Preview chrome[\s\S]*$/, '');
   const markup = `<div class="db-anim-wrap" style="width:100%"><div data-db-anim></div></div>`;
 

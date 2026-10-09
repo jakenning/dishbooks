@@ -43,7 +43,7 @@
     </div>
     <div class="mobile">
       <div class="frame"><iframe id="view-sm" title="Animation preview, phone width"></iframe></div>
-      <p>Phone width (360px)</p>
+      <p id="sm-note">Phone width (360px)</p>
     </div>
   </main>
   <script type="module">
@@ -54,10 +54,25 @@
     $('scenario').innerHTML = scenarios.map((s) => `<option>${s}</option>`).join('');
     $('scene').value = q.get('scene') || scenes[0];
     $('scenario').value = q.get('scenario') || 'home';
-    const url = (controls) => `scenes/${$('scene').value}/index.html?scenario=${$('scenario').value}${controls ? '&controls=1' : ''}`;
+    const url = (controls, scene = $('scene').value) => `scenes/${scene}/index.html?scenario=${$('scenario').value}${controls ? '&controls=1' : ''}`;
+    // The phone slot shows a scene's -mobile layout when it has one.
+    const phoneScene = () => {
+      const s = $('scene').value;
+      return scenes.includes(`${s}-mobile`) ? `${s}-mobile` : s;
+    };
+    // Size each frame to the scene it shows.
+    for (const id of ['view', 'view-sm']) {
+      const size = (tries) => {
+        const m = $(id).contentWindow.__anim?.meta; // set once the scene has loaded its data
+        if (m) $(id).style.aspectRatio = `${m.width} / ${m.height}`;
+        else if (tries > 0) setTimeout(() => size(tries - 1), 100);
+      };
+      $(id).addEventListener('load', () => size(20));
+    }
     const load = () => {
       $('view').src = url($('controls').checked);
-      $('view-sm').src = url(false);
+      $('view-sm').src = url(false, phoneScene());
+      $('sm-note').textContent = `Phone width (360px)${phoneScene() !== $('scene').value ? ` · ${phoneScene()}` : ''}`;
       history.replaceState(null, '', `?scene=${$('scene').value}&scenario=${$('scenario').value}`);
     };
     ['scene', 'scenario', 'controls'].forEach((id) => $(id).addEventListener('change', load));

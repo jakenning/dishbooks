@@ -22,6 +22,7 @@ animations/
 npm run anim            # preview at http://localhost:5178
 npm run anim:render     # render the homepage version → animations/dist/
 npm run anim:render -- --scene ops-calendar   # same, for another scene
+npm run anim:render -- --scene ops-calendar-mobile
 ```
 
 The preview shows the animation in a mock of the homepage slot, plus a phone
@@ -111,6 +112,16 @@ element. It renders live (crisp at any zoom), pauses when scrolled off-screen,
 and holds a still frame for visitors with reduced motion turned on. It scopes
 all of its CSS under `.db-anim`, so it won't affect the rest of the page.
 
+### Mobile versions
+
+A scene can have a phone layout in a sibling folder named `<scene>-mobile`
+(today: `ops-calendar-mobile`, 400 × 632, rendered at 2.5× → 1000 × 1580). The
+preview's phone slot shows it automatically. In Webflow, add both versions to
+the section and use the breakpoint visibility settings: hide the desktop
+version on Mobile Landscape and Mobile Portrait, and hide the mobile version
+on Desktop and Tablet. This works for videos and HTML embeds. An embed that
+starts out hidden lays itself out correctly once it is shown.
+
 ## How a scene works
 
 Each scene exports `meta` (size, duration, fps), `build(root, data)` which
@@ -118,7 +129,10 @@ creates the DOM once, and `frame(t)` which poses everything for time `t`.
 `frame` must be a pure function of `t` — no state carried between frames —
 which is what makes the scrubber and the frame-exact recorder work. New scenes:
 copy `scenes/smart-ops-dashboard/`, keep that contract, and they show up in the
-preview picker automatically.
+preview picker automatically. A scene can import from its own folder or a
+sibling scene's folder. `render.mjs` follows those imports, and relative CSS
+`@import`s, when it bundles the embed. Set `meta.scale` to change the video's
+pixel ratio (default 1.5).
 
 ### Smart Ops Dashboard
 
@@ -145,7 +159,12 @@ app's stylesheet). The Dex panel is designed from the app's tokens and
 
 ### Ops Calendar
 
-For the "Ops Calendar & 13-period accounting" section. This scene has no app
+For the "Ops Calendar & 13-period accounting" section. The story and timings
+live in `scenes/ops-calendar/opscal.js`. Each layout's `scene.js` holds only its
+geometry: `ops-calendar` is the 880 × 616 desktop slot, and
+`ops-calendar-mobile` stacks the same cards for phones. On phones the grid row's
+Year and Entity move into a row header, the timeline labels sit above the bars,
+and the Columns picker gets its own line. This scene has no app
 window. It shows three components from the calendar workflow, floating on the
 page background, at 880 × 616:
 

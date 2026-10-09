@@ -1,0 +1,2044 @@
+{
+ "bad": {
+  "https://support.apple.com/kb/PH21411": "404 1 https://support.apple.com/kb/PH21411?locale=en_US",
+  "https://www.aboutads.info/choices": "429 1 https://optout.aboutads.info/",
+  "https://optout.aboutads.info/?c=2&lang=EN": "429 0 https://optout.aboutads.info/?c=2&lang=EN",
+  "http://app.dishbooks.com/signup": "000 0 http://app.dishbooks.com/signup",
+  "https://dishbooks.com/v2-contact": "404 0 https://dishbooks.com/v2-contact",
+  "https://dish-books.webflow.io/feature/dex-ai": "404 0 https://dish-books.webflow.io/feature/dex-ai"
+ },
+ "redir": {
+  "https://www.opera.com/help/tutorials/security/cookies/": "200 2 https://help.opera.com/en/latest/web-preferences/",
+  "https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09": "200 1 https://support.microsoft.com/en-us/edge/manage-cookies-in-microsoft-edge-view-allow-block-delete-and-use",
+  "https://thenai.org/about-online-advertising/faq/?tab=2": "200 1 https://thenai.org/self-regulatory-framework/faq/?tab=2"
+ },
+ "uses": {
+  "https://dishbooks.com/": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/feature/dex-ai": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/feature/smart-dashboard": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/feature/prime-cost-cogs": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/feature/custom-reporting": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/feature/fiscal-calendar-accounting": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/feature/multi-location": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/feature/invoice-bill-pay": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/feature/bank-reconciliation": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/pricing": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/why-dishbooks": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/who-we-serve/independent-restaurants": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/who-we-serve/multi-unit-groups": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/who-we-serve/accounting-firms": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/who-we-serve/qsr": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/who-we-serve/fast-casual": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/who-we-serve/casual-dining": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/who-we-serve/fine-dining": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/who-we-serve/coffee-shops": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/who-we-serve/pizzerias": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/who-we-serve/bars-nightclubs": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/who-we-serve/hotel-restaurants-bars": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/blog": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/contact": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://app.dishbooks.com/login": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://app.dishbooks.com/signup": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/faq": [
+   "/",
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/contact",
+   "/faq",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/legal/accessibility-statement",
+   "/legal/privacy-policy",
+   "/legal/support-policy",
+   "/legal/terms-of-service",
+   "/legal/your-consumer-privacy-rights",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://support.google.com/chrome/answer/95647": [
+   "/legal/privacy-policy"
+  ],
+  "https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences": [
+   "/legal/privacy-policy"
+  ],
+  "https://www.opera.com/help/tutorials/security/cookies/": [
+   "/legal/privacy-policy"
+  ],
+  "https://support.apple.com/kb/PH21411": [
+   "/legal/privacy-policy"
+  ],
+  "https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09": [
+   "/legal/privacy-policy"
+  ],
+  "https://www.aboutads.info/choices": [
+   "/legal/privacy-policy",
+   "/legal/your-consumer-privacy-rights"
+  ],
+  "https://thenai.org/": [
+   "/legal/privacy-policy"
+  ],
+  "https://globalprivacycontrol.org/": [
+   "/legal/privacy-policy"
+  ],
+  "https://dishbooks.com/legal/accessibility-statement": [
+   "/legal/privacy-policy",
+   "/legal/your-consumer-privacy-rights"
+  ],
+  "https://dishbooks.com/legal/privacy-policy": [
+   "/legal/your-consumer-privacy-rights"
+  ],
+  "https://thenai.org/about-online-advertising/faq/?tab=2": [
+   "/legal/your-consumer-privacy-rights"
+  ],
+  "https://optout.aboutads.info/?c=2&lang=EN": [
+   "/legal/your-consumer-privacy-rights"
+  ],
+  "http://app.dishbooks.com/signup": [
+   "/",
+   "/compare/quickbooks",
+   "/compare/restaurant365",
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard",
+   "/pricing",
+   "/who-we-serve/accounting-firms",
+   "/who-we-serve/bars-nightclubs",
+   "/who-we-serve/casual-dining",
+   "/who-we-serve/coffee-shops",
+   "/who-we-serve/fast-casual",
+   "/who-we-serve/fine-dining",
+   "/who-we-serve/hotel-restaurants-bars",
+   "/who-we-serve/independent-restaurants",
+   "/who-we-serve/multi-unit-groups",
+   "/who-we-serve/pizzerias",
+   "/who-we-serve/qsr",
+   "/why-dishbooks"
+  ],
+  "https://dishbooks.com/blog/ai-in-restaurant-accounting-what-it-actually-does": [
+   "/blog",
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does"
+  ],
+  "https://dishbooks.com/blog/how-to-read-a-restaurant-pl-line-by-line": [
+   "/blog",
+   "/blog/how-to-read-a-restaurant-pl-line-by-line"
+  ],
+  "https://dishbooks.com/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong": [
+   "/blog",
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong"
+  ],
+  "https://dishbooks.com/v2-contact": [
+   "/feature/bank-reconciliation",
+   "/feature/custom-reporting",
+   "/feature/dex-ai",
+   "/feature/fiscal-calendar-accounting",
+   "/feature/invoice-bill-pay",
+   "/feature/multi-location",
+   "/feature/prime-cost-cogs",
+   "/feature/smart-dashboard"
+  ],
+  "https://dishbooks.com/compare/quickbooks": [
+   "/compare/quickbooks"
+  ],
+  "https://dishbooks.com/compare/restaurant365": [
+   "/compare/restaurant365"
+  ],
+  "https://dish-books.webflow.io/feature/dex-ai": [
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong"
+  ]
+ },
+ "anchors": [],
+ "empty": [
+  [
+   "/contact",
+   "Support Policy",
+   1
+  ],
+  [
+   "/contact",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/contact",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/contact",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/contact",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/legal/privacy-policy",
+   "Support Policy",
+   1
+  ],
+  [
+   "/legal/privacy-policy",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/legal/privacy-policy",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/legal/privacy-policy",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/legal/privacy-policy",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/legal/terms-of-service",
+   "Support Policy",
+   1
+  ],
+  [
+   "/legal/terms-of-service",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/legal/terms-of-service",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/legal/terms-of-service",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/legal/terms-of-service",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/legal/your-consumer-privacy-rights",
+   "Support Policy",
+   1
+  ],
+  [
+   "/legal/your-consumer-privacy-rights",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/legal/your-consumer-privacy-rights",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/legal/your-consumer-privacy-rights",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/legal/your-consumer-privacy-rights",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/legal/accessibility-statement",
+   "Support Policy",
+   1
+  ],
+  [
+   "/legal/accessibility-statement",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/legal/accessibility-statement",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/legal/accessibility-statement",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/legal/accessibility-statement",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/legal/support-policy",
+   "Support Policy",
+   1
+  ],
+  [
+   "/legal/support-policy",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/legal/support-policy",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/legal/support-policy",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/legal/support-policy",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/faq",
+   "Support Policy",
+   1
+  ],
+  [
+   "/faq",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/faq",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/faq",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/faq",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/",
+   "Control your costs.",
+   1
+  ],
+  [
+   "/",
+   "Support Policy",
+   1
+  ],
+  [
+   "/",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/why-dishbooks",
+   "Support Policy",
+   1
+  ],
+  [
+   "/why-dishbooks",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/why-dishbooks",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/why-dishbooks",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/why-dishbooks",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/blog",
+   "Support Policy",
+   1
+  ],
+  [
+   "/blog",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/blog",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/blog",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/blog",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/pricing",
+   "Support Policy",
+   1
+  ],
+  [
+   "/pricing",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/pricing",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/pricing",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/pricing",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/feature/bank-reconciliation",
+   "Start your free trial",
+   1
+  ],
+  [
+   "/feature/bank-reconciliation",
+   "Support Policy",
+   1
+  ],
+  [
+   "/feature/bank-reconciliation",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/feature/bank-reconciliation",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/feature/bank-reconciliation",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/feature/bank-reconciliation",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/feature/custom-reporting",
+   "Start your free trial",
+   1
+  ],
+  [
+   "/feature/custom-reporting",
+   "Support Policy",
+   1
+  ],
+  [
+   "/feature/custom-reporting",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/feature/custom-reporting",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/feature/custom-reporting",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/feature/custom-reporting",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/feature/dex-ai",
+   "Start your free trial",
+   1
+  ],
+  [
+   "/feature/dex-ai",
+   "Support Policy",
+   1
+  ],
+  [
+   "/feature/dex-ai",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/feature/dex-ai",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/feature/dex-ai",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/feature/dex-ai",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/feature/fiscal-calendar-accounting",
+   "Start your free trial",
+   1
+  ],
+  [
+   "/feature/fiscal-calendar-accounting",
+   "Support Policy",
+   1
+  ],
+  [
+   "/feature/fiscal-calendar-accounting",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/feature/fiscal-calendar-accounting",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/feature/fiscal-calendar-accounting",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/feature/fiscal-calendar-accounting",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/feature/invoice-bill-pay",
+   "Start your free trial",
+   1
+  ],
+  [
+   "/feature/invoice-bill-pay",
+   "Support Policy",
+   1
+  ],
+  [
+   "/feature/invoice-bill-pay",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/feature/invoice-bill-pay",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/feature/invoice-bill-pay",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/feature/invoice-bill-pay",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/feature/multi-location",
+   "Start your free trial",
+   1
+  ],
+  [
+   "/feature/multi-location",
+   "Support Policy",
+   1
+  ],
+  [
+   "/feature/multi-location",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/feature/multi-location",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/feature/multi-location",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/feature/multi-location",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/feature/prime-cost-cogs",
+   "Start your free trial",
+   1
+  ],
+  [
+   "/feature/prime-cost-cogs",
+   "Support Policy",
+   1
+  ],
+  [
+   "/feature/prime-cost-cogs",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/feature/prime-cost-cogs",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/feature/prime-cost-cogs",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/feature/prime-cost-cogs",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/feature/smart-dashboard",
+   "Start your free trial",
+   1
+  ],
+  [
+   "/feature/smart-dashboard",
+   "Support Policy",
+   1
+  ],
+  [
+   "/feature/smart-dashboard",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/feature/smart-dashboard",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/feature/smart-dashboard",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/feature/smart-dashboard",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/compare/quickbooks",
+   "Start your free trial",
+   1
+  ],
+  [
+   "/compare/quickbooks",
+   "Support Policy",
+   1
+  ],
+  [
+   "/compare/quickbooks",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/compare/quickbooks",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/compare/quickbooks",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/compare/quickbooks",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/compare/restaurant365",
+   "Get Started",
+   1
+  ],
+  [
+   "/compare/restaurant365",
+   "Support Policy",
+   1
+  ],
+  [
+   "/compare/restaurant365",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/compare/restaurant365",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/compare/restaurant365",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/compare/restaurant365",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/who-we-serve/accounting-firms",
+   "Support Policy",
+   1
+  ],
+  [
+   "/who-we-serve/accounting-firms",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/who-we-serve/accounting-firms",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/who-we-serve/accounting-firms",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/who-we-serve/accounting-firms",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/who-we-serve/bars-nightclubs",
+   "Support Policy",
+   1
+  ],
+  [
+   "/who-we-serve/bars-nightclubs",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/who-we-serve/bars-nightclubs",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/who-we-serve/bars-nightclubs",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/who-we-serve/bars-nightclubs",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/who-we-serve/casual-dining",
+   "Support Policy",
+   1
+  ],
+  [
+   "/who-we-serve/casual-dining",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/who-we-serve/casual-dining",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/who-we-serve/casual-dining",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/who-we-serve/casual-dining",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/who-we-serve/coffee-shops",
+   "Support Policy",
+   1
+  ],
+  [
+   "/who-we-serve/coffee-shops",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/who-we-serve/coffee-shops",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/who-we-serve/coffee-shops",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/who-we-serve/coffee-shops",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/who-we-serve/fast-casual",
+   "Support Policy",
+   1
+  ],
+  [
+   "/who-we-serve/fast-casual",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/who-we-serve/fast-casual",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/who-we-serve/fast-casual",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/who-we-serve/fast-casual",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/who-we-serve/fine-dining",
+   "Support Policy",
+   1
+  ],
+  [
+   "/who-we-serve/fine-dining",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/who-we-serve/fine-dining",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/who-we-serve/fine-dining",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/who-we-serve/fine-dining",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/who-we-serve/hotel-restaurants-bars",
+   "Support Policy",
+   1
+  ],
+  [
+   "/who-we-serve/hotel-restaurants-bars",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/who-we-serve/hotel-restaurants-bars",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/who-we-serve/hotel-restaurants-bars",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/who-we-serve/hotel-restaurants-bars",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/who-we-serve/independent-restaurants",
+   "Support Policy",
+   1
+  ],
+  [
+   "/who-we-serve/independent-restaurants",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/who-we-serve/independent-restaurants",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/who-we-serve/independent-restaurants",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/who-we-serve/independent-restaurants",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/who-we-serve/multi-unit-groups",
+   "Support Policy",
+   1
+  ],
+  [
+   "/who-we-serve/multi-unit-groups",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/who-we-serve/multi-unit-groups",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/who-we-serve/multi-unit-groups",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/who-we-serve/multi-unit-groups",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/who-we-serve/pizzerias",
+   "Support Policy",
+   1
+  ],
+  [
+   "/who-we-serve/pizzerias",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/who-we-serve/pizzerias",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/who-we-serve/pizzerias",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/who-we-serve/pizzerias",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/who-we-serve/qsr",
+   "Support Policy",
+   1
+  ],
+  [
+   "/who-we-serve/qsr",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/who-we-serve/qsr",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/who-we-serve/qsr",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/who-we-serve/qsr",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "Support Policy",
+   1
+  ],
+  [
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/blog/ai-in-restaurant-accounting-what-it-actually-does",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "Support Policy",
+   1
+  ],
+  [
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/blog/how-to-calculate-prime-cost-3-places-restaurants-get-it-wrong",
+   "Privacy Policy",
+   1
+  ],
+  [
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "Support Policy",
+   1
+  ],
+  [
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "Accessibility Statement",
+   1
+  ],
+  [
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "Your Consumer Privacy Rights",
+   1
+  ],
+  [
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "Terms Of Service",
+   1
+  ],
+  [
+   "/blog/how-to-read-a-restaurant-pl-line-by-line",
+   "Privacy Policy",
+   1
+  ]
+ ]
+}

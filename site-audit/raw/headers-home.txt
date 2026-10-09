@@ -1,0 +1,23 @@
+HTTP/2 103 
+link: <https://cdn.prod.website-files.com>; crossorigin; rel=preconnect, <https://cdn.prod.website-files.com/69d57da15c4ebabed5c82876/css/dish-books.webflow.shared.537ba04b1.css>; as=style; crossorigin; integrity=sha384-U3ugSx8gG1Qd9GudJyRDOJMAPSYUeE74OMelv84e1J9NZhkYegYx7z58Pb8gMcly; rel=preload, <https://fonts.googleapis.com>; rel=preconnect, <https://fonts.gstatic.com>; crossorigin; rel=preconnect
+
+HTTP/2 200 
+date: Fri, 09 Oct 2026 19:28:44 GMT
+content-type: text/html; charset=utf-8
+set-cookie: _cfuvid=sJD0vKeV9ae3nlD0RtLzD4wkuYWBQiXIWMn1CZs7KrU-1791574124.6142554-1.0.1.1-ahMcrLiQiwwPNbcutOfU5Pc6QoipLdUVYB0TiqLaJz8; HttpOnly; SameSite=None; Secure; Path=/; Domain=dishbooks.com
+cf-ray: a47fca46daaee13e-LAX
+cf-cache-status: HIT
+age: 260173
+last-modified: Fri, 09 Oct 2026 19:04:16 GMT
+link: <https://cdn.prod.website-files.com>; rel=preconnect; crossorigin, <https://cdn.prod.website-files.com/69d57da15c4ebabed5c82876/css/dish-books.webflow.shared.537ba04b1.css>; rel=preload; as=style; crossorigin; integrity="sha384-U3ugSx8gG1Qd9GudJyRDOJMAPSYUeE74OMelv84e1J9NZhkYegYx7z58Pb8gMcly", <https://fonts.googleapis.com>; rel=preconnect, <https://fonts.gstatic.com>; rel=preconnect; crossorigin
+server: cloudflare
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+vary: accept-encoding
+content-security-policy: frame-ancestors 'self'
+surrogate-control: max-age=432000
+surrogate-key: dishbooks.com 69d57da15c4ebabed5c82876 pageId:6a7e603b3994b3bf8d516029 6a8e6704c4fcd41aac4b8c25 6a8e672899bb71eade714d45
+x-frame-options: SAMEORIGIN
+x-lambda-id: 087c5b9d-0f7d-497c-a370-e3c14fd14b31
+x-wf-region: us-east-1
+alt-svc: h3=":443"; ma=86400
+

@@ -1,0 +1,7 @@
+# Large raw outputs stay local
+lighthouse/*-r*.json
+screenshots/*.png
+raw/home.html
+raw/site.css
+raw/og.jpg
+raw/p.html

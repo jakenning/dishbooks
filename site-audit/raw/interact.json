@@ -1,0 +1,235 @@
+{
+ "heroOpacityAt2_5s": "1",
+ "mobileMenu": {
+  "overlayVisible": true,
+  "expanded": "true",
+  "bodyScrollLocked": "visible",
+  "links": [
+   "Pricing",
+   "Why DishBooks",
+   "Blog",
+   "Contact",
+   "Sign In",
+   "Get Started"
+  ]
+ },
+ "mobileDropdownLinks": [
+  "Dex AI",
+  "Smart Dashboard",
+  "Prime Cost & COGS",
+  "Custom Reporting",
+  "Fiscal Calendar Accounting",
+  "Multi-Location Reporting",
+  "Invoice Approval & Bill Pay",
+  "Bank Reconciliation"
+ ],
+ "desktopDropdownHoverOpen": false,
+ "focusOrder": [
+  {
+   "el": "a.w-nav-brand.w--current",
+   "text": "home",
+   "outline": "auto 1px",
+   "shadow": false
+  },
+  {
+   "el": "div.nav-v2-link.menu",
+   "text": "Features",
+   "outline": "none 0px",
+   "shadow": false
+  },
+  {
+   "el": "a.nav-v2-link.w-nav-link",
+   "text": "Pricing",
+   "outline": "auto 1px",
+   "shadow": false
+  },
+  {
+   "el": "a.nav-v2-link.w-nav-link",
+   "text": "Why DishBooks",
+   "outline": "auto 1px",
+   "shadow": false
+  },
+  {
+   "el": "div.nav-v2-link.menu",
+   "text": "Who We Serve",
+   "outline": "none 0px",
+   "shadow": false
+  },
+  {
+   "el": "a.nav-v2-link.w-nav-link",
+   "text": "Blog",
+   "outline": "auto 1px",
+   "shadow": false
+  },
+  {
+   "el": "a.nav-v2-link.w-nav-link",
+   "text": "Contact",
+   "outline": "auto 1px",
+   "shadow": false
+  },
+  {
+   "el": "a.v2-button.ghost",
+   "text": "Sign In",
+   "outline": "auto 1px",
+   "shadow": false
+  },
+  {
+   "el": "a.v2-button.w-button",
+   "text": "Get Started",
+   "outline": "auto 1px",
+   "shadow": true
+  },
+  {
+   "el": "a.v2-button.w-button",
+   "text": "Start your free trial",
+   "outline": "auto 1px",
+   "shadow": true
+  },
+  {
+   "el": "a.v2-button.invert-button",
+   "text": "Schedule a demo",
+   "outline": "auto 1px",
+   "shadow": true
+  },
+  {
+   "el": "a.plain-white-button.w-button",
+   "text": "See why DishBooks",
+   "outline": "auto 1px",
+   "shadow": true
+  },
+  {
+   "el": "a.v2-button.invert-button",
+   "text": "ExploreDex AI\n\n  .v2-button .c",
+   "outline": "auto 1px",
+   "shadow": true
+  },
+  {
+   "el": "a.tab-item.w-inline-block",
+   "text": "Smart Dashboard",
+   "outline": "none 0px",
+   "shadow": false
+  }
+ ],
+ "dropdownKeyboardOpens": true,
+ "homeTabs": [
+  {
+   "tab": "Smart Dashboard",
+   "activeIdx": 0,
+   "role": "tab",
+   "media": "IMG 11x12"
+  },
+  {
+   "tab": "Ops Calendar",
+   "activeIdx": 1,
+   "role": "tab",
+   "media": "IMG 11x12"
+  },
+  {
+   "tab": "Custom Reporting",
+   "activeIdx": 2,
+   "role": "tab",
+   "media": "IMG 11x12"
+  }
+ ],
+ "faq": {
+  "candidates": 32,
+  "sample": [
+   {
+    "cls": "nav-v2-link menu w-dropdown-toggle",
+    "tag": "DIV",
+    "role": "button",
+    "expanded": "false",
+    "tabindex": 0
+   },
+   {
+    "cls": "nav-v2-link menu w-dropdown-toggle",
+    "tag": "DIV",
+    "role": "button",
+    "expanded": "false",
+    "tabindex": 0
+   },
+   {
+    "cls": "faq-item w-dropdown",
+    "tag": "DIV",
+    "role": null,
+    "expanded": null,
+    "tabindex": -1
+   }
+  ],
+  "faqSchema": 0
+ },
+ "faqClickChangesHeight": 180,
+ "contactForm": {
+  "valid": false,
+  "invalidFields": [
+   "email:Please fill out this field."
+  ],
+  "recaptcha": true,
+  "action": null,
+  "method": "get",
+  "hubspot": false,
+  "selectFirst": "Select one...",
+  "labels": [
+   {
+    "name": "First-Name",
+    "label": "First Name",
+    "aria": null,
+    "ph": "",
+    "req": false,
+    "type": "text"
+   },
+   {
+    "name": "Last-Name",
+    "label": "Last Name",
+    "aria": null,
+    "ph": "",
+    "req": false,
+    "type": "text"
+   },
+   {
+    "name": "email",
+    "label": "Email Address",
+    "aria": null,
+    "ph": "",
+    "req": true,
+    "type": "email"
+   },
+   {
+    "name": "Business-Name",
+    "label": "Business Name",
+    "aria": null,
+    "ph": "",
+    "req": false,
+    "type": "text"
+   },
+   {
+    "name": "Inquiry-Type",
+    "label": "Inquiry Type",
+    "aria": null,
+    "req": false,
+    "type": "select-one"
+   },
+   {
+    "name": "Message",
+    "label": "Message",
+    "aria": null,
+    "ph": "",
+    "req": false,
+    "type": "textarea"
+   },
+   {
+    "name": "g-recaptcha-response",
+    "label": null,
+    "aria": null,
+    "ph": "",
+    "req": false,
+    "type": "textarea"
+   }
+  ]
+ },
+ "noJsH1Opacity": "1",
+ "page404": {
+  "links": [],
+  "nav": false
+ }
+}

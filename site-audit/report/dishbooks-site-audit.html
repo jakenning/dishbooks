@@ -1,0 +1,565 @@
+<title>DishBooks.com Site Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a ledger. Scorecard first, then findings posted under Fix now / Next / Later, each with page, evidence, why, and the Webflow fix. */
+:root {
+  --paper: #f5f6fa;
+  --surface: #ffffff;
+  --ink: #0e1630;
+  --muted: #586079;
+  --rule: #dde2ee;
+  --brand: #2d63ef;
+  --brand-soft: #e7edff;
+  --crit: #c4283c;
+  --crit-soft: #fdecee;
+  --warn: #9a5c00;
+  --warn-soft: #fff3df;
+  --ok: #1b7f50;
+  --ok-soft: #e4f5ec;
+  --font-body: "Albert Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-data: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0b1020; --surface: #131a2d; --ink: #e8ecf6; --muted: #9ba4bc; --rule: #26304a;
+    --brand: #8aa6ff; --brand-soft: #1b2650; --crit: #ff7a8a; --crit-soft: #3a1820; --warn: #f2b552; --warn-soft: #36280f;
+    --ok: #5cd39b; --ok-soft: #12301f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0b1020; --surface: #131a2d; --ink: #e8ecf6; --muted: #9ba4bc; --rule: #26304a;
+  --brand: #8aa6ff; --brand-soft: #1b2650; --crit: #ff7a8a; --crit-soft: #3a1820; --warn: #f2b552; --warn-soft: #36280f;
+  --ok: #5cd39b; --ok-soft: #12301f; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.6; margin: 0; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 80px; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.2; margin: 0; }
+h1 { font-size: clamp(30px, 5vw, 44px); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 17px; font-weight: 600; }
+p { margin: 0; }
+a { color: var(--brand); }
+code, .mono { font-family: var(--font-data); font-size: 0.86em; }
+code { background: var(--brand-soft); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.eyebrow { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+header.top { display: grid; gap: 14px; padding-bottom: 28px; border-bottom: 2px solid var(--ink); }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--muted); font-size: 14px; }
+.meta b { color: var(--ink); font-weight: 600; }
+.lede { max-width: 68ch; font-size: 16px; }
+
+section { padding-top: 44px; display: grid; gap: 18px; }
+.sec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; border-bottom: 1px solid var(--rule); padding-bottom: 10px; }
+.sec-head p { color: var(--muted); font-size: 14px; max-width: 60ch; }
+
+/* top five */
+ol.top5 { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: t; }
+ol.top5 li { counter-increment: t; display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+ol.top5 li::before { content: counter(t); font-family: var(--font-data); font-size: 22px; color: var(--brand); line-height: 1.2; }
+ol.top5 li > div { min-width: 0; display: grid; gap: 4px; }
+ol.top5 .ref { font-family: var(--font-data); font-size: 12px; color: var(--muted); }
+
+/* scorecard */
+.table-scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 860px; font-size: 14px; }
+th, td { padding: 9px 10px; text-align: right; border-bottom: 1px solid var(--rule); white-space: nowrap; font-variant-numeric: tabular-nums; }
+th { font-family: var(--font-data); font-weight: 500; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); background: var(--paper); }
+th.grp { text-align: center; border-left: 1px solid var(--rule); }
+td:first-child, th:first-child { text-align: left; }
+td.page b { font-weight: 600; }
+td.page span { display: block; font-family: var(--font-data); font-size: 11px; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+td.bl, th.bl { border-left: 1px solid var(--rule); }
+.n { font-family: var(--font-data); font-size: 13px; }
+.s { display: inline-block; min-width: 34px; text-align: center; font-family: var(--font-data); font-size: 13px; font-weight: 500; padding: 2px 6px; border-radius: 999px; }
+.g { color: var(--ok); background: var(--ok-soft); }
+.w { color: var(--warn); background: var(--warn-soft); }
+.b { color: var(--crit); background: var(--crit-soft); }
+.note { color: var(--muted); font-size: 13px; max-width: 80ch; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); align-items: center; }
+
+/* filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; position: sticky; top: env(safe-area-inset-top, 0px); background: var(--paper); padding-block: 10px; z-index: 2; border-bottom: 1px solid var(--rule); }
+.filters span { font-size: 13px; color: var(--muted); margin-right: 4px; }
+.chip { font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip:focus-visible, summary:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+/* findings */
+.tier { display: grid; gap: 14px; }
+.tier-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.tier-tag { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 6px; }
+.t-now { background: var(--crit-soft); color: var(--crit); }
+.t-next { background: var(--warn-soft); color: var(--warn); }
+.t-later { background: var(--brand-soft); color: var(--brand); }
+.tier-head p { color: var(--muted); font-size: 14px; }
+article.f { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 18px 20px; display: grid; gap: 12px; }
+.f-top { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; }
+.f-id { font-family: var(--font-data); font-size: 12px; color: var(--muted); }
+.f-top h3 { flex: 1 1 320px; min-width: 0; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-family: var(--font-data); font-size: 11px; padding: 2px 8px; border-radius: 4px; border: 1px solid var(--rule); color: var(--muted); }
+.tag.cat { color: var(--ink); }
+dl.fx { display: grid; grid-template-columns: 92px 1fr; gap: 8px 16px; margin: 0; }
+dl.fx dt { font-family: var(--font-data); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+dl.fx dd { margin: 0; min-width: 0; }
+dl.fx dd.fix { border-left: 3px solid var(--brand); padding-left: 12px; }
+dd ol, dd ul { margin: 0; padding-left: 20px; display: grid; gap: 3px; }
+figure { margin: 4px 0 0; display: grid; gap: 6px; }
+figure img { border: 1px solid var(--rule); border-radius: 8px; display: block; max-width: 100%; height: auto; }
+figure.phone img { max-width: 300px; }
+figcaption { font-size: 12px; color: var(--muted); }
+.shots { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start; }
+.shots figure { flex: 0 1 auto; min-width: 0; }
+pre { margin: 0; font-family: var(--font-data); font-size: 12px; background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; overflow-x: auto; white-space: pre; }
+
+.passed { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px 24px; padding: 0; margin: 0; list-style: none; }
+.passed li { padding-left: 22px; position: relative; font-size: 14px; }
+.passed li::before { content: "✓"; position: absolute; left: 0; color: var(--ok); font-weight: 700; }
+.method { display: grid; gap: 10px; font-size: 14px; max-width: 80ch; }
+.method ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+footer.end { margin-top: 48px; padding-top: 16px; border-top: 2px solid var(--ink); color: var(--muted); font-size: 13px; }
+
+@media (max-width: 640px) {
+  dl.fx { grid-template-columns: 1fr; gap: 2px; }
+  dl.fx dd { margin-bottom: 8px; }
+  article.f { padding: 16px; }
+  ol.top5 li { grid-template-columns: 30px 1fr; }
+}
+@media (prefers-reduced-motion: no-preference) { article.f { transition: opacity .15s; } }
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">Site audit · dishbooks.com · Webflow site 69d57da1…2876</div>
+  <h1>DishBooks.com Site Audit</h1>
+  <p class="lede">A full pass over the live marketing site for speed, SEO, bugs, accessibility and conversion. The biggest problems are broken sign-up and demo buttons, not speed. Every feature page's hero CTAs are dead, and 38 trial buttons use an <code>http://</code> link. All of these are quick fixes in the Designer.</p>
+  <div class="meta">
+    <span>Audited <b>9 Oct 2026</b></span>
+    <span>Live publish <b>6 Oct 2026</b></span>
+    <span><b>35</b> sitemap pages crawled</span>
+    <span><b>54</b> Lighthouse runs</span>
+    <span><b>85</b> CTA links traced</span>
+    <span>Read-only: nothing changed in Webflow</span>
+  </div>
+</header>
+
+<section id="top5" aria-labelledby="top5-h">
+  <div class="sec-head"><h2 id="top5-h">The five that matter most</h2><p>Ranked by impact on sign-ups and search, weighed against effort.</p></div>
+  <ol class="top5">
+    <li><div><h3>Both hero buttons on all 8 feature pages go nowhere</h3><p>"Start your free trial" is <code>href="#"</code>, and "Schedule a demo" points to <code>/v2-contact</code>, a draft page that returns 404. The Compare pages' trial button is also <code>#</code>.</p><span class="ref">→ F1, F3</span></div></li>
+    <li><div><h3>38 trial buttons link to <code>http://app.dishbooks.com/signup</code>, which resets the connection</h3><p>Chrome hides this by upgrading to HTTPS. Browsers and in-app webviews that don't upgrade show an error. All five footer legal links are also <code>href="#"</code> on every page.</p><span class="ref">→ F2, F4</span></div></li>
+    <li><div><h3>Mobile LCP is 10–12 seconds on Home, Feature and Who We Serve pages</h3><p>Hero images on the Feature and Who We Serve templates are set to lazy-load. On Home, the LCP is a 2.4 MB background video, and three WebGL scenes run on top of it.</p><span class="ref">→ F5, N1</span></div></li>
+    <li><div><h3>Every page pays for scripts and fonts it doesn't use</h3><p>reCAPTCHA (355 KB, render-blocking) loads on all 35 pages, though only /contact has a form. Inter loads in 5 weights and is used on 0 pages. Unicorn Studio WebGL loads everywhere.</p><span class="ref">→ F8, N2, N3</span></div></li>
+    <li><div><h3>SEO basics are missing site-wide</h3><p>No page has a canonical tag or structured data. Both Compare pages are titled just "DishBooks" with no description. All three blog posts preview with a blank title and description when shared.</p><span class="ref">→ F3, F6, F7, N4</span></div></li>
+  </ol>
+</section>
+
+<section id="scores" aria-labelledby="scores-h">
+  <div class="sec-head"><h2 id="scores-h">Lighthouse scorecard</h2><p>Median of 3 runs per page and form factor, Lighthouse 12.8.2. Mobile uses simulated slow 4G with a 4× CPU slowdown.</p></div>
+  <div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th></th><th class="grp bl" colspan="2">Performance</th><th class="grp bl" colspan="3">Mobile category scores</th><th class="grp bl" colspan="5">Mobile metrics (median)</th></tr>
+      <tr><th>Page</th><th class="bl">Mobile</th><th>Desktop</th><th class="bl">A11y</th><th>Best pr.</th><th>SEO</th><th class="bl">LCP</th><th>TBT</th><th>CLS</th><th>Weight</th><th>Requests</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="page"><b>Home</b><span>/</span></td><td class="bl"><span class="s w">64</span></td><td><span class="s w">83</span></td><td class="bl"><span class="s g">96</span></td><td><span class="s w">79</span></td><td><span class="s g">100</span></td><td class="bl"><span class="s b">11.7 s</span></td><td><span class="s g">118 ms</span></td><td><span class="s g">0.00</span></td><td class="n">4.81 MB</td><td class="n">46</td></tr>
+      <tr><td class="page"><b>Why DishBooks</b><span>/why-dishbooks</span></td><td class="bl"><span class="s w">83</span></td><td><span class="s g">97</span></td><td class="bl"><span class="s g">96</span></td><td><span class="s w">79</span></td><td><span class="s g">100</span></td><td class="bl"><span class="s w">3.4 s</span></td><td><span class="s g">134 ms</span></td><td><span class="s g">0.00</span></td><td class="n">1.19 MB</td><td class="n">40</td></tr>
+      <tr><td class="page"><b>Pricing</b><span>/pricing</span></td><td class="bl"><span class="s g">93</span></td><td><span class="s g">99</span></td><td class="bl"><span class="s g">96</span></td><td><span class="s w">79</span></td><td><span class="s g">100</span></td><td class="bl"><span class="s w">2.9 s</span></td><td><span class="s g">66 ms</span></td><td><span class="s g">0.01</span></td><td class="n">1.00 MB</td><td class="n">36</td></tr>
+      <tr><td class="page"><b>Feature</b><span>/feature/smart-dashboard</span></td><td class="bl"><span class="s w">66</span></td><td><span class="s w">85</span></td><td class="bl"><span class="s g">96</span></td><td><span class="s w">79</span></td><td><span class="s g">100</span></td><td class="bl"><span class="s b">11.3 s</span></td><td><span class="s g">90 ms</span></td><td><span class="s g">0.00</span></td><td class="n">1.21 MB</td><td class="n">47</td></tr>
+      <tr><td class="page"><b>Who We Serve</b><span>/who-we-serve/independent-restaurants</span></td><td class="bl"><span class="s w">67</span></td><td><span class="s w">85</span></td><td class="bl"><span class="s g">96</span></td><td><span class="s w">79</span></td><td><span class="s g">100</span></td><td class="bl"><span class="s b">10.6 s</span></td><td><span class="s g">98 ms</span></td><td><span class="s g">0.00</span></td><td class="n">1.11 MB</td><td class="n">38</td></tr>
+      <tr><td class="page"><b>Blog index</b><span>/blog</span></td><td class="bl"><span class="s w">78</span></td><td><span class="s g">96</span></td><td class="bl"><span class="s g">96</span></td><td><span class="s w">79</span></td><td><span class="s g">100</span></td><td class="bl"><span class="s b">5.1 s</span></td><td><span class="s g">67 ms</span></td><td><span class="s g">0.00</span></td><td class="n">1.26 MB</td><td class="n">39</td></tr>
+      <tr><td class="page"><b>Blog post</b><span>/blog/how-to-read-a-restaurant-pl…</span></td><td class="bl"><span class="s w">83</span></td><td><span class="s g">96</span></td><td class="bl"><span class="s g">96</span></td><td><span class="s w">79</span></td><td><span class="s g">100</span></td><td class="bl"><span class="s b">4.2 s</span></td><td><span class="s g">68 ms</span></td><td><span class="s g">0.00</span></td><td class="n">1.37 MB</td><td class="n">53</td></tr>
+      <tr><td class="page"><b>Contact / demo</b><span>/contact</span></td><td class="bl"><span class="s w">79</span></td><td><span class="s g">97</span></td><td class="bl"><span class="s g">97</span></td><td><span class="s w">79</span></td><td><span class="s g">100</span></td><td class="bl"><span class="s b">4.9 s</span></td><td><span class="s g">60 ms</span></td><td><span class="s g">0.04</span></td><td class="n">1.28 MB</td><td class="n">52</td></tr>
+      <tr><td class="page"><b>Sign-up (app)</b><span>app.dishbooks.com/signup</span></td><td class="bl"><span class="s w">79</span></td><td><span class="s g">98</span></td><td class="bl"><span class="s w">82</span></td><td><span class="s g">96</span></td><td><span class="s g">92</span></td><td class="bl"><span class="s w">3.8 s</span></td><td><span class="s g">69 ms</span></td><td><span class="s g">0.00</span></td><td class="n">1.22 MB</td><td class="n">19</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="legend"><span class="s g">good</span><span class="s w">needs work</span><span class="s b">poor</span><span>Scores: 90+ / 50–89 / under 50. LCP: ≤2.5 s / ≤4 s / over 4 s. TBT: ≤200 / ≤600 ms. CLS: ≤0.1 / ≤0.25.</span></div>
+  <p class="note">Home on mobile is the least stable page: its three runs scored 32, 64 and 68. The first (cold) run had 2.4 s of total blocking time, almost all of it Unicorn Studio's WebGL startup. INP can't be measured in a lab run, so TBT stands in for responsiveness here. Desktop Best Practices is 78 on every Webflow page, because HubSpot sets third-party cookies. The "Lighthouse SEO 100" scores only reflect Lighthouse's basic checks; the SEO findings below are what it misses.</p>
+</section>
+
+<section id="findings" aria-labelledby="findings-h">
+  <div class="sec-head"><h2 id="findings-h">Findings</h2><p>Each finding gives the affected pages, the evidence, why it matters, and the exact fix in the Webflow Designer or Site settings. Remember to publish after each fix.</p></div>
+  <div class="filters" role="group" aria-label="Filter findings by category">
+    <span>Show</span>
+    <button class="chip" type="button" id="flt-all" data-f="all" aria-pressed="true">All</button>
+    <button class="chip" type="button" id="flt-conv" data-f="conversion" aria-pressed="false">Conversion</button>
+    <button class="chip" type="button" id="flt-speed" data-f="speed" aria-pressed="false">Speed</button>
+    <button class="chip" type="button" id="flt-seo" data-f="seo" aria-pressed="false">SEO</button>
+    <button class="chip" type="button" id="flt-bug" data-f="bug" aria-pressed="false">Bugs &amp; layout</button>
+    <button class="chip" type="button" id="flt-a11y" data-f="a11y" aria-pressed="false">Accessibility</button>
+    <button class="chip" type="button" id="flt-hyg" data-f="hygiene" aria-pressed="false">Code &amp; asset hygiene</button>
+  </div>
+
+  <!-- ============ FIX NOW ============ -->
+  <div class="tier" id="fix-now">
+    <div class="tier-head"><span class="tier-tag t-now">Fix now</span><p>High impact, under an hour each. Most are a link or a setting.</p></div>
+
+    <article class="f" data-cat="conversion bug">
+      <div class="f-top"><span class="f-id">F1</span><h3>Feature pages: both hero CTAs are dead</h3><div class="tags"><span class="tag cat">Conversion</span><span class="tag">8 pages</span><span class="tag">~10 min</span></div></div>
+      <dl class="fx">
+        <dt>Where</dt><dd>All 8 <code>/feature/*</code> pages (Features Template)</dd>
+        <dt>Evidence</dt><dd><pre>&lt;a href="#" class="v2-button w-button"&gt;Start your free trial&lt;/a&gt;
+&lt;a href="/v2-contact" class="v2-button invert-button"&gt;Schedule a demo&lt;/a&gt;   → 404 (v2-Contact is a draft page)</pre>
+          <figure><img src="img/feature-hero-dead-ctas.jpg" alt="Smart Dashboard feature page hero with the Schedule a demo button outlined in red" width="960" height="600" loading="lazy"><figcaption>/feature/smart-dashboard: the outlined button leads to a 404. The trial button next to it does nothing.</figcaption></figure></dd>
+        <dt>Why</dt><dd>These are the primary CTAs on the pages built to sell each feature. Every click on them is a lost trial or demo.</dd>
+        <dt>Fix</dt><dd class="fix"><ol><li>Designer → Pages → <b>Features Template</b> → select the hero <b>Start your free trial</b> button → Link settings → URL <code>https://app.dishbooks.com/signup</code>.</li><li>Select <b>Schedule a demo</b> → Link settings → Page → <b>Contact</b>.</li><li>Check the mid-page trial buttons in the same template. The crawl found one more <code>#</code> trial link per feature page.</li></ol></dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="conversion bug">
+      <div class="f-top"><span class="f-id">F2</span><h3>38 sign-up buttons use <code>http://</code>, which the app server refuses</h3><div class="tags"><span class="tag cat">Conversion</span><span class="tag">24 pages</span><span class="tag">~10 min</span></div></div>
+      <dl class="fx">
+        <dt>Where</dt><dd>"Start your free trial" (22 links, e.g. the pricing block on Home, WWS and Compare pages) and the final "Get Started" CTA block (16 links). The nav "Get Started" is correct (<code>https</code>).</dd>
+        <dt>Evidence</dt><dd><pre>$ curl -I http://app.dishbooks.com/signup
+curl: (56) Recv failure: Connection reset by peer
+$ hstspreload.org status for dishbooks.com → "unknown" (not preloaded)</pre></dd>
+        <dt>Why</dt><dd>Chrome and Edge quietly retry over HTTPS, so this looks fine in normal testing. Anything that doesn't upgrade automatically shows a connection error on the most important click on the site. That includes older Safari, some LinkedIn and email in-app browsers, and corporate proxies.</dd>
+        <dt>Fix</dt><dd class="fix"><ol><li>In the Designer, find the components holding these buttons: the pricing teaser and the final CTA section. Change each URL to <code>https://app.dishbooks.com/signup</code>.</li><li>Ask the app team to have port 80 on app.dishbooks.com redirect to HTTPS, so any stray http link still works.</li></ol></dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="conversion seo">
+      <div class="f-top"><span class="f-id">F3</span><h3>Compare pages: dead CTA, title "DishBooks", no description, no share image</h3><div class="tags"><span class="tag cat">SEO</span><span class="tag cat">Conversion</span><span class="tag">2 pages</span><span class="tag">~20 min</span></div></div>
+      <dl class="fx">
+        <dt>Where</dt><dd><code>/compare/quickbooks</code>, <code>/compare/restaurant365</code> (Compares Template)</dd>
+        <dt>Evidence</dt><dd><pre>&lt;title&gt;DishBooks&lt;/title&gt;            ← identical on both pages
+meta description: none · og:title / og:image: none
+&lt;a href="#"&gt;Start your free trial&lt;/a&gt;  (QuickBooks) · &lt;a href="#"&gt;Get Started&lt;/a&gt; (R365)
+CMS field "Primary CTA Link" = "/get-started" → 404 (and not bound to the button)</pre>
+          <figure><img src="img/compare-dead-cta.jpg" alt="DishBooks vs QuickBooks page with the dead Start your free trial button outlined" width="960" height="467" loading="lazy"><figcaption>/compare/quickbooks: the outlined button links to "#".</figcaption></figure></dd>
+        <dt>Why</dt><dd>"DishBooks vs QuickBooks" and "Restaurant365 alternative" are among the highest-intent searches you can rank for. Right now Google sees two pages with the same one-word title and no snippet, and the visitor who arrives can't start a trial.</dd>
+        <dt>Fix</dt><dd class="fix"><ol><li>Pages → <b>Compares Template</b> → Settings → SEO title: insert the <b>Name</b> field + " for Restaurants | DishBooks". Meta description: bind <b>Subheadline</b>, or add a dedicated "SEO description" field to the collection.</li><li>Open Graph: tick "Same as SEO" for title and description, and bind the image to <b>Sub-section image</b>.</li><li>Select the hero CTA → Link settings → "Get URL from" <b>Primary CTA Link</b>. In both CMS items, change that field from <code>/get-started</code> to <code>https://app.dishbooks.com/signup</code>.</li></ol></dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="bug conversion">
+      <div class="f-top"><span class="f-id">F4</span><h3>Footer legal links are all <code>href="#"</code></h3><div class="tags"><span class="tag cat">Bugs</span><span class="tag">35 pages</span><span class="tag">~5 min</span></div></div>
+      <dl class="fx">
+        <dt>Where</dt><dd>Footer component on every page: Support Policy, Accessibility Statement, Your Consumer Privacy Rights, Terms Of Service, Privacy Policy</dd>
+        <dt>Evidence</dt><dd><figure><img src="img/footer-dead-legal-links.jpg" alt="Site footer with five legal links outlined in red" width="960" height="466" loading="lazy"><figcaption>All five outlined links do nothing. The legal pages have only 1–3 internal links each.</figcaption></figure></dd>
+        <dt>Why</dt><dd>Privacy-law notices expect a working privacy and "your privacy rights" link on every page. Buyers checking a finance product also look for the security and privacy pages before they sign up.</dd>
+        <dt>Fix</dt><dd class="fix">Open the Footer component → select each <code>credit-legal-link</code> → Link settings → Page → the matching page under <b>/legal</b>. The fix applies to all 35 pages at once.</dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="speed">
+      <div class="f-top"><span class="f-id">F5</span><h3>Hero images are lazy-loaded on the Feature, Who We Serve and Compare templates</h3><div class="tags"><span class="tag cat">Speed</span><span class="tag">21 pages</span><span class="tag">~10 min</span></div></div>
+      <dl class="fx">
+        <dt>Where</dt><dd><code>img.feature-hero-image</code> (8 feature pages), <code>img.wws-hero-image</code> (11 WWS pages), the Compare hero image (2 pages), and the first row of /blog cards</dd>
+        <dt>Evidence</dt><dd><pre>LCP element: &lt;img class="feature-hero-image" loading="lazy" …&gt;
+Mobile LCP  feature 11.3 s · who-we-serve 10.6 s   (Lighthouse "lcp-lazy-loaded" fails)
+Render-blocking ahead of it (feature, mobile): lottie_svg.min.js 2.3 s · webflow chunk 2.0 s
+  · jQuery 1.8 s · webfont.js 1.1 s · recaptcha api.js 0.9 s   (Lighthouse estimates)</pre></dd>
+        <dt>Why</dt><dd>A lazy image isn't requested until layout finishes and the page's scripts settle, so the biggest thing on screen arrives last. LCP is a Core Web Vitals ranking signal, and over 4 s counts as "poor".</dd>
+        <dt>Fix</dt><dd class="fix">In each template, select the hero image → Element settings (gear) → Image → <b>Load: Eager</b>. Leave everything below the fold on Lazy. Do the same for the first three cards on /blog. On the Features Template, also add <code>defer</code> to the lottie-web script (N8), which removes the largest blocker on those pages.</dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="seo">
+      <div class="f-top"><span class="f-id">F6</span><h3>No canonical tag on any page</h3><div class="tags"><span class="tag cat">SEO</span><span class="tag">35 pages</span><span class="tag">2 min</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd>0 of 35 pages have <code>&lt;link rel="canonical"&gt;</code>. Variants such as <code>?utm_source=…</code>, <code>?ref=…</code> or <code>/pricing/</code> all resolve or redirect without a canonical signal.</dd>
+        <dt>Why</dt><dd>Ad and email campaigns create parameter URLs that Google can index as duplicates, which splits ranking signals.</dd>
+        <dt>Fix</dt><dd class="fix">Site settings → SEO → <b>Global canonical tag URL</b> → <code>https://dishbooks.com</code> (apex, no trailing slash, matching the current www → apex redirect). Webflow then emits a self-referencing canonical on every page, CMS pages included.</dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="seo">
+      <div class="f-top"><span class="f-id">F7</span><h3>Blog posts share with a blank title and description</h3><div class="tags"><span class="tag cat">SEO</span><span class="tag">3 posts</span><span class="tag">~10 min</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd><pre>&lt;meta content="" property="og:title"/&gt;
+&lt;meta content="" property="og:description"/&gt;
+&lt;meta content="" property="og:image"/&gt;     ← 2 of 3 posts
+&lt;meta content="" name="twitter:title"/&gt;</pre></dd>
+        <dt>Why</dt><dd>The blog is the content you'll share on LinkedIn. Today each post previews as a bare URL with no headline or image.</dd>
+        <dt>Fix</dt><dd class="fix">Pages → <b>Blogs Template</b> → Settings → Open Graph. The bindings point at the empty "Open Graph Title / Description / Image" CMS fields. Tick <b>Same as SEO</b> for title and description, and bind the image to the post's main or hero image. Alternatively, fill those three fields in every post.</dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="speed">
+      <div class="f-top"><span class="f-id">F8</span><h3>Inter loads in 5 weights on every page but is used on none</h3><div class="tags"><span class="tag cat">Speed</span><span class="tag">35 pages</span><span class="tag">2 min</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd><pre>WebFont.load families: "Albert Sans:300–700", "DM Mono:300,400,500", "Inter:300–700"
+document.fonts loaded: Inter 300 400 500 600 700
+Computed font-family on rendered text, all 35 pages: Albert Sans, DM Mono only
+CSS: --_fonts---inter is defined, never referenced</pre></dd>
+        <dt>Why</dt><dd>The WebFont loader forces every listed face to download, roughly 48 KB per weight. That's 5 wasted font files competing with the hero on every first visit. DM Mono 300 is also unused.</dd>
+        <dt>Fix</dt><dd class="fix">Site settings → Fonts → Google Fonts → remove <b>Inter</b>, and untick DM Mono 300. Also delete the <code>Inter</code> font variable in the Variables panel so nobody picks it up later.</dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="seo bug">
+      <div class="f-top"><span class="f-id">F9</span><h3>Content errors: typo in an H1, three H1s on /blog, broken links in posts</h3><div class="tags"><span class="tag cat">SEO</span><span class="tag">6 pages</span><span class="tag">~20 min</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd><ul>
+          <li><code>/faq</code> H1 reads "Frequently Asked <b>Qustions</b>".</li>
+          <li><code>/blog</code> has 3 H1s, one per post card (and no page-level H1 naming the blog).</li>
+          <li><code>/legal/privacy-policy</code> has a second, empty H1 holding only a zero-width character.</li>
+          <li>The prime-cost post links "Dex AI" to <code>https://dish-books.webflow.io/feature/dex-ai</code>, the staging domain, which returns 404.</li>
+          <li>The privacy policy links to <code>support.apple.com/kb/PH21411</code> (404).</li>
+          <li>Home: the "Control your costs." link is <code>href="#"</code>.</li>
+        </ul></dd>
+        <dt>Fix</dt><dd class="fix"><ol><li>Fix the FAQ heading text.</li><li>In the /blog card component, change the title element's tag from H1 to H3, and give the page one H1 (e.g. "Restaurant accounting insights").</li><li>Delete the empty heading in the privacy policy rich text.</li><li>CMS → Blogs → "How to calculate prime cost…" → relink to <code>/feature/dex-ai</code>. Update the Apple link to Apple's current Safari cookies article.</li><li>Point "Control your costs." at <code>/feature/prime-cost-cogs</code>, or remove the link.</li></ol></dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="bug conversion">
+      <div class="f-top"><span class="f-id">F10</span><h3>The 404 page is Webflow's unstyled default, a dead end</h3><div class="tags"><span class="tag cat">Bugs</span><span class="tag">~20 min</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd><figure><img src="img/404-1440.jpg" alt="Plain grey 404 page with no logo, navigation or links" width="960" height="600" loading="lazy"><figcaption>No logo, nav, footer or links, in a different typeface from the rest of the site.</figcaption></figure></dd>
+        <dt>Why</dt><dd>Old links will land here (<code>/demo</code>, <code>/signup</code>, <code>/about</code> and <code>/get-started</code> all 404 today). Without a nav, those visitors leave.</dd>
+        <dt>Fix</dt><dd class="fix">Pages → Utility Pages → <b>404</b> → drop in the Nav and Footer components and add links to Home, Features, Pricing and Contact. Consider 301s in Site settings → Publishing → 301 redirects: <code>/demo</code> → <code>/contact</code> and <code>/v2-contact</code> → <code>/contact</code>.</dd>
+      </dl>
+    </article>
+  </div>
+
+  <!-- ============ NEXT ============ -->
+  <div class="tier" id="next">
+    <div class="tier-head"><span class="tier-tag t-next">Next</span><p>High impact but a few hours each, or design decisions to make first.</p></div>
+
+    <article class="f" data-cat="speed">
+      <div class="f-top"><span class="f-id">N1</span><h3>Home on mobile: a 2.4 MB background video is the LCP, and three WebGL scenes compete with it</h3><div class="tags"><span class="tag cat">Speed</span><span class="tag">Home</span><span class="tag">2–4 h</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd><pre>LCP element: div.section-card-bg-video &gt; video (db-section-bg-1080p, 2,360 KB MP4, autoplay, no poster)
+LCP 11.7 s mobile · render delay 10.2 s · page weight 4.81 MB (vs ~1.2 MB elsewhere)
+Video and poster served with cache lifetime 0
+Unicorn Studio: 3 scenes on Home · 2.4 s script time on the cold run (score 32)</pre></dd>
+        <dt>Why</dt><dd>Home gets the most first-time mobile visits, and 4.8 MB on a phone connection is slow. The section video is decoration, but it's what the browser is waiting on to paint the main content.</dd>
+        <dt>Fix</dt><dd class="fix"><ol><li>Select the Background Video element → at the <b>Mobile landscape</b> and <b>portrait</b> breakpoints, set it to Display: none and give the parent a background image (the existing <code>db-section-bg-1080p_poster</code>, ~65 KB).</li><li>Re-export the desktop video at 720p, under 1 MB.</li><li>Unicorn Studio: hide the extra hero scenes below the Tablet breakpoint, or start them only when they scroll into view. See N3.</li><li>Coordinate with the homepage-tabs work now in progress: its WebM/MP4 embeds should use <code>preload="none"</code> or <code>metadata</code>, a poster, and play only while visible.</li></ol></dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="speed conversion">
+      <div class="f-top"><span class="f-id">N2</span><h3>reCAPTCHA loads render-blocking on all 35 pages for one form</h3><div class="tags"><span class="tag cat">Speed</span><span class="tag">35 pages</span><span class="tag">1 h</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd><pre>&lt;head&gt; … &lt;script src="https://www.google.com/recaptcha/api.js"&gt;&lt;/script&gt;   (no async/defer)
+recaptcha__en.js 355 KB, ~250 KB unused · render-blocking ≈ 0.85 s (Lighthouse estimate)
+Forms on site: 1 (wf-form-Contact-DishBooks on /contact)</pre></dd>
+        <dt>Why</dt><dd>It's the single largest script on most pages, and it blocks first paint everywhere. It also puts a visible "I'm not a robot" checkbox on the demo-request form, which adds friction at the point of conversion.</dd>
+        <dt>Fix</dt><dd class="fix">Webflow injects this script site-wide once reCAPTCHA is turned on, so it can't be scoped per page. Choose one:<ol><li>Site settings → Forms → turn off reCAPTCHA validation and rely on Webflow's built-in spam filtering. Watch submissions for a week.</li><li>Or rebuild the contact form as a HubSpot form (HubSpot already loads on every page), which handles its own spam protection and feeds the CRM directly.</li></ol></dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="speed">
+      <div class="f-top"><span class="f-id">N3</span><h3>Unicorn Studio WebGL runs on every page</h3><div class="tags"><span class="tag cat">Speed</span><span class="tag">35 pages</span><span class="tag">1–2 h</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd><pre>[data-us-project] scenes: 1 on most pages · 2 on feature pages and /why-dishbooks · 3 on Home
+unicornStudio.umd.js v2.2.10 (51 KB) · main-thread time 0.5 s (WWS) – 2.4 s (Home, cold)
+Loaded by an inline embed that injects the script immediately at parse time</pre></dd>
+        <dt>Why</dt><dd>On mid-range phones, WebGL startup is the main source of blocking time and battery drain, mostly for a background effect in the shared CTA/footer area.</dd>
+        <dt>Fix</dt><dd class="fix">In the shared embed, wrap the loader in an <code>IntersectionObserver</code> so the library and scene load only when the section nears the viewport. Hide the scene element at the Mobile breakpoints and show a static gradient image instead. Pin each scene's DPR/quality setting low in Unicorn Studio.</dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="seo">
+      <div class="f-top"><span class="f-id">N4</span><h3>No structured data anywhere</h3><div class="tags"><span class="tag cat">SEO</span><span class="tag">35 pages</span><span class="tag">2–3 h</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd>0 <code>application/ld+json</code> blocks on 35 pages. /faq has 111 CMS FAQs and no FAQPage markup.</dd>
+        <dt>Why</dt><dd>Schema is how Google and AI answer engines identify DishBooks as a software product with a price, an organisation, and authored articles. It qualifies the site for richer results and gives AI summaries something reliable to quote.</dd>
+        <dt>Fix</dt><dd class="fix">Page settings → Custom code → <b>Inside &lt;head&gt;</b> (templates can insert CMS fields):<ul><li><b>Home</b>: <code>Organization</code> (logo, sameAs social profiles) and <code>WebSite</code>.</li><li><b>Home / Pricing</b>: <code>SoftwareApplication</code> with <code>applicationCategory: "BusinessApplication"</code> and an <code>Offer</code> (price, 7-day free trial).</li><li><b>/faq</b>: <code>FAQPage</code>, generated from the "show on FAQ page" items.</li><li><b>Blogs Template</b>: <code>BlogPosting</code> (headline, image, datePublished, author "Jordan Carbia") plus <code>BreadcrumbList</code>.</li><li><b>Feature / WWS / Compare templates</b>: <code>BreadcrumbList</code>.</li></ul></dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="a11y">
+      <div class="f-top"><span class="f-id">N5</span><h3>Brand-blue text fails contrast on 28 pages</h3><div class="tags"><span class="tag cat">Accessibility</span><span class="tag">139 elements</span><span class="tag">1 h</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd><pre>#326CFF on #FFFFFF  4.4 : 1   (AA needs 4.5 : 1 for body-size text)
+#326CFF on #F4F6FB  4.1 : 1   eyebrows, .text-blue, active nav link, contact labels
+#929498 select text 3.0 : 1   "Select one…" on /contact</pre></dd>
+        <dt>Why</dt><dd>WCAG 2.1 AA §1.4.3. Your own Accessibility Statement commits to AA, and low-contrast labels are harder for everyone to read on a phone in a bright restaurant.</dd>
+        <dt>Fix</dt><dd class="fix">For text only, use <b>#2D63EF</b> (5.1 : 1 on white, 4.7 : 1 on the light grey). Change it on the <code>text-blue</code> / <code>text-eyebrow</code> classes, or add a "text-brand" colour variable. Keep #326CFF for buttons and large headings, which only need 3 : 1. Set the select's placeholder colour to #6B6E74 (5.1 : 1).</dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="a11y">
+      <div class="f-top"><span class="f-id">N6</span><h3>No <code>&lt;main&gt;</code> landmark, and invisible focus on dropdowns and tabs</h3><div class="tags"><span class="tag cat">Accessibility</span><span class="tag">35 pages</span><span class="tag">1 h</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd><pre>axe: landmark-one-main (35/35 pages) · region: 371 nodes outside landmarks · no &lt;footer&gt;
+Keyboard focus outline: none on "Features" and "Who We Serve" toggles and on the home tab links (.tab-item)</pre></dd>
+        <dt>Why</dt><dd>Screen-reader users jump by landmarks, and keyboard users can't see where they are when they reach the menu or the tabs.</dd>
+        <dt>Fix</dt><dd class="fix"><ol><li>Wrap each page's content between nav and footer in a Div → Element settings → Tag: <b>Main</b>. Set the footer section's Tag to <b>Footer</b>.</li><li>Add a Focus (keyboard) state to <code>nav-v2-link menu</code> and <code>tab-item</code>: outline 2px solid #2D63EF, offset 2px.</li></ol></dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="bug">
+      <div class="f-top"><span class="f-id">N7</span><h3>Horizontal scroll and clipped content on phones and tablets</h3><div class="tags"><span class="tag cat">Layout</span><span class="tag">3 pages</span><span class="tag">1–2 h</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd><pre>/feature/custom-reporting  @375  +105 px  .f-compare-card-right pushed off-screen
+/feature/invoice-bill-pay  @375  +51 px   "The workflow" grid keeps 3+ columns; gutter lost
+/contact                   @768  +117 px  form card clipped at the right edge (+2 px at 375)
+All other pages: no overflow at 375 / 768 / 1024 / 1440 / 1920</pre>
+          <div class="shots">
+            <figure class="phone"><img src="img/overflow-custom-reporting-375.jpg" alt="Custom reporting page at 375px with a blue comparison card cut off at the right edge" width="375" height="812" loading="lazy"><figcaption>custom-reporting @375</figcaption></figure>
+            <figure class="phone"><img src="img/overflow-invoice-bill-pay-375.jpg" alt="Invoice and bill pay page at 375px with text running off the right edge and narrow squeezed step cards" width="375" height="812" loading="lazy"><figcaption>invoice-bill-pay @375</figcaption></figure>
+            <figure class="phone"><img src="img/overflow-contact-768.jpg" alt="Contact page at 768px with the form card clipped on the right" width="375" height="500" loading="lazy"><figcaption>contact @768</figcaption></figure>
+          </div></dd>
+        <dt>Fix</dt><dd class="fix">At the <b>Mobile portrait</b> breakpoint, set the compare-card row and the workflow grid to one column (or flex-wrap). At <b>Tablet</b>, stack the contact page's image card above the form, or give the form <code>min-width: 0</code>.</dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="hygiene speed">
+      <div class="f-top"><span class="f-id">N8</span><h3>Features Template custom code: duplicates, a placeholder, and dead scripts</h3><div class="tags"><span class="tag cat">Code hygiene</span><span class="tag">8 pages</span><span class="tag">30 min</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd><ul>
+          <li>The <code>.outcomes-rt</code> style block appears twice. The first copy has <code>url("PASTE_CHECK_BADGE_ASSET_URL")</code>.</li>
+          <li>Two separate <code>[data-dex-chat]</code> Lottie initialisers, but no page has a <code>[data-dex-chat]</code> element. If one is added, it will mount two players.</li>
+          <li>A second copy of the <code>.v2-button</code> gradient CSS, with different timings (3.2 s here vs 5.5 s site-wide), so buttons animate differently on feature pages.</li>
+          <li>The <code>[data-animate]</code> rule and the <code>is-loaded</code> script target zero elements.</li>
+          <li><code>lottie-web</code> is loaded without <code>defer</code>.</li>
+        </ul></dd>
+        <dt>Fix</dt><dd class="fix">Pages → Features Template → Settings → Custom code. Keep one <code>.outcomes-rt</code> block (the data-URI one) and the <code>[data-lottie]</code> initialiser. Delete the rest, and add <code>defer</code> to the lottie-web script tag. Keep the site-wide button CSS as the only source.</dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="seo">
+      <div class="f-top"><span class="f-id">N9</span><h3>Title and description lengths</h3><div class="tags"><span class="tag cat">SEO</span><span class="tag">15 pages</span><span class="tag">1 h</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd><ul>
+          <li>Descriptions over 160 characters (truncated in results) on 10 CMS pages: invoice-bill-pay 183, multi-location 173, smart-dashboard 173, fine-dining 171, bank-reconciliation 170, dex-ai 168, casual-dining 166, prime-cost 163, qsr 163, coffee-shops 161.</li>
+          <li>Titles over 60 characters: fiscal-calendar 66, accounting-firms 63, dex-ai 61.</li>
+          <li>Too short and generic: "DishBooks Blog" (14), "DishBooks Pricing" (17).</li>
+        </ul></dd>
+        <dt>Fix</dt><dd class="fix">Edit the SEO fields in the Features and Who We Serve CMS items. For static pages, Pages → Settings, for example "Restaurant Accounting Software Pricing | DishBooks" and "Restaurant Accounting Blog: Prime Cost, P&amp;L &amp; AI | DishBooks".</dd>
+      </dl>
+    </article>
+
+    <article class="f" data-cat="conversion">
+      <div class="f-top"><span class="f-id">N10</span><h3>The demo path ends in a generic contact form</h3><div class="tags"><span class="tag cat">Conversion</span><span class="tag">/contact</span><span class="tag">2–4 h</span></div></div>
+      <dl class="fx">
+        <dt>Evidence</dt><dd>37 "Schedule a demo" links go to /contact. That form requires only an email, has a default "Inquiry Type" with no demo preset, shows a reCAPTCHA checkbox, and offers no way to pick a time. The page has 138 words and no proof points next to the form.</dd>
+        <dt>Why</dt><dd>Someone who clicked "Schedule a demo" expects a calendar. A message form and a reply email cost a day and lose some leads.</dd>
+        <dt>Fix</dt><dd class="fix">Make the demo links go to <code>/contact?type=demo</code> (or a dedicated /demo page). Embed a HubSpot Meetings scheduler, which you already run HubSpot for. Pre-select "Demo" as the inquiry type, require name and business, and add one testimonial or the "set up in days" claim beside the form.</dd>
+      </dl>
+    </article>
+  </div>
+
+  <!-- ============ LATER ============ -->
+  <div class="tier" id="later">
+    <div class="tier-head"><span class="tier-tag t-later">Later</span><p>Worth doing; smaller payoff or outside Webflow's easy controls.</p></div>
+
+    <article class="f" data-cat="speed">
+      <div class="f-top"><span class="f-id">L1</span><h3>Self-host the two fonts to drop the render-blocking WebFont loader</h3><div class="tags"><span class="tag cat">Speed</span><span class="tag">half day</span></div></div>
+      <dl class="fx"><dt>Evidence</dt><dd><code>webfont.js</code> loads synchronously in &lt;head&gt; on every page (≈1 s render-blocking on mobile, per Lighthouse) and loads font files late, after its own JS runs.</dd>
+      <dt>Fix</dt><dd class="fix">Download Albert Sans (400–700) and DM Mono (400, 500) as WOFF2. Upload them in Site settings → Fonts → Custom fonts with <b>font-display: swap</b>, re-point the two font variables, then remove the Google Fonts entries. Webflow's own scripts (jQuery, webflow.js, GSAP) stay render-blocking whatever you do. That's platform behaviour.</dd></dl>
+    </article>
+
+    <article class="f" data-cat="hygiene a11y seo">
+      <div class="f-top"><span class="f-id">L2</span><h3>Image and asset hygiene</h3><div class="tags"><span class="tag cat">Assets</span><span class="tag">2–3 h</span></div></div>
+      <dl class="fx"><dt>Evidence</dt><dd><ul>
+        <li>55 of the 56 most recent images in the Asset panel have no alt text. Generic names: <code>raw_image_16.webp</code>, <code>Frame 634463.svg</code>.</li>
+        <li>110 content-sized images render with <code>alt=""</code> (marked decorative), including blog card images and heroes.</li>
+        <li>Blog body images are 2560 px wide and display at ~709 px.</li>
+        <li>Unused leftovers: 3 MB <code>multi-unit-groups-p3 1.jpg</code>, 10 old <code>db-ai-V*.json.txt</code> / <code>nebula-ai*.json.txt</code> Lottie drafts.</li>
+        <li>Two 5–6 MB WebM uploads (<code>hero-1080p_1.webm</code>, <code>db-section-bg-1080p.webm</code>).</li>
+      </ul></dd>
+      <dt>Fix</dt><dd class="fix">Asset panel → each image → Settings → Alt text, with descriptive file names. In the Designer, set alt to "Use alt text from asset" for content images. Export blog inline images at 1600 px. Delete assets that aren't used once you've checked they're unused (the Asset panel shows usage).</dd></dl>
+    </article>
+
+    <article class="f" data-cat="seo">
+      <div class="f-top"><span class="f-id">L3</span><h3>Internal linking: Compare pages and blog posts are near-orphans</h3><div class="tags"><span class="tag cat">SEO</span><span class="tag">1 h</span></div></div>
+      <dl class="fx"><dt>Evidence</dt><dd><pre>Inbound internal links:  /compare/quickbooks 1 · /compare/restaurant365 1 · each blog post 2 · legal pages 1–3
+Features, Who We Serve, core pages: 35 each (nav + footer)</pre></dd>
+      <dt>Fix</dt><dd class="fix">Add a "Compare" column to the footer (vs QuickBooks, vs Restaurant365) and link both from /pricing and /why-dishbooks. Link each blog post from the feature page it supports, e.g. prime-cost post ↔ /feature/prime-cost-cogs.</dd></dl>
+    </article>
+
+    <article class="f" data-cat="hygiene">
+      <div class="f-top"><span class="f-id">L4</span><h3>Third-party tags: review what each one earns</h3><div class="tags"><span class="tag cat">Tags</span><span class="tag">1 h</span></div></div>
+      <dl class="fx"><dt>Evidence</dt><dd><pre>GTM-T3K23CKL via Webflow's Google tag (first-party gateway) → GA4 G-FCHV8M3JE5   ✓ good setup
+HubSpot 245560509: tracking + cookie banner + collectedforms.js ≈ 100 KB, 250–850 ms main thread
+cdn.loopanalytics.com/trackatron4.js (via GTM) · disable-hubspot-chatbot.js on every page
+Lighthouse Best Practices: third-party cookies (HubSpot) on every page</pre></dd>
+      <dt>Fix</dt><dd class="fix">In GTM, confirm loopanalytics is still in use. In HubSpot, turn off "collected forms" if the Webflow form isn't meant to feed HubSpot, and turn off the chatbot in HubSpot itself rather than loading a script to suppress it.</dd></dl>
+    </article>
+
+    <article class="f" data-cat="seo hygiene">
+      <div class="f-top"><span class="f-id">L5</span><h3>Small indexing and platform settings</h3><div class="tags"><span class="tag cat">SEO</span><span class="tag">30 min</span></div></div>
+      <dl class="fx"><dt>Evidence</dt><dd><ul>
+        <li><code>robots.txt</code> contains only the Sitemap line, with no <code>User-agent</code> group.</li>
+        <li><code>twitter:image</code> is missing on 15 pages (X falls back to og:image), and <code>og:url</code> is never emitted.</li>
+        <li>Redirect chains: <code>http://www</code> → <code>https://www</code> → apex (2 hops), and <code>/pricing/</code> → www → apex (2 hops).</li>
+        <li>The HSTS header says <code>preload</code>, but the domain isn't on the preload list.</li>
+        <li>No <code>X-Content-Type-Options</code>, <code>Referrer-Policy</code> or <code>Permissions-Policy</code> headers. Custom headers need Webflow Enterprise.</li>
+      </ul></dd>
+      <dt>Fix</dt><dd class="fix">Site settings → SEO → robots.txt: <code>User-agent: *</code> / <code>Allow: /</code> / <code>Sitemap: https://dishbooks.com/sitemap.xml</code>. Submit at hstspreload.org once you're sure every subdomain serves HTTPS, including app.dishbooks.com on port 80.</dd></dl>
+    </article>
+
+    <article class="f" data-cat="a11y seo conversion">
+      <div class="f-top"><span class="f-id">L6</span><h3>Sign-up app (outside Webflow): accessibility 82 on mobile</h3><div class="tags"><span class="tag cat">App team</span></div></div>
+      <dl class="fx"><dt>Evidence</dt><dd>app.dishbooks.com/signup: <code>#mobile-nav-toggle</code> button has no accessible name, the logo link has no name, a button fails contrast, and there's no meta description. The CSP blocks one resource (Lighthouse inspector issue).</dd>
+      <dt>Fix</dt><dd class="fix">Pass to the app team: add <code>aria-label="Open menu"</code> and <code>aria-label="DishBooks home"</code>, a meta description, and check the CSP console error.</dd></dl>
+    </article>
+
+    <article class="f" data-cat="hygiene bug">
+      <div class="f-top"><span class="f-id">L7</span><h3>CMS data that will bite later</h3><div class="tags"><span class="tag cat">CMS</span><span class="tag">20 min</span></div></div>
+      <dl class="fx"><dt>Evidence</dt><dd><ul>
+        <li>A placeholder author, "Jane Doe, Senior Researcher" (stock photo), is published in Blog Authors.</li>
+        <li>A Who We Serve Section links to <code>/features/custom-reporting</code> (plural, a 404). It isn't rendered today.</li>
+        <li>Compare items' Primary CTA Link is <code>/get-started</code> (a 404). See F3.</li>
+        <li>Mobile menu: the page behind it still scrolls, and the Features / Who We Serve toggles sit 2 px off the other links.</li>
+      </ul></dd>
+      <dt>Fix</dt><dd class="fix">Archive Jane Doe. Fix the link fields to <code>/feature/…</code> and the signup URL. Optionally, add <code>overflow: hidden</code> on body while the menu is open, through an interaction.</dd></dl>
+    </article>
+  </div>
+</section>
+
+<section id="passed" aria-labelledby="passed-h">
+  <div class="sec-head"><h2 id="passed-h">Checked and fine</h2><p>No action needed.</p></div>
+  <ul class="passed">
+    <li>HTTPS everywhere, HSTS on, no mixed content</li>
+    <li>www and http redirect to https://dishbooks.com (301)</li>
+    <li>Sitemap lists all 35 published pages; no drafts leak</li>
+    <li>Draft and helper-collection URLs (v2-contact, old-home, FAQ items…) return 404, not thin pages</li>
+    <li>No noindex anywhere; robots.txt doesn't block</li>
+    <li>Unique titles on 33/35 pages; meta descriptions on 33/35</li>
+    <li>Exactly one H1 on 33/35 pages; no skipped heading levels found</li>
+    <li>No JavaScript errors or console errors on any page</li>
+    <li>No failed requests apart from routine analytics beacons</li>
+    <li>CLS under 0.04 on every tested page</li>
+    <li>Images served as WebP/SVG with responsive srcset</li>
+    <li>Every &lt;img&gt; has an alt attribute; <code>lang="en"</code> set</li>
+    <li>Mobile menu, dropdowns (click and keyboard), home tabs and FAQ accordion all work</li>
+    <li>Contact form validates client-side (email required); not submitted during the audit</li>
+    <li>GA4 runs through Webflow's first-party Google tag gateway</li>
+    <li>Reduced-motion handled in the button and Lottie scripts</li>
+  </ul>
+</section>
+
+<section id="method" aria-labelledby="method-h">
+  <div class="sec-head"><h2 id="method-h">How this was measured</h2></div>
+  <div class="method">
+    <ul>
+      <li><b>Lighthouse 12.8.2</b>, headless Chrome on macOS: 9 pages × mobile and desktop × 3 runs, run one at a time; the median is reported. These are lab numbers from one machine and connection. Real-user (CrUX) data wasn't checked, and the site may be too new to have it.</li>
+      <li><b>Crawl</b>: all 35 sitemap URLs plus a test 404, in Playwright and Chrome. It recorded titles, meta, canonical, OG and Twitter tags, headings, JSON-LD, images, links, console and network errors, and axe-core 4.10 (WCAG 2.1 A/AA and best practice), and checked overflow at 375, 768, 1024, 1440 and 1920 px.</li>
+      <li><b>Links</b>: 47 unique link targets requested with redirects followed, plus anchor checks. 429 responses from aboutads.info are rate limits, not broken links.</li>
+      <li><b>Webflow (read-only)</b>: site settings, the 25-page list with SEO/OG fields, site and page custom code, 11 CMS collections, and the asset library (150 assets). Nothing was edited or published.</li>
+      <li>Raw data is in the audit worktree under <code>site-audit/</code>: <code>lighthouse/</code> (54 JSON reports plus <code>summary.json</code>), <code>raw/crawl.json</code>, <code>raw/links.json</code>, <code>raw/interact.json</code>, <code>screenshots/</code> (38 PNGs).</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="end">DishBooks.com Site Audit · 9 October 2026 · Prepared for the DishBooks team. Findings reflect the site as published on 6 October 2026.</footer>
+</div>
+
+<script>
+(function () {
+  var chips = document.querySelectorAll('.chip');
+  var cards = document.querySelectorAll('article.f');
+  var tiers = document.querySelectorAll('.tier');
+  function apply(f) {
+    chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c.dataset.f === f)); });
+    cards.forEach(function (a) { a.hidden = !(f === 'all' || a.dataset.cat.split(' ').indexOf(f) > -1); });
+    tiers.forEach(function (t) { t.hidden = !t.querySelector('article.f:not([hidden])'); });
+    try { localStorage.setItem('db-audit-filter', f); } catch (e) {}
+  }
+  chips.forEach(function (c) { c.addEventListener('click', function () { apply(c.dataset.f); }); });
+  var saved = null;
+  try { saved = localStorage.getItem('db-audit-filter'); } catch (e) {}
+  if (saved && document.querySelector('.chip[data-f="' + saved + '"]')) apply(saved);
+})();
+</script>

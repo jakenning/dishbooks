@@ -562,8 +562,10 @@ const show = (el, v) => {
 };
 
 export function frame(t) {
-  if (!R.geo) R.geo = measure();
-  const G = R.geo;
+  // Layout is only measurable once the stage is rendered (an embed can start
+  // out hidden, e.g. in an inactive Webflow tab).
+  const G = R.geo ?? measure();
+  if (root.offsetWidth) R.geo = G;
   const C = CUES;
   const outro = ease.inOutCubic(seg(t, ...C.outro));
   const outroCard = ease.outCubic(seg(t, ...C.outroCard));

@@ -43,8 +43,12 @@ export async function run(scene, { scenarioBase = '../../scenarios/', root = doc
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) {
-    // Hold the fully built dashboard rather than animating it.
-    api.seek(scene.meta.posterTime ?? duration * 0.6);
+    // Hold the fully built dashboard rather than animating it. Re-pose whenever
+    // the stage resizes: an embed that starts out hidden (inactive tab, other
+    // breakpoint) can only lay out its still frame once it is shown.
+    const still = () => api.seek(scene.meta.posterTime ?? duration * 0.6);
+    new ResizeObserver(still).observe(root);
+    still();
     return;
   }
 
@@ -76,7 +80,9 @@ function fit(root, { width, height }, enabled) {
   const parent = root.parentElement;
   const apply = () => {
     if (!parent.clientWidth) return;
-    const s = Math.min(parent.clientWidth / width, (parent.clientHeight || Infinity) / height);
+    // Measure without the height set below, or the stage could never grow back.
+    parent.style.height = '';
+    const s =Math.min(parent.clientWidth / width, (parent.clientHeight || Infinity) / height);
     root.style.transform = `scale(${s})`;
     root.style.transformOrigin = 'top left';
     parent.style.height = `${height * s}px`;

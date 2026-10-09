@@ -9,7 +9,8 @@
     "lint": "eslint",
     "anim": "node animations/serve.mjs",
     "anim:data": "node animations/scenarios/generate.mjs",
-    "anim:render": "node animations/render.mjs"
+    "anim:render": "node animations/render.mjs",
+    "anim:deliver": "node animations/deliver.mjs"
   },
   "dependencies": {
     "lottie-web": "^5.13.0",

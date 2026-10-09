@@ -13,6 +13,7 @@ animations/
   shared/                brand tokens (base.css) + Albert Sans
   lib/                   timeline + player shared by every scene
   render.mjs             records scenes → dist/
+  deliver.mjs            dist/ → a shareable folder with "Open deliverables.html"
   dist/                  output (git-ignored) — what you upload to Webflow
 ```
 
@@ -23,6 +24,7 @@ npm run anim            # preview at http://localhost:5178
 npm run anim:render     # render the homepage version → animations/dist/
 npm run anim:render -- --scene ops-calendar   # same, for another scene
 npm run anim:render -- --scene ops-calendar-mobile
+npm run anim:deliver    # copy dist/ to ~/Desktop/DishBooks Animations + an index page
 ```
 
 The preview shows the animation in a mock of the homepage slot, plus a phone

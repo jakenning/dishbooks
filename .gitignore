@@ -44,3 +44,6 @@ next-env.d.ts
 __pycache__/
 *.pyc
 tools/fonts/*.ttf
+
+# Animation renders (re-create with npm run anim:render)
+/animations/dist/

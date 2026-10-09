@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "anim": "node animations/serve.mjs",
+    "anim:data": "node animations/scenarios/generate.mjs",
+    "anim:render": "node animations/render.mjs"
   },
   "dependencies": {
     "lottie-web": "^5.13.0",
@@ -21,6 +24,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
+    "playwright": "^1.64.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DishBooks Animations</title>
+  <link rel="stylesheet" href="shared/base.css">
+  <style>
+    body { margin: 0; background: #f2f4f7; font: 14px/1.4 'Albert Sans', system-ui, sans-serif; color: #0b0c0d; }
+    header { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 16px 24px; background: #fff; border-bottom: 1px solid #eaecf2; position: sticky; top: 0; z-index: 2; }
+    header h1 { font-size: 16px; margin: 0 12px 0 0; }
+    select, button { font: inherit; padding: 6px 10px; border-radius: 8px; border: 1px solid #dfe3ec; background: #fff; }
+    label { display: flex; gap: 6px; align-items: center; color: rgb(11 12 13 / 62%); }
+    main { padding: 32px 16px 96px; }
+    /* Mimics the homepage slot: text column on the left, animation on the right. */
+    .slot { display: grid; grid-template-columns: 1fr 655px; gap: 48px; max-width: 1160px; margin: 0 auto; align-items: center; }
+    .slot .copy small { font: 600 11px/1 ui-monospace, monospace; letter-spacing: .08em; color: #326cff; }
+    .slot .copy h2 { font-size: 30px; font-weight: 500; line-height: 1.2; margin: 10px 0 12px; }
+    .slot .copy p { color: rgb(11 12 13 / 62%); }
+    .frame { border-radius: 12px; overflow: hidden; box-shadow: 0 1px 2px rgb(16 24 40 / 6%); }
+    iframe { display: block; width: 100%; aspect-ratio: 880 / 616; border: 0; }
+    .mobile { max-width: 360px; margin: 48px auto 0; }
+    .mobile p { color: rgb(11 12 13 / 42%); font-size: 12px; text-align: center; }
+    @media (max-width: 900px) { .slot { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>DishBooks animations</h1>
+    <label>Scene <select id="scene"></select></label>
+    <label>Scenario <select id="scenario"></select></label>
+    <label><input type="checkbox" id="controls" checked> Scrubber</label>
+    <button id="open" type="button">Open full size ↗</button>
+  </header>
+  <main>
+    <div class="slot">
+      <div class="copy">
+        <small>SMART OPS DASHBOARD</small>
+        <h2>Every number that matters, the moment you log in.</h2>
+        <p>Cash balance, prime cost, net profit, sales trend, and more — updated automatically, in one place.</p>
+      </div>
+      <div class="frame"><iframe id="view" title="Animation preview"></iframe></div>
+    </div>
+    <div class="mobile">
+      <div class="frame"><iframe id="view-sm" title="Animation preview, phone width"></iframe></div>
+      <p>Phone width (360px)</p>
+    </div>
+  </main>
+  <script type="module">
+    const $ = (id) => document.getElementById(id);
+    const { scenes, scenarios } = await (await fetch('/api/index')).json();
+    const q = new URLSearchParams(location.search);
+    $('scene').innerHTML = scenes.map((s) => `<option>${s}</option>`).join('');
+    $('scenario').innerHTML = scenarios.map((s) => `<option>${s}</option>`).join('');
+    $('scene').value = q.get('scene') || scenes[0];
+    $('scenario').value = q.get('scenario') || 'home';
+    const url = (controls) => `scenes/${$('scene').value}/index.html?scenario=${$('scenario').value}${controls ? '&controls=1' : ''}`;
+    const load = () => {
+      $('view').src = url($('controls').checked);
+      $('view-sm').src = url(false);
+      history.replaceState(null, '', `?scene=${$('scene').value}&scenario=${$('scenario').value}`);
+    };
+    ['scene', 'scenario', 'controls'].forEach((id) => $(id).addEventListener('change', load));
+    $('open').onclick = () => open(url(true), '_blank');
+    load();
+  </script>
+</body>
+</html>

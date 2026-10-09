@@ -29,3 +29,18 @@
 .db-anim.opc.m .ch-svg text { font-size: 10px; }
 .db-anim.opc.m .foot span { left: 40px; }
 .db-anim.opc.m .menu { right: auto; left: 14px; bottom: calc(100% - 76px); }
+
+/* Fingertip (replaces the mouse pointer): centred on the tap point */
+.db-anim.opc.m .cursor.touch { width: 0; height: 0; }
+.db-anim.opc.m .tip {
+  position: absolute;
+  left: -17px;
+  top: -17px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgb(11 12 13 / 20%);
+  border: 1.5px solid rgb(255 255 255 / 85%);
+  box-shadow: 0 2px 8px rgb(16 24 40 / 18%);
+}
+.db-anim.opc.m .touch .ripple { left: -20px; top: -20px; width: 40px; height: 40px; border-color: rgb(11 12 13 / 30%); }

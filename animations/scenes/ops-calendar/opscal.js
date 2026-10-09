@@ -253,7 +253,8 @@ function reportHead(L) {
 }
 
 // ---- Scene ------------------------------------------------------------------
-// L: { meta, compact, tl: TL, ch: CH, legendFive, f1, f2, cursor: { start, away, rest } }
+// L: { meta, compact, touch, tl: TL, ch: CH, legendFive, f1, f2, cursor: { start, away, rest } }
+// touch: show a fingertip at each tap instead of a gliding mouse pointer.
 
 export function makeScene(L) {
   const { tl: TL, ch: CH } = L;
@@ -288,7 +289,7 @@ export function makeScene(L) {
         <div class="mg">Operational Calendar</div><div class="mi target">Period</div><div class="mi">Quarter</div><div class="mi">Year</div>
       </div>
     </div>
-    <div class="cursor"><div class="ripple"></div>${CURSOR}</div>`;
+    <div class="cursor${L.touch ? ' touch' : ''}"><div class="ripple"></div>${L.touch ? '<div class="tip"></div>' : CURSOR}</div>`;
 
     const q = (s) => el.querySelector(s);
     const qa = (s) => [...el.querySelectorAll(s)];
@@ -461,6 +462,21 @@ export function makeScene(L) {
     R.f2.style.opacity = seg(t, c0 + cd * 0.7, 0.35);
 
     // ---- Cursor -----------------------------------------------------------------
+    const clicks = [C.cellClick, C.optionClick, C.pillClick, C.itemClick];
+    const click = Math.max(...clicks.map((c) => pulse(t, c)));
+    const last = [...clicks].reverse().find((c) => t >= c);
+    const rip = last != null && t < last + 0.45 ? seg(t, last, 0.45) : 0;
+    R.ripple.style.opacity = rip > 0 && rip < 1 ? 1 - rip : 0;
+    if (L.touch) {
+      // A fingertip lands on each control just before its tap and lifts after.
+      const taps = [G.cell, G.option, G.pill, G.item];
+      const i = clicks.reduce((b, c, j) => (Math.abs(t - c) < Math.abs(t - clicks[b]) ? j : b), 0);
+      const at = clicks[i];
+      R.cursor.style.opacity = seg(t, at - 0.3, 0.14) * (1 - seg(t, at + 0.15, 0.25));
+      R.cursor.style.transform = `translate(${taps[i].x.toFixed(1)}px, ${taps[i].y.toFixed(1)}px) scale(${1 - click * 0.18})`;
+      R.ripple.style.transform = `scale(${lerp(0.5, 1.6, rip)})`;
+      return;
+    }
     let pos;
     let vis;
     if (t < C.cursorBack[0]) {
@@ -475,12 +491,7 @@ export function makeScene(L) {
       vis = seg(t, ...C.cursorBack) * (1 - seg(t, C.cursorOut[0] + 0.15, 0.3));
     }
     R.cursor.style.opacity = vis;
-    const clicks = [C.cellClick, C.optionClick, C.pillClick, C.itemClick];
-    const click = Math.max(...clicks.map((c) => pulse(t, c)));
     R.cursor.style.transform = `translate(${(pos.x - 4).toFixed(1)}px, ${(pos.y - 2.5).toFixed(1)}px) scale(${1 - click * 0.12})`;
-    const last = [...clicks].reverse().find((c) => t >= c);
-    const rip = last != null && t < last + 0.45 ? seg(t, last, 0.45) : 0;
-    R.ripple.style.opacity = rip > 0 && rip < 1 ? 1 - rip : 0;
     R.ripple.style.transform = `translate(4px, 2.5px) scale(${lerp(0.3, 1.4, rip)})`;
   }
 

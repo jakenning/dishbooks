@@ -164,7 +164,8 @@ live in `scenes/ops-calendar/opscal.js`. Each layout's `scene.js` holds only its
 geometry: `ops-calendar` is the 880 × 616 desktop slot, and
 `ops-calendar-mobile` stacks the same cards for phones. On phones the grid row's
 Year and Entity move into a row header, the timeline labels sit above the bars,
-and the Columns picker gets its own line. This scene has no app
+and the Columns picker gets its own line. Phones have no pointer, so the mobile
+version shows a fingertip tapping each control instead of a moving cursor. This scene has no app
 window. It shows three components from the calendar workflow, floating on the
 page background, at 880 × 616:
 

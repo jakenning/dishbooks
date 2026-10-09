@@ -38,7 +38,7 @@ const TABS = [
     body: 'Prebuilt Ops and Prime Cost P&Ls, with COGS split out by your custom categories. Build your own report template, decide who sees each one, and have it land in their inbox on your schedule.',
     points: ['Prime cost and COGS by category, on every report', 'A GM sees their location, an owner sees the whole group', 'Reports emailed on the cadence you set'],
     link: 'Custom Reporting',
-    photo: 'https://cdn.prod.website-files.com/69d57da15c4ebabed5c82876/6a87896225d35c4352a9ac97_raw_image_8.webp',
+    scene: 'custom-reports',
   },
 ];
 

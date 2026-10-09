@@ -1,0 +1,35 @@
+/* Custom Reports, phone layout (400 × 720). Same components and tokens as the
+   desktop scene; only sizes and positions change here. render.mjs inlines the
+   @import when it builds the embed. */
+
+@import url('../custom-reports/scene.css');
+
+.db-anim.crp.m .card { left: 16px; width: 368px; }
+.db-anim.crp.m .rep { top: 16px; }
+
+/* Recipients, then schedule, in the slot under the report */
+.db-anim.crp.m .who,
+.db-anim.crp.m .sched { top: 486px; padding: 14px 14px 12px; }
+.db-anim.crp.m .who .hd em { display: block; }
+.db-anim.crp.m .k { width: 64px; }
+
+/* Inboxes: stacked, snippets wrap */
+.db-anim.crp.m .ibx { left: 16px; width: 368px; }
+.db-anim.crp.m .ibx.o { top: 132px; }
+.db-anim.crp.m .ibx.g { top: 372px; }
+.db-anim.crp.m .l2 { white-space: normal; }
+
+/* Fingertip (replaces the mouse pointer): centred on the tap point */
+.db-anim.crp.m .cursor.touch { width: 0; height: 0; }
+.db-anim.crp.m .tip {
+  position: absolute;
+  left: -17px;
+  top: -17px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgb(11 12 13 / 20%);
+  border: 1.5px solid rgb(255 255 255 / 85%);
+  box-shadow: 0 2px 8px rgb(16 24 40 / 18%);
+}
+.db-anim.crp.m .touch .ripple { left: -20px; top: -20px; width: 40px; height: 40px; border-color: rgb(11 12 13 / 30%); }

@@ -118,7 +118,8 @@ all of its CSS under `.db-anim`, so it won't affect the rest of the page.
 ### Mobile versions
 
 A scene can have a phone layout in a sibling folder named `<scene>-mobile`
-(today: `ops-calendar-mobile`, 400 × 632, rendered at 2.5× → 1000 × 1580). The
+(today: `ops-calendar-mobile`, 400 × 632, and `custom-reports-mobile`, 400 × 720,
+both rendered at 2.5× → 1000 × 1580 / 1000 × 1800). The
 preview's phone slot shows it automatically. In Webflow, add both versions to
 the section and use the breakpoint visibility settings: hide the desktop
 version on Mobile Landscape and Mobile Portrait, and hide the mobile version
@@ -195,6 +196,48 @@ on weekends, coffee shops dip). The sales are scaled so the year adds up to the
 scenario's sales KPI. The month and period totals are therefore sums of the same
 days. The 2026 dates match staging: 13-4 runs P1 Jan 1–28 to P13 Dec 3–30, and
 2027 starts Dec 31.
+
+### Custom Reports
+
+For the "Custom reports — The right numbers, to exactly the right person."
+tab. The story and timings live in `scenes/custom-reports/reports.js`, and each
+layout's `scene.js` holds only geometry, like the Ops Calendar. The desktop
+stage is 640 × 506, the shape of the 579 × 458 slot at 1440 wide, rendered at
+2× (1280 × 1012). The phone layout `custom-reports-mobile` is 400 × 720 at 2.5×.
+There is no app window, only the components of the reporting workflow,
+floating on the page background:
+
+1. **Report template.** The prebuilt Prime Cost P&L for last week (Total Sales,
+   COGS, Labor, Prime Cost), with a chip showing whose view it is.
+2. **Who gets it.** The owner (the scenario's user) sees every location; a GM
+   sees only the location the scenario flags.
+3. **Schedule.** Repeats Weekly, on Monday, at 7:00 AM, by email.
+4. **Two inboxes.** Each person gets their own copy, on top of last week's.
+
+| Time | Beat |
+|---|---|
+| 0–1.5s | The report rises in and its rows count up, scoped to the owner and all locations. |
+| 1.5–2.3s | Cursor opens **COGS**, which unfolds into the company's own categories with share bars. |
+| 2.2–4.4s | **Who gets it** rises in. Cursor picks the GM: the chip slides to their name and location, and every number rolls over to that location. |
+| 4.45–6.4s | **Schedule** rises in. Cursor picks **Weekly**, then **M**, then **Schedule report**, which turns green: "Next: Mon, Oct 12 · 7:00 AM". |
+| 6.65–9.3s | The app cards step back. Two inboxes rise, one per person, and Monday's email drops in above last week's, with each person's own prime cost, COGS and labor. |
+| 9.3–10s | Everything leaves (seamless loop). |
+
+On phones, the recipients and schedule cards share one slot under the report
+(the schedule replaces the recipients at 4.4s), the inboxes stack, the email
+snippets wrap, and a fingertip taps each control instead of a cursor.
+
+The numbers are one week (1/52) of each scenario's annual P&L, rounded to
+dollars before summing, so prime cost = COGS + labor and the categories add up
+to COGS exactly. The group uses the scenario's P&L. The GM's location uses its
+row in `locations` (food + bev = COGS %, labor %). Categories are per concept
+(`CATS` in `reports.js`: proteins/produce/… for casual dining, liquor/beer/…
+for bars, coffee/dairy/cups for cafés). The food and beverage shares come from
+the location data. The GM's name and title are in `GMS`, also in
+`reports.js`, and are fictional. Last week's email shows slightly higher
+percentages, to suggest a recurring weekly report. Single-location scenarios
+(`fine-dining`, `independent-restaurants`) show the same location for both
+people.
 
 The recorder drives your installed Google Chrome through Playwright and pipes
 PNG frames into ffmpeg (both already on this machine: `brew install ffmpeg` if

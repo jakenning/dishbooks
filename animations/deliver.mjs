@@ -5,6 +5,8 @@
 //                           audiences' versions
 //   Section mockup.html     the homepage tabs section with the animations in
 //                           place (desktop / phone), see mockup.mjs
+//   Why DishBooks mockup.html  that page's hero and the section below, with the
+//                           why-dishbooks animation straddling them (mockup.mjs)
 // Re-run after rendering to refresh it.
 //
 //   npm run anim:deliver
@@ -16,7 +18,7 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { ROOT, listScenarios } from './serve.mjs';
-import { sectionMockup } from './mockup.mjs';
+import { sectionMockup, whyMockup } from './mockup.mjs';
 
 const { values: args } = parseArgs({
   options: { out: { type: 'string', default: join(homedir(), 'Desktop', 'DishBooks Animations') } },
@@ -38,6 +40,10 @@ const SECTIONS = {
   'custom-reports': {
     title: 'Custom Reporting',
     section: 'CUSTOM REPORTS — The right numbers, to exactly the right person.',
+  },
+  'why-dishbooks': {
+    title: 'Why DishBooks',
+    section: 'WHY DISHBOOKS page — full-app window straddling the hero and the section below.',
   },
 };
 
@@ -188,7 +194,7 @@ code { font: 12px ui-monospace, Menlo, monospace; background: var(--bg); padding
 <body>
 <header>
   <h1>DishBooks animations</h1>
-  <p>Updated ${esc(when)}${commit ? ` · commit ${esc(commit)}` : ''} · all names and numbers are fictional · <a href="Section mockup.html">See them in the homepage section ↗</a></p>
+  <p>Updated ${esc(when)}${commit ? ` · commit ${esc(commit)}` : ''} · all names and numbers are fictional · <a href="Section mockup.html">See them in the homepage section ↗</a> · <a href="Why DishBooks mockup.html">Why DishBooks page ↗</a></p>
 </header>
 <main>
 ${body}
@@ -235,5 +241,7 @@ await writeFile(join(OUT, 'Open deliverables.html'), page);
 const videos = new Set();
 for (const s of rendered) if (await exists(join(DIST, s, 'home', `${s}.webm`))) videos.add(s);
 await writeFile(join(OUT, 'Section mockup.html'), sectionMockup({ fontCss, has: (s) => videos.has(s) }));
+await writeFile(join(OUT, 'Why DishBooks mockup.html'), whyMockup({ fontCss, has: (s) => videos.has(s) }));
 console.log(`✓ ${OUT}/Open deliverables.html`);
 console.log(`✓ ${OUT}/Section mockup.html`);
+console.log(`✓ ${OUT}/Why DishBooks mockup.html`);

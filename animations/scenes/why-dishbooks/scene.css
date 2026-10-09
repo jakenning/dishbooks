@@ -1,0 +1,77 @@
+/* Why DishBooks, desktop: a 1280 × 720 app window (window bar, sidebar, page,
+   Dex docked on the right). Components are in app.css; this file places them. */
+
+@import url('./app.css');
+
+.wdb .chrome { position: absolute; left: 0; right: 0; top: 0; height: 30px; display: flex; align-items: center; gap: 7px; padding: 0 14px; background: var(--u1); border-bottom: 1px solid var(--b2); }
+.wdb .chrome i { width: 11px; height: 11px; border-radius: 50%; background: #dfe1e6; }
+.wdb .side { left: 12px; top: 42px; bottom: 12px; width: 228px; background: var(--u4); border-radius: 8px; }
+.wdb .main { left: 252px; top: 42px; }
+.wdb .top { height: 40px; }
+.wdb .pill,
+.wdb .chip { display: flex; align-items: center; gap: 8px; padding: 7px 12px; white-space: nowrap; }
+.wdb .pill { border-radius: 4px; background: var(--u3); border: 1px solid var(--b2); }
+.wdb .pill .pi { font-size: 16px; color: var(--t1); }
+.wdb .chip { border-radius: 99px; background: var(--ps); color: var(--p7); font-weight: 500; }
+.wdb .views { top: 52px; }
+
+/* Home */
+.wdb .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+.wdb .stats > div { padding: 10px 12px; border-radius: 8px; background: var(--u1); }
+.wdb .stats span { display: block; font-size: 12px; line-height: 16px; color: var(--t2); text-transform: uppercase; letter-spacing: 0.6px; }
+.wdb .stats b { display: block; margin-top: 2px; font-size: 16px; line-height: 24px; font-weight: 600; }
+.wdb .stats .in { color: var(--gn); }
+.wdb .kpis { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.wdb .kpi { height: 112px; padding: 14px 16px; }
+.wdb .kv { margin-top: 2px; font-size: 26px; line-height: 34px; letter-spacing: -1.3px; }
+.wdb .spark { height: 50px; }
+.wdb .hrow { grid-template-columns: minmax(0, 1fr) 360px; }
+.wdb .cost-b { flex-direction: column; gap: 20px; }
+.wdb .dc span { font-size: 12px; line-height: 16px; }
+.wdb .dc b { font-size: 22px; line-height: 28px; }
+.wdb .cl li { padding: 7px 4px; }
+
+/* Banking */
+.wdb .bank { display: grid; grid-template-columns: 320px minmax(0, 1fr); }
+.wdb .cashc,
+.wdb .txc { display: flex; flex-direction: column; }
+.wdb .big { font-size: 30px; line-height: 38px; }
+.wdb .cashc .stats b { font-size: 15px; font-weight: 500; }
+.wdb .acc { margin-top: 12px; }
+.wdb .acc li { padding: 10px 0; }
+.wdb .trend { margin-top: auto; }
+.wdb .trend .lbl { font-size: 11px; line-height: 16px; }
+.wdb .trend .chart { margin-top: 8px; }
+.wdb .txh { align-items: center; }
+.wdb .prog > i { width: 120px; }
+.wdb .tx .tr { grid-template-columns: 64px minmax(0, 1.5fr) minmax(0, 1fr) 112px 128px; min-height: 56px; }
+.wdb .tx .tr > span { padding: 0 10px; }
+.wdb .tx .th { min-height: 32px; border-top: 0; }
+.wdb .tx .th > span { font-size: 12px; line-height: 16px; color: var(--t2); text-transform: uppercase; letter-spacing: 0.6px; }
+.wdb .tx .th > span:nth-child(4) { text-align: right; }
+.wdb .dt,
+.wdb .cg { color: var(--t2); }
+.wdb .ds { font-weight: 500; }
+.wdb .st > span { padding: 2px 8px; font-size: 12px; line-height: 18px; }
+
+/* Prime Cost P&L */
+.wdb .tiles { gap: 12px; }
+.wdb .tile { padding: 14px 16px; }
+.wdb .tv { font-size: 26px; line-height: 34px; letter-spacing: -1.3px; }
+.wdb .ts { font-size: 12px; line-height: 16px; }
+.wdb .plc { flex: 1; }
+.wdb .pt { margin-top: 12px; }
+.wdb .pt .tr { grid-template-columns: minmax(0, 1.4fr) repeat(var(--n), minmax(0, 1fr)); min-height: 36px; }
+.wdb .pt .tr > span { padding: 0 12px; }
+.wdb .pt .cr { min-height: 30px; }
+.wdb .cr > span { font-size: 13px; }
+.wdb .pt .cr > .lb { padding-left: 30px; }
+.wdb .pp { border-radius: 0 0 6px 6px; }
+
+/* Dex: docked on the right; the page narrows to make room (app.js) */
+.wdb .dex { right: 12px; top: 42px; bottom: 12px; width: 320px; border-radius: 8px; z-index: 3; }
+.wdb .dex-body { padding: 20px 16px 16px; }
+
+/* Mouse pointer */
+.wdb .cursor svg { width: 22px; height: 22px; filter: drop-shadow(0 2px 3px rgb(0 0 0 / 25%)); }
+.wdb .ripple { left: -14px; top: -14px; width: 28px; height: 28px; }

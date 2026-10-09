@@ -158,8 +158,12 @@ async function bundleHtml(scenario, outDir) {
   const data = JSON.parse(await read(`scenarios/${scenario}.json`));
   delete data.$comment;
 
+  const sources = await Promise.all(modules.map(async (m) => strip(await read(m))));
+  const iconsAt = modules.indexOf('shared/icons.js');
+  if (iconsAt >= 0) sources[iconsAt] = pruneIcons(sources[iconsAt], sources.filter((_, i) => i !== iconsAt).join('\n'));
+
   const raw = `(() => {
-${(await Promise.all(modules.map(async (m) => strip(await read(m))))).join('\n')}
+${sources.join('\n')}
 const scene = { meta, build, frame };
 ${strip(await read('lib/player.js'))}
 const host = document.currentScript.previousElementSibling.querySelector('[data-db-anim]');
@@ -203,6 +207,12 @@ ${markup}
 </body></html>
 `;
   await writeFile(join(outDir, `${args.scene}.html`), page);
+}
+
+// Keep only the icons a bundle names. Every scene names its icons as quoted
+// literals (icon('check'), or in a NAV table), so an unquoted name means unused.
+function pruneIcons(src, rest) {
+  return src.replace(/^"([\w-]+)": \[[^\]]*\],?\n/gm, (entry, name) => (rest.includes(`'${name}'`) || rest.includes(`"${name}"`) ? entry : ''));
 }
 
 // Drop custom properties nothing reads (shared tokens a scene doesn't use).

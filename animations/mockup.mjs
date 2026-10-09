@@ -177,3 +177,164 @@ li svg { flex: none; }
 </body></html>
 `;
 }
+
+// "Why DishBooks mockup.html": the Why DishBooks page's hero and the section
+// below it, rebuilt from dishbooks.com/why-dishbooks (Oct 2026), with the
+// why-dishbooks animation straddling the boundary between them. The hero's
+// animated background (a Unicorn Studio embed) is stood in for by a gradient.
+//
+// How the straddle works (the same structure works in Webflow):
+//   - The window sits at the bottom of the hero inside a .slot (the hero's
+//     content width) and has margin-bottom: -28.125% (half of 720 / 1280,
+//     since % margins are of the slot's width), so its lower half hangs into
+//     the next section. position: relative + z-index keep it above that
+//     section's background.
+//   - The next section starts with an identical .slot holding a spacer of
+//     padding-top: 28.125%, so its content starts below the window.
+//   - Phones (≤ 767px) swap to the 400 × 720 phone version, in a 320px-wide
+//     slot, with -90% / 90% (half of 720 / 400).
+/**
+ * @param fontCss  @font-face rules for Albert Sans (inlined)
+ * @param has      (scene) => boolean, whether files/<scene>/home/<scene>.webm exists
+ */
+export function whyMockup({ fontCss, has }) {
+  const media = (scene, cls) =>
+    has(scene)
+      ? `<video class="${cls}" autoplay muted loop playsinline poster="files/${scene}/home/${scene}.jpg"><source src="files/${scene}/home/${scene}.webm" type="video/webm"><source src="files/${scene}/home/${scene}.mp4" type="video/mp4"></video>`
+      : `<img class="${cls}" src="files/${scene}/home/${scene}.jpg" alt="">`;
+  const card = (title, text, blue) => `<div class="card${blue ? ' blue' : ''}"><div class="card-t">${esc(title)}</div><p>${esc(text)}</p></div>`;
+
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why DishBooks mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&display=swap">
+<style>
+${fontCss}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: #e4e7ee; font-family: 'Albert Sans', system-ui, sans-serif; color: #0b0c0d; }
+
+/* Viewer chrome (not part of the mockup) */
+.bar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 10px 20px; background: #0b0c0d; color: #fff; font-size: 13px; }
+.bar b { font-weight: 600; }
+.bar span { color: rgb(255 255 255 / 60%); }
+.seg { display: flex; gap: 2px; padding: 3px; background: rgb(255 255 255 / 12%); border-radius: 99px; }
+.seg button { font: 500 13px/1 'Albert Sans', system-ui, sans-serif; color: #fff; background: none; border: 0; padding: 7px 14px; border-radius: 99px; cursor: pointer; }
+.seg button.on { background: #326cff; }
+.stage { padding: 0; }
+.frame { margin: 0 auto; background: #f2f4f7; container-type: inline-size; }
+body.phone .stage { padding: 32px 16px 64px; }
+body.phone .frame { width: 375px; border-radius: 40px; border: 10px solid #0b0c0d; overflow: hidden; box-shadow: 0 30px 60px -20px rgb(16 24 40 / 40%); }
+@media (max-width: 700px) { .bar { position: static; padding: 8px 12px; } .bar span, .seg { display: none; } }
+
+/* ---- The page, as on dishbooks.com ---- */
+.v2-section { position: relative; padding: 0 40px; border-bottom: 1px solid #d5d8e0; background: radial-gradient(circle farthest-corner at 50% 200%, #f9fafc, rgb(234 236 242 / 50%) 75%); }
+.container { position: relative; max-width: 1512px; margin: 0 auto; border-left: 1px solid #d5d8e0; border-right: 1px solid #d5d8e0; }
+.text-blue { color: #326cff; }
+.dim { color: #5f6166; }
+
+/* Hero */
+.unicorn { position: absolute; inset: 0; opacity: .6; pointer-events: none; background: radial-gradient(60% 70% at 85% 20%, rgb(50 108 255 / 22%), transparent 70%), radial-gradient(50% 60% at 15% 85%, rgb(46 178 255 / 16%), transparent 70%); }
+.hero { position: relative; z-index: 1; display: grid; grid-template-columns: 1.25fr 1fr; gap: 16px; padding: 120px 80px 72px; }
+.hero-c { display: flex; flex-direction: column; gap: 40px; }
+.head { display: flex; flex-direction: column; gap: 8px; }
+.eyebrow { font: 500 12px/1.5 'DM Mono', ui-monospace, monospace; letter-spacing: .05em; text-transform: uppercase; }
+h1 { margin: 0; font-size: 64px; line-height: 64px; font-weight: 600; }
+.hero p { margin: 8px 0 0; font-size: 18px; line-height: 28px; }
+.btns { display: flex; gap: 12px; }
+.button { display: inline-flex; justify-content: center; padding: 16px 28px; border-radius: 120px; background: #326cff; color: #fdfdff; font-weight: 500; font-size: 16px; line-height: 24px; text-decoration: none; }
+.button.invert { background: #fdfdff; color: #0b0c0d; }
+
+/* The straddle (see mockup.mjs) */
+.slot { position: relative; z-index: 2; margin: 0 auto; padding: 0 80px; }
+.win { margin-bottom: -28.125%; border-radius: 12px; overflow: hidden; background: #f9fafc; box-shadow: 0 0 0 1px rgb(130 133 140 / 16%), 0 40px 80px -24px rgb(4 29 92 / 28%), 0 12px 24px -12px rgb(4 29 92 / 12%); }
+.win video, .win img { display: block; width: 100%; height: auto; }
+.spacer { padding-top: 28.125%; }
+.v-mob { display: none !important; }
+
+/* Below the hero */
+.below { display: flex; flex-direction: column; gap: 80px; padding: 104px 80px; }
+.panels { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+h2 { margin: 0; font-size: 36px; line-height: 40px; font-weight: 600; }
+.below > .panels p { margin: 0; font-size: 18px; line-height: 28px; color: #5f6166; }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: center; }
+.card { padding: 24px; border-radius: 16px; background: #f9fafc; border: 1px solid #eaecf2; display: flex; flex-direction: column; gap: 12px; }
+.card-t { font-size: 24px; line-height: 24px; font-weight: 600; }
+.card p { margin: 0; font-size: 16px; line-height: 24px; color: #5f6166; }
+.card.blue { padding: 36px; background: #326cff; border-color: #326cff; }
+.card.blue .card-t { color: #fdfdff; }
+.card.blue p { color: #c6d6ff; font-size: 18px; line-height: 28px; }
+
+/* Webflow tablet (≤ 991px), mobile landscape (≤ 767px), portrait (≤ 479px) */
+@container (max-width: 991px) {
+  .v2-section { padding: 0 12px; }
+  .hero { grid-template-columns: 1fr; padding: 40px 24px 40px; }
+  h1 { font-size: 56px; }
+  .slot { padding: 0 24px; }
+  .below { padding: 104px 24px; }
+  .panels, .cards { grid-template-columns: 1fr; gap: 24px; }
+}
+@container (max-width: 767px) {
+  h1 { font-size: 36px; line-height: 48px; }
+  .btns { flex-direction: column; }
+  .slot { max-width: 320px; padding: 0; }
+  .win { margin-bottom: -90%; border-radius: 16px; }
+  .spacer { padding-top: 90%; }
+  .v-desk { display: none !important; }
+  .v-mob { display: block !important; }
+}
+@container (max-width: 479px) {
+  .container { padding: 12px; }
+  .hero-s .container { padding-bottom: 0; } /* keeps the window centred on the boundary */
+  .hero-s + .v2-section .container { padding-top: 0; }
+  .hero { padding: 40px 0 32px; }
+  h1 { font-size: 32px; line-height: 40px; }
+  h2 { font-size: 28px; line-height: 36px; }
+  .card-t { font-size: 18px; line-height: 20px; }
+  .below { padding: 40px 0; gap: 40px; }
+}
+</style></head>
+<body>
+<div class="bar">
+  <div><b>Why DishBooks mockup</b> <span>· the page's hero and the section below, with the animation straddling them · not the live site</span></div>
+  <div class="seg"><button type="button" class="on" data-view="desktop">Desktop</button><button type="button" data-view="phone">Phone</button></div>
+</div>
+<div class="stage"><div class="frame">
+  <section class="v2-section hero-s"><div class="unicorn"></div><div class="container">
+    <div class="hero"><div class="hero-c">
+      <div class="head">
+        <div class="eyebrow text-blue">Why Dishbooks</div>
+        <h1><span class="text-blue">Restaurant accounting,</span> simplified by AI.</h1>
+        <p class="dim">Prime cost, COGS by category, labor, cash, and more ready the moment you log in. Know where you stand so that you can decide what's next.</p>
+      </div>
+      <div class="btns"><a class="button" href="#">Start your free trial</a><a class="button invert" href="#">Schedule a demo</a></div>
+    </div></div>
+    <div class="slot"><div class="win">${media('why-dishbooks', 'v-desk')}${media('why-dishbooks-mobile', 'v-mob')}</div></div>
+  </div></section>
+  <section class="v2-section"><div class="container">
+    <div class="slot"><div class="spacer"></div></div>
+    <div class="below">
+      <div class="panels">
+        <h2><span class="dim">Too generic or too complicated.</span> Most operators get one or the other.</h2>
+        <p>Generic accounting software handles income and expenses fine, but it can't show prime cost broken down, COGS by category, or how one location is doing against another. Enterprise systems can, but they take months to stand up and somebody on staff to keep running. DishBooks gives you the restaurant view without the heavy overhead.</p>
+      </div>
+      <div class="cards">
+        ${card('Generic accounting software', 'Built for any business — not restaurants specifically.')}
+        ${card('DishBooks', 'Built for restaurants, live in days.', true)}
+        ${card('Heavy, enterprise-level solutions', 'Powerful, with the implementation and upkeep to match.')}
+      </div>
+    </div>
+  </div></section>
+</div></div>
+<script>
+  document.querySelectorAll('a[href="#"]').forEach((a) => a.addEventListener('click', (e) => e.preventDefault()));
+  document.querySelectorAll('[data-view]').forEach((b) => b.addEventListener('click', () => {
+    document.querySelectorAll('[data-view]').forEach((x) => x.classList.toggle('on', x === b));
+    document.body.classList.toggle('phone', b.dataset.view === 'phone');
+    document.querySelectorAll('video').forEach((v) => { v.currentTime = 0; v.play().catch(() => {}); });
+  }));
+  if (new URLSearchParams(location.search).has('phone')) document.querySelector('[data-view=phone]').click();
+</script>
+</body></html>
+`;
+}

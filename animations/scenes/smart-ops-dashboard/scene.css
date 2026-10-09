@@ -319,6 +319,9 @@
   border-radius: 8px 8px 2px 8px;
   background: var(--primary-a12);
   color: var(--text-50);
+  /* dishbooks.com has a global .bubble class that sets its own type size */
+  font-size: inherit;
+  line-height: inherit;
 }
 .db-anim .dots { position: absolute; left: 0; top: 6px; display: flex; gap: 4px; }
 .db-anim .dots i { width: 6px; height: 6px; border-radius: 99px; background: var(--text-300); }

@@ -8,7 +8,8 @@
 import { makeScene } from '../why-dishbooks/app.js';
 
 const S = makeScene({
-  meta: { width: 400, height: 720, duration: 12, fps: 30, posterTime: 2.3, scale: 2.5 },
+  meta: { width: 400, height: 720, duration: 12, fps: 30, posterTime: 0, scale: 2.5 },
+  startAt: 1.8, // the loop starts here: Home loaded; by 2.3 the menu drawer is already opening
   compact: true,
   touch: true,
   txRows: 5,

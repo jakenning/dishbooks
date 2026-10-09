@@ -380,7 +380,11 @@ function plView(D, L, N) {
 }
 
 // ---- Scene ----------------------------------------------------------------------------
-// L: { meta, compact, touch, txRows, sales, cashChart, donut, rest }
+// L: { meta, startAt, compact, touch, txRows, sales, cashChart, donut, rest }
+//   startAt: where in the story t = 0 falls (s). The loop is seamless, so the
+//            timeline is just rotated: the video's first frame, which Webflow
+//            uses as the poster, shows the dashboard loaded. CUES stay in story
+//            time.
 //   compact: the app's phone layout (top bar + drawer instead of a sidebar)
 //   touch:   a fingertip at each tap instead of a gliding mouse pointer
 
@@ -541,6 +545,8 @@ export function makeScene(L) {
   };
 
   function frame(t) {
+    const dur = L.meta.duration;
+    t = ((((t + (L.startAt ?? 0)) % dur) + dur) % dur); // video time → story time
     // Layout is only measurable once the stage is rendered (an embed can start
     // out hidden, e.g. the desktop version on a phone breakpoint).
     const G = R.geo ?? measure();

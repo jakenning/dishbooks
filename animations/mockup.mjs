@@ -284,9 +284,7 @@ h2 { margin: 0; font-size: 36px; line-height: 40px; font-weight: 600; }
   .v-mob { display: block !important; }
 }
 @container (max-width: 479px) {
-  .container { padding: 12px; }
-  .hero-s .container { padding-bottom: 0; } /* keeps the window centred on the boundary */
-  .hero-s + .v2-section .container { padding-top: 0; }
+  .container { padding: 0 12px; }
   .hero { padding: 40px 0 32px; }
   h1 { font-size: 32px; line-height: 40px; }
   h2 { font-size: 28px; line-height: 36px; }

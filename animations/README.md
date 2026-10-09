@@ -256,6 +256,12 @@ loops every 12s.
 Four views, picked to cover what the page promises ("prime cost, COGS by
 category, labor, cash … ready the moment you log in", AI):
 
+The times below are story time. The loop is rotated so that each video
+starts with Home loaded: the desktop at 2.3s (`startAt` in `scene.js`), and
+the phone at 1.8s, since by 2.3s its menu drawer is opening. Frame 0, which is
+also the poster and the frame Webflow shows before the video plays, is the
+full dashboard.
+
 | Time | Beat |
 |---|---|
 | 0–2s | **Home.** The KPIs rise in and count up, Sales Performance draws, and the Cost Breakdown donut sweeps. |
@@ -307,8 +313,8 @@ Each video's box must have the same aspect ratio as its video, so cover-fit
 crops nothing. Then the −28.125% / −90% overhang is exactly half the
 window's height. Keep Webflow's play/pause button switched on. `.wdb-spacer`
 starts the next section. Webflow re-encodes uploads, so upload the MP4 (the
-higher-quality file). Its poster is the video's first frame: the empty page
-at 0s.
+higher-quality file). Webflow uses the video's first frame as the poster,
+and that frame is the loaded dashboard (see `startAt` above).
 
 **Embed size.** The embeds are about 48.9k characters at most (the multi-unit
 groups scenario), close to Webflow's 50k limit. To keep them there:

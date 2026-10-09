@@ -6,7 +6,8 @@
 import { makeScene } from './app.js';
 
 const S = makeScene({
-  meta: { width: 1280, height: 720, duration: 12, fps: 30, posterTime: 2.3, scale: 1.5 },
+  meta: { width: 1280, height: 720, duration: 12, fps: 30, posterTime: 0, scale: 1.5 },
+  startAt: 2.3, // the loop starts here: Home loaded, the pointer heading for Banking
   compact: false,
   txRows: 8,
   sales: { W: 612, H: 320 },

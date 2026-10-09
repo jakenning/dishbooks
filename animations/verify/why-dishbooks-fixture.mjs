@@ -9,6 +9,9 @@
 //   naive    wdb-video: aspect ratio only
 //   planned  + height auto, z-index 0 (what the Designer steps set)
 //   fixed    + the hero's container above the next section (z-index 11)
+//   embed        the plan in use: HTML Embeds from why-dishbooks-embeds.mjs (no Background Video)
+//   embed-fixed  + the hero's container above the next section
+// --hosted urls.json swaps in uploaded asset URLs ({ desktop: { mp4, webm, jpg }, phone: … }) for any it has.
 //
 //   node verify/why-dishbooks-fixture.mjs --variant fixed --port 4174
 //   node verify/why-dishbooks.mjs --url http://localhost:4174/why-dishbooks.html --no-sharpness
@@ -18,6 +21,8 @@ import { createReadStream, statSync } from 'node:fs';
 import { join, dirname, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
+import { readFileSync } from 'node:fs';
+import { embed } from './why-dishbooks-embeds.mjs';
 
 const ANIM = join(dirname(fileURLToPath(import.meta.url)), '..');
 const { values: args } = parseArgs({ options: {
@@ -25,11 +30,12 @@ const { values: args } = parseArgs({ options: {
   port: { type: 'string', default: '4174' },
   page: { type: 'string', default: 'https://dish-books.webflow.io/why-dishbooks' },
   home: { type: 'string', default: 'https://dish-books.webflow.io/' },
+  hosted: { type: 'string' },
 } });
 
 let html = await (await fetch(args.page)).text();
 // The page's webflow.js has no Background Video module until a page uses one; the home page's has.
-const homeJs = /https:\/\/cdn\.prod\.website-files\.com\/[^"]*\/js\/webflow\.[0-9a-f]+\.[0-9a-f]+\.js/.exec(await (await fetch(args.home)).text())?.[0];
+const homeJs = args.variant.startsWith('embed') ? null : /https:\/\/cdn\.prod\.website-files\.com\/[^"]*\/js\/webflow\.[0-9a-f]+\.[0-9a-f]+\.js/.exec(await (await fetch(args.home)).text())?.[0];
 if (homeJs) html = html.replace(/(<script src=")https:\/\/cdn\.prod\.website-files\.com\/[^"]*\/js\/webflow\.[0-9a-f]+\.[0-9a-f]+\.js"[^>]*>/, `$1${homeJs}" type="text/javascript">`); // drops its integrity hash
 html = html.replace(/<script async="" src="\/[^"]*"><\/script>/g, ''); // site-relative loader, 404s locally
 
@@ -37,7 +43,14 @@ html = html.replace(/<script async="" src="\/[^"]*"><\/script>/g, ''); // site-r
 const svg = (d) => `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="rgba(0,0,0,.45)"/><path fill="#fff" d="${d}"/></svg>`)}`;
 const ICON = { pause: svg('M11 9h4v14h-4zM17 9h4v14h-4z'), play: svg('M12 9l12 7-12 7z') };
 const bgv = (id, cls, file) => `<div data-poster-url="/${file}.jpg" data-video-urls="/fx_${file}.mp4,/fx_${file}.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="${cls} w-background-video w-background-video-atom"><video id="${id}" autoplay="" loop="" style="background-image:url(&quot;/${file}.jpg&quot;)" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover"><source src="/fx_${file}.mp4" data-wf-ignore="true"/><source src="/fx_${file}.webm" data-wf-ignore="true"/></video><div aria-live="polite"><button type="button" data-w-bg-video-control="true" aria-controls="${id}" class="w-backgroundvideo-backgroundvideoplaypausebutton w-background-video--control"><span><img loading="lazy" src="${ICON.pause}" alt="Pause video"/></span><span hidden=""><img loading="lazy" src="${ICON.play}" alt="Play video"/></span></button></div></div>`;
-const slot = `<div class="wdb-slot"><div class="wdb-win">${bgv('wdb-d', 'anim-desktop wdb-video', 'why-dishbooks')}${bgv('wdb-p', 'anim-phone wdb-video-phone', 'why-dishbooks-mobile')}</div></div>`;
+const isEmbed = args.variant.startsWith('embed');
+const hosted = args.hosted ? JSON.parse(readFileSync(args.hosted, 'utf8')) : {};
+const url = (kind, file) => Object.fromEntries(['mp4', 'webm', 'jpg'].map((x) => [x, hosted[kind]?.[x] ?? `/${x === 'jpg' ? '' : 'fx_'}${file}.${x}`]));
+// Webflow renders an HTML Embed as <div class="<classes> w-embed w-script">code</div>
+const emb = (kind, cls, file) => `<div class="${cls} w-embed w-script">${embed(kind, url(kind, file))}</div>`;
+const slot = isEmbed
+  ? `<div class="wdb-slot"><div class="wdb-win">${emb('desktop', 'anim-desktop', 'why-dishbooks')}${emb('phone', 'anim-phone', 'why-dishbooks-mobile')}</div></div>`
+  : `<div class="wdb-slot"><div class="wdb-win">${bgv('wdb-d', 'anim-desktop wdb-video', 'why-dishbooks')}${bgv('wdb-p', 'anim-phone wdb-video-phone', 'why-dishbooks-mobile')}</div></div>`;
 
 // Insert the slot after the hero block's closing tag (matching <div>s), and the spacer first in the next section's container
 const at = html.indexOf('<div class="hero-content-block">');
@@ -51,7 +64,7 @@ html = html.slice(0, at) + '<div class="hero-content-block is-wdb">' + html.slic
 const next = html.indexOf('<section', html.indexOf('</section>', at));
 const cont = html.indexOf('>', html.indexOf('v2-1512-container', next)) + 1;
 html = html.slice(0, cont) + '<div class="wdb-spacer"></div>' + html.slice(cont);
-if (args.variant === 'fixed') { // the hero's container gets the combo
+if (args.variant.endsWith('fixed')) { // the hero's container gets the combo
   const c = html.lastIndexOf('v2-1512-container', at);
   html = html.slice(0, c) + 'v2-1512-container is-over-next' + html.slice(c + 'v2-1512-container'.length);
 }
@@ -60,9 +73,9 @@ const css = [
   '.hero-content-block.is-wdb{padding-bottom:72px}',
   '@media (max-width:991px){.hero-content-block.is-wdb{padding-bottom:40px}}',
   '@media (max-width:479px){.hero-content-block.is-wdb{padding-bottom:32px}}',
-  '.wdb-video{aspect-ratio:16/9}.wdb-video-phone{aspect-ratio:5/9}',
-  args.variant !== 'naive' ? '.wdb-video,.wdb-video-phone{height:auto;z-index:0}' : '',
-  args.variant === 'fixed' ? '.v2-1512-container.is-over-next{z-index:11}' : '',
+  isEmbed ? '' : '.wdb-video{aspect-ratio:16/9}.wdb-video-phone{aspect-ratio:5/9}',
+  ['planned', 'fixed'].includes(args.variant) ? '.wdb-video,.wdb-video-phone{height:auto;z-index:0}' : '',
+  args.variant.endsWith('fixed') ? '.v2-1512-container.is-over-next{z-index:11}' : '',
 ].join('\n');
 html = html.replace('</head>', `<style>/* fixture: ${args.variant} */\n${css}</style></head>`);
 

@@ -39,8 +39,8 @@ if (!(url.hostname.endsWith('.webflow.io') || ['localhost', '127.0.0.1'].include
 const WIDTHS = args.widths.split(',').map(Number);
 const PHONE_MAX = 767; // Webflow's "small" breakpoint: anim-phone shows, anim-desktop hides
 const SCENES = {
-  desktop: { cls: 'wdb-video', file: 'why-dishbooks', ours: join(ANIM, 'dist/why-dishbooks/home/why-dishbooks.mp4'), w: 1920, h: 1080 },
-  phone: { cls: 'wdb-video-phone', file: 'why-dishbooks-mobile', ours: join(ANIM, 'dist/why-dishbooks-mobile/home/why-dishbooks-mobile.mp4'), w: 1000, h: 1800 },
+  desktop: { cls: 'anim-desktop', file: 'why-dishbooks', ours: join(ANIM, 'dist/why-dishbooks/home/why-dishbooks.mp4'), w: 1920, h: 1080 },
+  phone: { cls: 'anim-phone', file: 'why-dishbooks-mobile', ours: join(ANIM, 'dist/why-dishbooks-mobile/home/why-dishbooks-mobile.mp4'), w: 1000, h: 1800 },
 };
 const TOL = { centre: 3, aspect: 0.01 };
 
@@ -75,13 +75,13 @@ for (const width of WIDTHS) {
         slotAfterHero: !!slot && slot.previousElementSibling === hero,
         winInSlot: !!win && win.parentElement === slot,
         spacerFirst: !!spacer && spacer.parentElement.firstElementChild === spacer && spacer.closest('section') !== hero?.closest('section'),
-        videos: [...(win?.querySelectorAll('.w-background-video') ?? [])].map((v) => v.className),
+        videos: [...(win?.querySelectorAll('video') ?? [])].map((v) => v.parentElement.closest('.anim-desktop,.anim-phone')?.className ?? v.parentElement.className),
       };
     });
     check('structure: hero has combo is-wdb', dom.heroIsWdb);
     check('structure: .wdb-slot > .wdb-win right after .hero-content-block', dom.slotAfterHero && dom.winInSlot);
     check('structure: .wdb-spacer is first child in the next section', dom.spacerFirst);
-    check('structure: two Background Videos in .wdb-win', dom.videos.length === 2, dom.videos.join(' | '));
+    check('structure: two videos in .wdb-win (desktop + phone)', dom.videos.length === 2, dom.videos.join(' | '));
     if (!dom.win || !dom.slot) throw new Error('No .wdb-win on the page; the remaining checks need it');
 
     // Geometry
@@ -157,10 +157,10 @@ for (const width of WIDTHS) {
     }
 
     // Play/pause button: a real click (fails if something lies over it)
-    const btn = wrap.locator('.w-background-video--control');
+    const btn = wrap.locator('.wdb-pp, .w-background-video--control');
     if (await btn.count()) {
       const label = await btn.evaluate((b) => b.getAttribute('aria-label') || [...b.querySelectorAll('img')].map((i) => i.alt).join('/'));
-      const icon = await btn.evaluate((b) => { const i = b.querySelector('span:not([hidden]) img, span:not([hidden]) svg'); const r = i?.getBoundingClientRect(); return i ? { ok: (i.tagName !== 'IMG' || i.naturalWidth > 0) && r.width > 0, size: `${Math.round(r.width)}×${Math.round(r.height)}` } : { ok: false, size: 'none' }; });
+      const icon = await btn.evaluate((b) => { const i = [...b.querySelectorAll('img, svg')].find((x) => x.getBoundingClientRect().width > 0); const r = i?.getBoundingClientRect(); return i ? { ok: (i.tagName !== 'IMG' || i.naturalWidth > 0) && r.width > 0, size: `${Math.round(r.width)}×${Math.round(r.height)}` } : { ok: false, size: 'none' }; });
       check('play/pause icon loads', icon.ok, `visible icon ${icon.size}px`);
       let detail = `label "${label}"`, ok = false;
       try {
@@ -177,7 +177,7 @@ for (const width of WIDTHS) {
         detail += `; click failed: ${e.message.split('\n').find((l) => /intercepts|not visible|outside/.test(l))?.trim() ?? e.message.split('\n')[0]}`;
       }
       check('play/pause button pauses and resumes', ok, detail);
-    } else check('play/pause button pauses and resumes', false, 'no .w-background-video--control in the video');
+    } else check('play/pause button pauses and resumes', false, 'no play/pause button (.wdb-pp) by the video');
 
     // Screenshot: the video at its poster time, hero top → heading + 120px
     await video.evaluate(async (v) => { v.pause(); v.currentTime = 0; await new Promise((r) => (v.readyState >= 2 && !v.seeking ? r() : v.addEventListener('seeked', r, { once: true }))); });
@@ -187,11 +187,13 @@ for (const width of WIDTHS) {
     await page.screenshot({ path: join(args.out, r.shot), fullPage: true, clip: { x: 0, y: top, width, height: bottom - top } });
     await video.evaluate((v) => v.play());
 
-    // Reduced motion: Webflow pauses background videos (expected, informational)
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.waitForTimeout(300);
-    const rm = await video.evaluate((v) => v.paused);
-    check('reduced motion: video paused (Webflow default)', null, `paused ${rm}`);
+    // Reduced motion (set before the visit): the video stays on its poster frame
+    const rmPage = await context.browser().newPage({ viewport: page.viewportSize(), reducedMotion: 'reduce' });
+    await rmPage.goto(url.href, { waitUntil: 'load', timeout: 60_000 });
+    await rmPage.waitForTimeout(1500);
+    const rm = await rmPage.locator(`.wdb-win .${S.cls} video`).first().evaluate((v) => ({ paused: v.paused, t: v.currentTime }));
+    await rmPage.close();
+    check('reduced motion: video stays paused', rm.paused && rm.t < 0.1, `paused ${rm.paused}, t ${rm.t.toFixed(2)}s`);
   } catch (e) {
     check('run', false, e.message.split('\n')[0]);
   }

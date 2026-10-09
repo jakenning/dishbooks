@@ -6,8 +6,8 @@
 //     "heroContainer": <data_element_tool query_elements match: element_filter {style:"hero-content-block"},
 //                       return_parent "parent", children_depth -1>,
 //     "spacerParent":  <same for {style:"wdb-spacer"}, return_parent "parent", children_depth 1>,
-//     "settings":      { "<element id of each Background Video>": <data_element_settings_tool get_settings
-//                       all_resolved_settings result> },
+//     "settings":      { "<element id of each video element (HTML Embed or Background Video)>":
+//                       <data_element_settings_tool get_settings all_resolved_settings result> },
 //     "styles":        [<data_style_tool query_styles matches, include_properties, breakpoints main/medium/small/tiny>,
 //                       for wdb-video, wdb-video-phone, hero-content-block › is-wdb, v2-1512-container › is-over-next]
 //   }
@@ -33,12 +33,15 @@ check('.wdb-slot right after .hero-content-block', has(slot, 'wdb-slot'), slot ?
 const win = slot?.children?.length === 1 ? slot.children[0] : null;
 check('.wdb-slot holds only .wdb-win', has(win, 'wdb-win'), slot?.children?.map((c) => c.styleNames.join(' ')).join(' | '));
 const vids = win?.children ?? [];
-check('.wdb-win holds exactly two Background Videos', vids.length === 2 && vids.every((v) => /video/i.test(v.type)), vids.map((v) => `${v.type}(${v.styleNames.join(' ')})`).join(' | '));
+const isEmbed = vids.some((v) => /embed/i.test(v.type));
+check('.wdb-win holds exactly two videos (HTML Embeds or Background Videos)', vids.length === 2 && vids.every((v) => /video|embed/i.test(v.type)), vids.map((v) => `${v.type}(${v.styleNames.join(' ')})`).join(' | '));
 
-const WANT = { desktop: ['anim-desktop', 'wdb-video', 'why-dishbooks'], phone: ['anim-phone', 'wdb-video-phone', 'why-dishbooks-mobile'] };
+const WANT = isEmbed
+  ? { desktop: ['anim-desktop', null, 'why-dishbooks'], phone: ['anim-phone', null, 'why-dishbooks-mobile'] }
+  : { desktop: ['anim-desktop', 'wdb-video', 'why-dishbooks'], phone: ['anim-phone', 'wdb-video-phone', 'why-dishbooks-mobile'] };
 for (const [kind, [a, b, file]] of Object.entries(WANT)) {
-  const v = vids.find((x) => same(x.styleNames, [a, b]));
-  check(`${kind} video has classes ${a} + ${b} (nothing else)`, v, v ? '' : vids.map((x) => x.styleNames.join(' ')).join(' | '));
+  const v = vids.find((x) => same(x.styleNames, [a, b].filter(Boolean)));
+  check(`${kind} video has classes ${[a, b].filter(Boolean).join(' + ')} (nothing else)`, v, v ? '' : vids.map((x) => x.styleNames.join(' ')).join(' | '));
   if (!v) continue;
   const s = dump.settings?.[v.id.element];
   if (!s) { check(`${kind} video settings read`, false, `no settings for ${v.id.element}`); continue; }
@@ -48,6 +51,16 @@ for (const [kind, [a, b, file]] of Object.entries(WANT)) {
     else flat.push([path, o]);
   })(s, '');
   const flag = (re) => flat.filter(([p]) => re.test(p)).map(([p, x]) => `${p.split('.').slice(-2).join('.')}=${x}`);
+  if (isEmbed) { // the embed's code: a <video> with the right files and flags
+    const code = flat.map(([, x]) => x).find((x) => typeof x === 'string' && x.includes('<video')) ?? '';
+    const tag = /<video[^>]*>/.exec(code)?.[0] ?? '';
+    check(`${kind} embed: <video autoplay muted loop playsinline>`, ['autoplay', 'muted', 'loop', 'playsinline'].every((f) => new RegExp(`\\s${f}[\\s>=]`).test(tag)), tag.slice(0, 120) || 'no <video> in the embed code');
+    const srcs = [...code.matchAll(/(?:src|poster)="([^"]+)"/g)].map((m) => m[1]);
+    const right = (u) => u.includes(`_${file}.`) && u.startsWith('https://cdn.prod.website-files.com/');
+    check(`${kind} embed: WebM, MP4 and poster are the hosted ${file} files`, srcs.length === 3 && srcs.every(right) && /\.webm"[^]*\.mp4"/.test(code), srcs.map((u) => u.split('/').pop()).join(', '));
+    check(`${kind} embed: play/pause button`, /class="wdb-pp"/.test(code));
+    continue;
+  }
   const auto = flag(/autoplay/i), loop = flag(/loop/i);
   check(`${kind} video: autoplay on`, auto.length && auto.every((x) => /=true$/.test(x)), auto.join(', ') || 'no autoplay setting found');
   check(`${kind} video: loop on`, loop.length && loop.every((x) => /=true$/.test(x)), loop.join(', ') || 'no loop setting found');
@@ -63,7 +76,7 @@ check('.wdb-spacer is the first child of the next section’s container', has(sp
 const style = (chain) => (dump.styles ?? []).find((s) => s.name === chain.at(-1) && (chain.length === 1 || s.isComboClass));
 const prop = (s, bp, p) => s?.properties?.breakpoints?.[bp]?.properties?.[p] ?? (bp === 'main' ? s?.properties?.base?.properties?.[p] : undefined);
 const ratio = (x) => { const m = /^\s*([\d.]+)\s*(?:\/\s*([\d.]+))?\s*$/.exec(String(x ?? '')); return m ? m[1] / (m[2] ?? 1) : NaN; };
-for (const [name, r] of [['wdb-video', 16 / 9], ['wdb-video-phone', 5 / 9]]) {
+for (const [name, r] of isEmbed ? [] : [['wdb-video', 16 / 9], ['wdb-video-phone', 5 / 9]]) {
   const s = style([name]);
   check(`.${name}: aspect ratio ${r === 16 / 9 ? '16/9' : '5/9'}`, Math.abs(ratio(prop(s, 'main', 'aspect-ratio')) - r) < 0.001, `${prop(s, 'main', 'aspect-ratio')}`);
   check(`.${name}: height auto (overrides Webflow's 500px)`, prop(s, 'main', 'height') === 'auto', `${prop(s, 'main', 'height')}`);

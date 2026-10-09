@@ -182,12 +182,11 @@ page background, at 880 × 616:
 
 | Time | Beat |
 |---|---|
-| 0–1.3s | Cards rise in. Both timeline rows are months, and the four 5-weekend months (Jan, May, Aug, Oct) are flagged. |
-| 1.3–2.85s | Cursor opens Operational Structure and picks **13-4**. Operational End changes from Dec 31 to Dec 30. |
-| 2.85–3.9s | The operational row morphs into 13 equal 28-day periods, then the Q1–Q4 brackets (3-3-4-3) appear. |
-| 3.9–5.0s | Total Sales by Month draws. The bars are uneven. |
-| 5.0–6.5s | Cursor opens Columns and picks **Operational · Period**. |
-| 6.5–9.3s | The bars re-flow into 13 even periods: "Every period: 28 days, 4 weekends". |
+| 0–1.6s | Cards rise in: Calendars row, timeline, then Total Sales by Month. The timeline draws while the month bars grow (uneven), and the four 5-weekend months (Jan, May, Aug, Oct) are flagged on both. |
+| 1.6–3.15s | Cursor opens Operational Structure and picks **13-4**. Operational End changes from Dec 31 to Dec 30. |
+| 3.15–4.8s | The operational row morphs into 13 equal 28-day periods, then the Q1–Q4 brackets (3-3-4-3) appear. |
+| 4.8–6.3s | Cursor opens Columns and picks **Operational · Period**. |
+| 6.3–9.3s | The bars re-flow into 13 even periods: "Every period: 28 days, 4 weekends". |
 | 9.3–10s | Cards leave (seamless loop). |
 
 The daily sales behind the chart come from each scenario's monthly history

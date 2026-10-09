@@ -39,32 +39,32 @@ const WEEKDAYS = {
 export const CUES = {
   cal: 0.1, // Calendars row card
   tl: 0.25, // timeline card
+  report: 0.4, // sales report card
   tlDraw: [0.45, 0.9],
-  fiveFlags: 1.15, // months with 5 weekends get flagged
-  cursorIn: [1.3, 0.2],
-  toCell: [1.35, 0.55],
-  cellClick: 1.95,
-  selectOpen: [2.0, 0.18],
-  toOption: [2.15, 0.35],
-  optionHover: 2.42,
-  optionClick: 2.7,
-  selectClose: [2.75, 0.15],
-  morph: [2.85, 1.0], // operational row: months → 13 periods
-  quarters: [3.6, 0.45],
-  cursorAway: [2.85, 0.5],
-  report: 3.9, // sales report card
-  bars: [4.05, 0.8],
-  dots: 4.75,
-  cursorBack: [5.0, 0.2],
-  toPill: [5.0, 0.55],
-  pillClick: 5.6,
-  menuOpen: [5.65, 0.18],
-  toItem: [5.8, 0.45],
-  itemHover: 6.12,
-  itemClick: 6.35,
-  menuClose: [6.4, 0.15],
-  chartMorph: [6.5, 1.1],
-  cursorOut: [6.55, 0.45],
+  bars: [0.6, 0.8], // month bars draw alongside the timeline
+  fiveFlags: 1.2, // months with 5 weekends get flagged (timeline and chart)
+  dots: 1.3,
+  cursorIn: [1.6, 0.2],
+  toCell: [1.65, 0.55],
+  cellClick: 2.25,
+  selectOpen: [2.3, 0.18],
+  toOption: [2.45, 0.35],
+  optionHover: 2.72,
+  optionClick: 3.0,
+  selectClose: [3.05, 0.15],
+  morph: [3.15, 1.0], // operational row: months → 13 periods
+  quarters: [3.9, 0.45],
+  cursorAway: [3.15, 0.5],
+  cursorBack: [4.8, 0.2],
+  toPill: [4.8, 0.55],
+  pillClick: 5.4,
+  menuOpen: [5.45, 0.18],
+  toItem: [5.6, 0.45],
+  itemHover: 5.92,
+  itemClick: 6.15,
+  menuClose: [6.2, 0.15],
+  chartMorph: [6.3, 1.1],
+  cursorOut: [6.35, 0.45],
   outro: [9.3, 0.55], // cards leave; t = 10 matches t = 0 (empty)
 };
 

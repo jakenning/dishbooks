@@ -25,7 +25,7 @@ export const STORY = {
     { at: 1.5, dur: 1.9, sel: (R) => R.tiles.slice(0, 2), label: 'COGS and labor, as a share of sales' },
     { at: 3.5, dur: 1.9, sel: (R) => [R.tiles[2]], label: 'Prime cost: COGS + labor, every day' },
     { at: 5.5, dur: 2.1, sel: ['.tr.cogs', '.cats'], label: 'COGS in your own categories' },
-    { at: 7.7, dur: 1.75, sel: ['.pt .fl'], focus: ['.pt .th', '.pt > .tr[data-row="labor"]', '.pt > .tr[data-row="pp"]'], label: 'The location that’s off, flagged' },
+    { at: 7.7, dur: 1.75, sel: ['.pt > .tr[data-row="labor"]', '.pt > .tr[data-row="pp"]'], focus: ['.pt .th', '.pt > .tr[data-row="labor"]', '.pt > .tr[data-row="pp"]'], label: 'The location that’s off, flagged' },
   ],
   taps: (L) => [{ at: COGS_CLICK, el: (R) => R.cogs, fx: L.compact ? 0.12 : 0.08 }],
   frame(t, R, L, D, N) {

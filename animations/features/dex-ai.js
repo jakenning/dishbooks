@@ -27,8 +27,8 @@ export const STORY = {
     { at: 1.4, dur: 1.75, sel: ['.dex footer'], label: 'Ask about your numbers in plain English', zoom: L.compact ? 1 : 1.05 },
     { at: 3.2, dur: 2.7, sel: ['.bubble', '.msg.ans'], label: 'Answers from your own books, in seconds', zoom: L.compact ? 1 : 1.3 },
     L.compact
-      ? { at: 6.3, dur: 3.1, sel: ['.pt .fl'], focus: ['.pt .th', '.pt > .tr[data-row="labor"]', '.pt > .tr[data-row="pp"]'], label: 'The numbers behind the answer, flagged' }
-      : { at: 6.0, dur: 3.4, sel: ['.msg.ans', '.pt .fl'], label: 'Dex points to the numbers behind the answer', zoom: 1 },
+      ? { at: 6.3, dur: 3.1, sel: ['.pt > .tr[data-row="labor"]', '.pt > .tr[data-row="pp"]'], focus: ['.pt .th', '.pt > .tr[data-row="labor"]', '.pt > .tr[data-row="pp"]'], label: 'The numbers behind the answer, flagged' }
+      : { at: 6.0, dur: 3.4, sel: ['.msg.ans', '.pt > .tr[data-row="labor"]', '.pt > .tr[data-row="pp"]'], label: 'Dex points to the numbers behind the answer', zoom: 1 },
   ],
   frame(t, R, L, D, N) {
     plFrame(t, R, L, N, { p0: 0.05, flag: 1.0 });

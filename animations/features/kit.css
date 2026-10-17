@@ -37,3 +37,8 @@
 }
 .ftstage .callout i { width: 8px; height: 8px; border-radius: 99px; background: linear-gradient(135deg, #2eb2ff, #326cff 55%, #5542ff); box-shadow: 0 0 0 3px rgb(50 108 255 / 30%); }
 .ftstage .m ~ .callout { font-size: 12px; line-height: 16px; padding: 6px 12px 6px 9px; }
+
+/* The flagged cell (the P&L's .fl): fill the row so the red outline has room
+   around the number, instead of hugging one line of text. */
+.ft .pt .fl { align-self: stretch; display: flex; align-items: center; justify-content: flex-end; padding-right: 16px; }
+.ft .pt .fl::before { inset: 5px 4px 5px 8px; border-radius: 6px; }

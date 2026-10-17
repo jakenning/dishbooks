@@ -14,8 +14,8 @@ animations/
   lib/                   timeline + player shared by every scene
   render.mjs             records scenes → dist/
   deliver.mjs            dist/ → a shareable folder with "Open deliverables.html"
-  mockup.mjs             "Section mockup.html" (homepage tabs) and "Why DishBooks mockup.html"
-                         (that page's hero), with the animations in place
+  mockup.mjs             "Section mockup.html" (homepage tabs), "Why DishBooks mockup.html" and
+                         "Homepage mockup.html" (those pages' heroes), with the animations in place
   dist/                  output (git-ignored) — what you upload to Webflow
 ```
 
@@ -120,8 +120,8 @@ all of its CSS under `.db-anim`, so it won't affect the rest of the page.
 
 A scene can have a phone layout in a sibling folder named `<scene>-mobile`
 (today: `ops-calendar-mobile`, 400 × 632, and `custom-reports-mobile` and
-`why-dishbooks-mobile`, 400 × 720, all rendered at 2.5× → 1000 × 1580 /
-1000 × 1800). The
+`why-dishbooks-mobile` and `home-hero-mobile`, 400 × 720, all rendered at
+2.5× → 1000 × 1580 / 1000 × 1800). The
 preview's phone slot shows it automatically. In Webflow, add both versions to
 the section and use the breakpoint visibility settings: hide the desktop
 version on Mobile Landscape and Mobile Portrait, and hide the mobile version
@@ -362,6 +362,59 @@ groups scenario), close to Webflow's 50k limit. To keep them there:
 - `render.mjs` drops icons a bundle never names.
 
 If an edit pushes an embed over 50k, use the video.
+
+### Homepage hero
+
+The homepage's version of the Why DishBooks window: the same 1280 × 720 app
+window (phone: 400 × 720), straddling the hero ("AI-powered accounting
+software, built for restaurants.") and the section card below it. It tours the
+product rather than one argument: Home, then the Ops Calendar, then a report,
+then Dex. The story lives in `scenes/home-hero/hero.js`; each layout's
+`scene.js` holds only geometry. Home, the Prime Cost P&L and Dex are the Why
+DishBooks components (imported from `scenes/why-dishbooks/app.js`, and its
+`scene.css` for the window). The Calendars page is drawn in `hero.js` and
+`cal.css`, after the Ops Calendar scene. `render.mjs` bundles every module
+into one scope, so `hero.js` keeps its names (`HCUES`, `makeHero`, …) clear
+of `app.js`'s. It loops every 14s.
+
+| Time | Beat |
+|---|---|
+| 0–1.9s | **Home.** The KPIs rise in and count up, Sales Performance draws, and the Cost Breakdown donut sweeps. |
+| 1.95–2.6s | Pointer → **Settings**, which opens **Calendars**. |
+| 2.75–3.6s | The Calendars grid row, the 2026 timeline (fiscal and operational rows) and Total Sales by Month rise in. The months with 5 weekends get an amber dot. |
+| 3.8–4.6s | Pointer opens **Operational Structure** and picks **13-4**. Operational End changes from Dec 31 to Dec 30. |
+| 4.55–5.7s | The operational row re-cuts into 13 periods of 28 days with Q1–Q4 brackets (3-3-4-3). The month bars fall and 13 even period bars rise: "Every period: 28 days, 4 weekends". |
+| 5.75–8.2s | Pointer → **Reports**, which opens the **Prime Cost P&L** by location. The rows count up, COGS opens into the categories, and the outlier location gets a red outline. |
+| 8.2–12s | Pointer → **Ask Dex**. "Why is Eastside's prime cost so high?" types out, sends, and the answer streams in, naming labor at the flagged location. |
+| 12–14s | Pointer goes back to **Home**. Dex closes and the page clears, so 14s = 0s. |
+
+The times are story time. The video starts at 1.9s (desktop) and 1.8s (phone),
+`startAt` in each `scene.js`, so frame 0, which Webflow uses as the poster, is
+the loaded dashboard. The calendar numbers are the Ops Calendar scene's: the
+scenario's monthly sales spread over the days of 2026 and summed into months
+and 28-day periods, so both sets of bars add up to the same year.
+
+**Placement.** The homepage hero is built from the same classes as the Why
+DishBooks hero, and those classes are global, so the same setup applies
+(read through the Webflow Data API, Oct 2026):
+
+- Hero container `.v2-1512-container`: add the combo `is-over-next`.
+- Hero `.hero-content-block`: add the combo `is-wdb` (bottom padding 72px instead of 120px).
+- After `.hero-content-block`, inside that container: `.wdb-slot > .wdb-win`
+  holding two Background Videos, as in the Why DishBooks table above, with
+  `dist/home-hero/home/home-hero.mp4` (`anim-desktop` + `wdb-video`) and
+  `dist/home-hero-mobile/home/home-hero-mobile.mp4` (`anim-phone` +
+  `wdb-video-phone`).
+- The next section (the dark "Built around the numbers restaurants actually
+  run on." card): `.wdb-spacer` as the first child of its
+  `.v2-1512-container`, before `.v2-content-wrapper`. Put the spacer inside
+  its own `.wdb-slot`, as in the mockup. The spacer's padding is a percentage
+  of its parent's width and the window's overhang is a percentage of the
+  slot's, so a spacer directly in the container comes out about 45px taller
+  than the overhang at 1440 wide.
+
+The embeds are about 59k characters (the calendar page adds about 10k), over
+Webflow's 50k limit, so the homepage uses the videos.
 
 The recorder drives your installed Google Chrome through Playwright and pipes
 PNG frames into ffmpeg (both already on this machine: `brew install ffmpeg` if

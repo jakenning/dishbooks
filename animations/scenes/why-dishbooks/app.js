@@ -53,7 +53,7 @@ export const CUES = {
   menuLead: 0.55,
 };
 
-const NAV = [
+export const NAV = [
   ['house-simple', 'Home', false],
   ['cash-register', 'Sales', true],
   ['invoice', 'Expenses', true],
@@ -79,24 +79,24 @@ const STOPS = [
 const COL = { indigo: '#4f39f6', indigo300: '#a3b3ff', green: '#00a63e', red: '#e7000b', blue: '#326cff' };
 const DOUGHNUT = ['#4f39f6', '#f6339a', '#fe9a00', 'rgba(11,12,13,.6)'];
 
-const MARK = `<svg class="mark" viewBox="0 0 68 48" aria-hidden="true"><defs><linearGradient id="__ID__m" x1="0" y1="24" x2="85" y2="24" gradientUnits="userSpaceOnUse"><stop offset=".1" stop-color="#2EB2FF"/><stop offset="1" stop-color="#326CFF"/></linearGradient></defs><path d="M46.19 24C46.19 10.97 34.49.33 19.96 0H2.01C.9 0 0 .88 0 1.97v44.07C0 47.12.9 48 2.01 48h17.95C34.49 47.67 46.19 37.03 46.19 24Z" fill="url(#__ID__m)"/><path d="M57.11 24c0-11.23-8.69-20.69-20.39-23.29-.83-.19-1.3.9-.59 1.34 7.76 4.81 12.85 12.86 12.85 21.95s-5.09 17.14-12.85 21.95c-.71.44-.24 1.52.59 1.34C48.41 44.69 57.11 35.23 57.11 24Z" fill="#326CFF"/><path d="M47.5.63c-.82-.19-1.3.9-.58 1.34C54.74 6.78 59.89 14.86 59.89 24c0 9.15-5.15 17.23-12.98 22.04-.72.44-.24 1.53.6 1.34 4.62-1.04 8.75-3.3 12-6.4 4.54-4.35 7.35-10.35 7.35-16.97C66.85 12.63 58.59 3.1 47.5.63Z" fill="#5542FF"/></svg>`;
-const CURSOR = `<svg viewBox="0 0 22 22"><path d="M4 2.5v15.2l4.1-3.9 2.7 6.1 2.6-1.1-2.7-6h5.7L4 2.5Z" fill="#0b0c0d" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>`;
+export const MARK = `<svg class="mark" viewBox="0 0 68 48" aria-hidden="true"><defs><linearGradient id="__ID__m" x1="0" y1="24" x2="85" y2="24" gradientUnits="userSpaceOnUse"><stop offset=".1" stop-color="#2EB2FF"/><stop offset="1" stop-color="#326CFF"/></linearGradient></defs><path d="M46.19 24C46.19 10.97 34.49.33 19.96 0H2.01C.9 0 0 .88 0 1.97v44.07C0 47.12.9 48 2.01 48h17.95C34.49 47.67 46.19 37.03 46.19 24Z" fill="url(#__ID__m)"/><path d="M57.11 24c0-11.23-8.69-20.69-20.39-23.29-.83-.19-1.3.9-.59 1.34 7.76 4.81 12.85 12.86 12.85 21.95s-5.09 17.14-12.85 21.95c-.71.44-.24 1.52.59 1.34C48.41 44.69 57.11 35.23 57.11 24Z" fill="#326CFF"/><path d="M47.5.63c-.82-.19-1.3.9-.58 1.34C54.74 6.78 59.89 14.86 59.89 24c0 9.15-5.15 17.23-12.98 22.04-.72.44-.24 1.53.6 1.34 4.62-1.04 8.75-3.3 12-6.4 4.54-4.35 7.35-10.35 7.35-16.97C66.85 12.63 58.59 3.1 47.5.63Z" fill="#5542FF"/></svg>`;
+export const CURSOR = `<svg viewBox="0 0 22 22"><path d="M4 2.5v15.2l4.1-3.9 2.7 6.1 2.6-1.1-2.7-6h5.7L4 2.5Z" fill="#0b0c0d" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>`;
 // Light stand-ins for Phosphor's gear and sun (1.7k and 0.6k of path): a
 // dashed ring draws the teeth or rays.
-const COG = `<svg class="pi" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="5.9" stroke-width="2.2" stroke-dasharray="2.32 2.32"/><circle cx="8" cy="8" r="4.4" stroke-width="1.5"/><circle cx="8" cy="8" r="1.9" stroke-width="1.4"/></svg>`;
-const SUN = `<svg class="pi" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="3" stroke-width="1.5"/><circle cx="8" cy="8" r="6.3" stroke-width="2.2" stroke-dasharray="1.2 3.75"/></svg>`;
-const MENU = `<svg class="pi" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" aria-hidden="true"><path d="M40 64h176M40 128h176M40 192h176"/></svg>`;
+export const COG = `<svg class="pi" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="5.9" stroke-width="2.2" stroke-dasharray="2.32 2.32"/><circle cx="8" cy="8" r="4.4" stroke-width="1.5"/><circle cx="8" cy="8" r="1.9" stroke-width="1.4"/></svg>`;
+export const SUN = `<svg class="pi" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="3" stroke-width="1.5"/><circle cx="8" cy="8" r="6.3" stroke-width="2.2" stroke-dasharray="1.2 3.75"/></svg>`;
+export const MENU = `<svg class="pi" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" aria-hidden="true"><path d="M40 64h176M40 128h176M40 192h176"/></svg>`;
 
-const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+export const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const n1 = (v) => v.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 /** The app's money format: thousands with one decimal, e.g. $2,862.4k. */
-const kMoney = (v) => `${v < 0 ? '-' : ''}$${n1(Math.abs(v) / 1000)}k`;
-const pct = (v) => `${v.toFixed(1)}%`;
-const f1 = (v) => v.toFixed(1);
+export const kMoney = (v) => `${v < 0 ? '-' : ''}$${n1(Math.abs(v) / 1000)}k`;
+export const pct = (v) => `${v.toFixed(1)}%`;
+export const f1 = (v) => v.toFixed(1);
 /** Bank amounts: cents → +$1,234.56 / -$1,234.56. */
 const cents = (c, sign = true) =>
   `${sign ? (c < 0 ? '-' : '+') : ''}$${(Math.abs(c) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-const axisMoney = (v) => (v >= 1e6 ? `$${+(v / 1e6).toFixed(2)}M` : `$${Math.round(v / 1e3)}K`);
+export const axisMoney = (v) => (v >= 1e6 ? `$${+(v / 1e6).toFixed(2)}M` : `$${Math.round(v / 1e3)}K`);
 
 // ---- Chart geometry (mirrors Chart.js curve modes, as in smart-ops-dashboard) --
 
@@ -117,7 +117,7 @@ function splineD(pts, tension) {
   return d;
 }
 
-function monoD(pts) {
+export function monoD(pts) {
   const n = pts.length;
   const m = [];
   for (let i = 0; i < n - 1; i++) m.push((pts[i + 1][1] - pts[i][1]) / (pts[i + 1][0] - pts[i][0]));
@@ -146,7 +146,7 @@ function monoD(pts) {
   return d;
 }
 
-function ticks4(lo, hi, count = 4) {
+export function ticks4(lo, hi, count = 4) {
   const raw = (hi - lo) / count;
   const mag = 10 ** Math.floor(Math.log10(raw));
   const step = [1, 2, 2.5, 5, 10].map((k) => k * mag).find((s) => s >= raw);
@@ -159,7 +159,7 @@ function ticks4(lo, hi, count = 4) {
 
 // ---- Fictional numbers ------------------------------------------------------------
 
-function model(D) {
+export function model(D) {
   const cats = CATS[D.id] ?? CATS.default;
   const P = Object.fromEntries(D.pnl.map((r) => [r.metric, r.actual]));
   const locs = D.locations;
@@ -272,7 +272,7 @@ function donut(items, S) {
 }
 
 /** Dex answer → paragraphs of word spans, with **bold** kept. */
-function answerHtml(paragraphs) {
+export function answerHtml(paragraphs) {
   return paragraphs
     .map(
       (p) =>
@@ -292,7 +292,7 @@ function answerHtml(paragraphs) {
     .join('');
 }
 
-function homeView(D, L, id) {
+export function homeView(D, L, id) {
   const kpis = L.compact ? D.kpis.filter((k) => k.key !== 'ebitda') : D.kpis;
   const total = D.costBreakdown.reduce((a, b) => a + b.pct, 0);
   return `<section class="view home">
@@ -350,7 +350,7 @@ function bankView(D, L, N, id) {
   </section>`;
 }
 
-function plView(D, L, N) {
+export function plView(D, L, N) {
   const fr = N.flagRow;
   // Phone: the flagged location next to the total.
   const shown = L.compact ? (N.cols.length > 1 ? [N.cols[Math.max(0, fr)], N.cols[N.cols.length - 1]] : N.cols) : N.cols;

@@ -1,0 +1,8 @@
+/* Homepage hero, desktop: the Why DishBooks 1280 × 720 app window (window
+   bar, sidebar, page, Dex docked on the right) with a Calendars page. */
+
+@import url('../why-dishbooks/scene.css');
+@import url('./cal.css');
+
+.hh .gr { grid-template-columns: 96px 250px 160px 180px 164px 1fr; }
+.hh .foot span { left: 52px; }

@@ -178,39 +178,9 @@ li svg { flex: none; }
 `;
 }
 
-// "Why DishBooks mockup.html": the Why DishBooks page's hero and the section
-// below it, rebuilt from dishbooks.com/why-dishbooks (Oct 2026), with the
-// why-dishbooks animation straddling the boundary between them. The hero's
-// animated background (a Unicorn Studio embed) is stood in for by a gradient.
-//
-// How the straddle works (the same structure works in Webflow):
-//   - The window sits at the bottom of the hero inside a .slot (the hero's
-//     content width) and has margin-bottom: -28.125% (half of 720 / 1280,
-//     since % margins are of the slot's width), so its lower half hangs into
-//     the next section. position: relative + z-index keep it above that
-//     section's background.
-//   - The next section starts with an identical .slot holding a spacer of
-//     padding-top: 28.125%, so its content starts below the window.
-//   - Phones (≤ 767px) swap to the 400 × 720 phone version, in a 320px-wide
-//     slot, with -90% / 90% (half of 720 / 400).
-/**
- * @param fontCss  @font-face rules for Albert Sans (inlined)
- * @param has      (scene) => boolean, whether files/<scene>/home/<scene>.webm exists
- */
-export function whyMockup({ fontCss, has }) {
-  const media = (scene, cls) =>
-    has(scene)
-      ? `<video class="${cls}" autoplay muted loop playsinline poster="files/${scene}/home/${scene}.jpg"><source src="files/${scene}/home/${scene}.webm" type="video/webm"><source src="files/${scene}/home/${scene}.mp4" type="video/mp4"></video>`
-      : `<img class="${cls}" src="files/${scene}/home/${scene}.jpg" alt="">`;
-  const card = (title, text, blue) => `<div class="card${blue ? ' blue' : ''}"><div class="card-t">${esc(title)}</div><p>${esc(text)}</p></div>`;
-
-  return `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Why DishBooks mockup</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&display=swap">
-<style>
-${fontCss}
-* { box-sizing: border-box; }
+// Shared by the hero mockups (whyMockup, homeMockup): the viewer bar, the
+// page's sections and the straddle, as on dishbooks.com.
+const HERO_CSS = `* { box-sizing: border-box; }
 html, body { margin: 0; }
 body { background: #e4e7ee; font-family: 'Albert Sans', system-ui, sans-serif; color: #0b0c0d; }
 
@@ -290,7 +260,49 @@ h2 { margin: 0; font-size: 36px; line-height: 40px; font-weight: 600; }
   h2 { font-size: 28px; line-height: 36px; }
   .card-t { font-size: 18px; line-height: 20px; }
   .below { padding: 40px 0; gap: 40px; }
-}
+}`;
+
+const VIEW_SCRIPT = `  document.querySelectorAll('a[href="#"]').forEach((a) => a.addEventListener('click', (e) => e.preventDefault()));
+  document.querySelectorAll('[data-view]').forEach((b) => b.addEventListener('click', () => {
+    document.querySelectorAll('[data-view]').forEach((x) => x.classList.toggle('on', x === b));
+    document.body.classList.toggle('phone', b.dataset.view === 'phone');
+    document.querySelectorAll('video').forEach((v) => { v.currentTime = 0; v.play().catch(() => {}); });
+  }));
+  if (new URLSearchParams(location.search).has('phone')) document.querySelector('[data-view=phone]').click();`;
+
+// "Why DishBooks mockup.html": the Why DishBooks page's hero and the section
+// below it, rebuilt from dishbooks.com/why-dishbooks (Oct 2026), with the
+// why-dishbooks animation straddling the boundary between them. The hero's
+// animated background (a Unicorn Studio embed) is stood in for by a gradient.
+//
+// How the straddle works (the same structure works in Webflow):
+//   - The window sits at the bottom of the hero inside a .slot (the hero's
+//     content width) and has margin-bottom: -28.125% (half of 720 / 1280,
+//     since % margins are of the slot's width), so its lower half hangs into
+//     the next section. position: relative + z-index keep it above that
+//     section's background.
+//   - The next section starts with an identical .slot holding a spacer of
+//     padding-top: 28.125%, so its content starts below the window.
+//   - Phones (≤ 767px) swap to the 400 × 720 phone version, in a 320px-wide
+//     slot, with -90% / 90% (half of 720 / 400).
+/**
+ * @param fontCss  @font-face rules for Albert Sans (inlined)
+ * @param has      (scene) => boolean, whether files/<scene>/home/<scene>.webm exists
+ */
+export function whyMockup({ fontCss, has }) {
+  const media = (scene, cls) =>
+    has(scene)
+      ? `<video class="${cls}" autoplay muted loop playsinline poster="files/${scene}/home/${scene}.jpg"><source src="files/${scene}/home/${scene}.webm" type="video/webm"><source src="files/${scene}/home/${scene}.mp4" type="video/mp4"></video>`
+      : `<img class="${cls}" src="files/${scene}/home/${scene}.jpg" alt="">`;
+  const card = (title, text, blue) => `<div class="card${blue ? ' blue' : ''}"><div class="card-t">${esc(title)}</div><p>${esc(text)}</p></div>`;
+
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why DishBooks mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&display=swap">
+<style>
+${fontCss}
+${HERO_CSS}
 </style></head>
 <body>
 <div class="bar">
@@ -325,13 +337,78 @@ h2 { margin: 0; font-size: 36px; line-height: 40px; font-weight: 600; }
   </div></section>
 </div></div>
 <script>
-  document.querySelectorAll('a[href="#"]').forEach((a) => a.addEventListener('click', (e) => e.preventDefault()));
-  document.querySelectorAll('[data-view]').forEach((b) => b.addEventListener('click', () => {
-    document.querySelectorAll('[data-view]').forEach((x) => x.classList.toggle('on', x === b));
-    document.body.classList.toggle('phone', b.dataset.view === 'phone');
-    document.querySelectorAll('video').forEach((v) => { v.currentTime = 0; v.play().catch(() => {}); });
-  }));
-  if (new URLSearchParams(location.search).has('phone')) document.querySelector('[data-view=phone]').click();
+${VIEW_SCRIPT}
+</script>
+</body></html>
+`;
+}
+
+// "Homepage mockup.html": the homepage hero and the section below it, rebuilt
+// from the live Webflow page (copy, classes and spacing read through the
+// Webflow Data API, Oct 2026), with the home-hero animation straddling the
+// boundary between them, exactly as on Why DishBooks. The hero's Unicorn Studio
+// background and the section card's background video are stood in for by
+// gradients.
+/**
+ * @param fontCss  @font-face rules for Albert Sans (inlined)
+ * @param has      (scene) => boolean, whether files/<scene>/home/<scene>.webm exists
+ */
+export function homeMockup({ fontCss, has }) {
+  const media = (scene, cls) =>
+    has(scene)
+      ? `<video class="${cls}" autoplay muted loop playsinline poster="files/${scene}/home/${scene}.jpg"><source src="files/${scene}/home/${scene}.webm" type="video/webm"><source src="files/${scene}/home/${scene}.mp4" type="video/mp4"></video>`
+      : `<img class="${cls}" src="files/${scene}/home/${scene}.jpg" alt="">`;
+
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Homepage mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&display=swap">
+<style>
+${fontCss}
+${HERO_CSS}
+/* The section below the homepage hero: one dark card (.section-card) with a
+   background video under a scrim, inside .v2-content-wrapper. */
+.below-home { padding: 104px 80px; }
+.scard { position: relative; overflow: hidden; padding: 104px 80px; border-radius: 24px; border: 1px solid rgb(255 255 255 / 12%); background: #0b2a7a; }
+.scard .bgv { position: absolute; inset: 0; background: radial-gradient(70% 90% at 85% 30%, #326cff, transparent 70%), radial-gradient(50% 70% at 60% 100%, #2eb2ff 0%, transparent 70%), #12317f; }
+.scard .scrim { position: absolute; inset: 0; background: linear-gradient(82deg, #041d5c 0%, rgb(4 29 92 / 0%) 100%); }
+.scard .sc { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: flex-start; gap: 40px; padding: 2px 50% 2px 0; }
+.scard h2 { color: #fdfdff; }
+.scard p { margin: 16px 0 0; font-size: 18px; line-height: 28px; color: rgb(253 253 255 / 80%); }
+.wbtn { display: inline-flex; padding: 16px 28px; border-radius: 120px; background: #fdfdff; color: #0b0c0d; font-weight: 500; font-size: 16px; line-height: 24px; text-decoration: none; }
+@container (max-width: 991px) { .below-home { padding: 48px 24px; } }
+@container (max-width: 767px) { .scard { padding: 48px 24px; } .scard .sc { padding-right: 0; } }
+@container (max-width: 479px) { .below-home { padding: 48px 0; } }
+</style></head>
+<body>
+<div class="bar">
+  <div><b>Homepage mockup</b> <span>· the hero and the section below, with the animation straddling them · not the live site</span></div>
+  <div class="seg"><button type="button" class="on" data-view="desktop">Desktop</button><button type="button" data-view="phone">Phone</button></div>
+</div>
+<div class="stage"><div class="frame">
+  <section class="v2-section hero-s"><div class="unicorn"></div><div class="container">
+    <div class="hero"><div class="hero-c">
+      <div class="head">
+        <div class="eyebrow text-blue">Restaurant Accounting, Simplified</div>
+        <h1>AI-powered accounting software, <span class="text-blue">built for restaurants.</span></h1>
+      </div>
+      <div class="btns"><a class="button" href="#">Start your free trial</a><a class="button invert" href="#">Schedule a demo</a></div>
+    </div></div>
+    <div class="slot"><div class="win">${media('home-hero', 'v-desk')}${media('home-hero-mobile', 'v-mob')}</div></div>
+  </div></section>
+  <section class="v2-section"><div class="container">
+    <div class="slot"><div class="spacer"></div></div>
+    <div class="below-home"><div class="scard"><div class="bgv"></div><div class="scrim"></div>
+      <div class="sc">
+        <div><h2>Built around the numbers restaurants actually run on.</h2>
+        <p>Daily sales, prime cost, COGS by category, every location side by side. Generic accounting software wasn't built for restaurants. DishBooks was. Sales come in from your POS, vendor invoices get sorted into real cost categories, and every location lines up side by side.</p></div>
+        <a class="wbtn" href="#">See why DishBooks</a>
+      </div>
+    </div></div>
+  </div></section>
+</div></div>
+<script>
+${VIEW_SCRIPT}
 </script>
 </body></html>
 `;

@@ -1,0 +1,25 @@
+/* Homepage hero, phone layout (400 × 720): the Why DishBooks phone window
+   (top bar, drawer, stacked cards, Dex as a sheet) with a Calendars page.
+   render.mjs inlines the @imports when it builds the embed. */
+
+@import url('../why-dishbooks-mobile/scene.css');
+@import url('../home-hero/cal.css');
+
+/* Calendars row: Year + Entity move into a row header */
+.hh.m .calg { padding: 0; }
+.hh .yh { display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-bottom: 1px solid var(--b2); white-space: nowrap; }
+.hh .yh .ent { margin-left: 4px; color: var(--t1); }
+.hh .gr { grid-template-columns: 104px 132px 1fr; }
+.hh .gh { height: 30px; }
+.hh .gh > span { font-size: 10px; letter-spacing: 0.3px; }
+.hh .grow2 { height: 38px; }
+.hh .rs { width: 132px; }
+
+/* Timeline: labels above the bars */
+.hh .tl-svg { margin-top: 8px; }
+.hh .tl-svg text { font-size: 10px; }
+.hh .rowlbl .val { font-size: 13px; }
+.hh .lgd { font-size: 11px; gap: 10px; }
+
+.hh .ch-svg text { font-size: 10px; }
+.hh .foot span { left: 40px; font-size: 11.5px; }

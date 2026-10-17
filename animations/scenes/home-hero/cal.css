@@ -1,0 +1,63 @@
+/* Homepage hero: the Calendars page (Settings → Calendars), shared by both
+   layouts. Components after scenes/ops-calendar/scene.css, in the app window's
+   tokens (../why-dishbooks/app.css). */
+
+.hh .lw { display: inline-block; width: 8px; height: 10px; border-radius: 2px; background: #a3b3ff; }
+.hh .lf { display: inline-block; width: 7px; height: 7px; border-radius: 99px; background: #fe9a00; }
+.hh .lgd { display: flex; gap: 14px; font-size: 12px; line-height: 16px; color: var(--t2); }
+.hh .lgd span { display: flex; align-items: center; gap: 6px; }
+.hh .ct b { font-weight: 600; color: var(--p7); }
+
+/* Calendars grid row (AG Grid look) */
+.hh .calg { padding: 0; z-index: 3; }
+.hh .gr { display: grid; align-items: center; }
+.hh .gr > span { display: flex; align-items: center; gap: 6px; padding: 0 12px; white-space: nowrap; overflow: hidden; }
+.hh .gh { height: 34px; border-bottom: 1px solid var(--b2); }
+.hh .gh > span { font-size: 11px; line-height: 12px; white-space: normal; color: var(--t2); text-transform: uppercase; letter-spacing: 0.5px; }
+.hh .grow2 { height: 40px; background: rgb(50 108 255 / 6%); border-radius: 0 0 8px 8px; }
+.hh .grow2 > span { height: 100%; }
+.hh .yr { font-weight: 500; }
+.hh .chev { font-size: 12px; color: var(--t2); }
+.hh .ent { overflow: hidden; text-overflow: ellipsis; }
+.hh .selc { justify-content: space-between; }
+.hh .selc b { font-weight: 400; }
+.hh .op b { font-weight: 600; }
+.hh .selc.editing { box-shadow: inset 0 0 0 1.5px var(--p5); background: #fff; }
+.hh .end b { font-weight: 400; padding: 2px 4px; margin: 0 -4px; border-radius: 4px; background: rgb(0 166 62 / calc(var(--flash, 0) * 16%)); }
+.hh .rs { display: none; position: absolute; width: 160px; padding: 4px; background: #fff; border: 1px solid var(--b2); border-radius: 6px; box-shadow: 0 16px 32px -12px rgb(16 24 40 / 25%), 0 2px 6px rgb(16 24 40 / 6%); }
+.hh .rs-i { display: flex; align-items: center; justify-content: space-between; height: 28px; padding: 0 10px; border-radius: 4px; }
+.hh .rs-i.hi { background: var(--pa); color: var(--p7); }
+.hh .tick { font-size: 12px; color: var(--p5); }
+
+/* Year timeline */
+.hh .tlc { padding-bottom: 10px; }
+.hh .tl-svg { display: block; margin-top: 12px; }
+.hh .tl-svg text { font-size: 11.5px; fill: var(--t2); }
+.hh .rowlbl .cap { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+.hh .rowlbl .val { font-size: 14px; font-weight: 500; fill: var(--t0); }
+.hh .rowlbl .val.on { fill: var(--p7); font-weight: 600; }
+.hh .rowlbl .sub { font-size: 11.5px; }
+.hh .rowlbl .opsub2 { fill: var(--gn); font-weight: 500; opacity: 0; }
+.hh .fbar .bg,
+.hh .obar .bg { fill: var(--u1); stroke: var(--b2); }
+.hh .pbar .bg { fill: var(--pa); stroke: var(--ps); }
+.hh .wk { fill: #a3b3ff; opacity: 0.9; }
+.hh .pbar .wk { fill: var(--in); opacity: 0.7; }
+.hh .pbar { opacity: 0; }
+.hh .tl-svg .plbl { opacity: 0; fill: var(--p7); font-weight: 500; }
+.hh .five { fill: #fe9a00; opacity: 0; }
+.hh .q path { fill: none; stroke: var(--t3); }
+.hh .q { opacity: 0; }
+
+/* Total Sales: months → periods */
+.hh .repc { flex: 1; display: flex; flex-direction: column; }
+.hh .ch-svg { display: block; margin-top: auto; }
+.hh .mb { fill: #a3b3ff; }
+.hh .pb { fill: var(--in); }
+.hh .mdot,
+.hh .xp { opacity: 0; }
+.hh .foot { position: relative; height: 18px; margin-top: 4px; font-size: 12px; line-height: 18px; }
+.hh .foot span { position: absolute; top: 0; display: flex; align-items: center; gap: 6px; opacity: 0; white-space: nowrap; }
+.hh .f1 { color: var(--t2); }
+.hh .f2 { color: var(--gn); font-weight: 500; }
+.hh .ok { font-size: 13px; }

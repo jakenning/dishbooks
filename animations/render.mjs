@@ -48,7 +48,11 @@ const scenarios = args.scenario === 'all' ? await listScenarios() : args.scenari
 
 const server = await serve(0);
 const base = `http://127.0.0.1:${server.address().port}`;
-const browser = await chromium.launch({ channel: 'chrome' }).catch(() => chromium.launch());
+// Your installed Chrome, else Playwright's Chromium (CHROMIUM_PATH points at one
+// that Playwright didn't download itself, e.g. in a cloud container).
+const browser = await chromium
+  .launch({ channel: 'chrome' })
+  .catch(() => chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}));
 
 try {
   for (const scenario of scenarios) {

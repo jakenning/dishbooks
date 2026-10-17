@@ -7,6 +7,8 @@
 //                           place (desktop / phone), see mockup.mjs
 //   Why DishBooks mockup.html  that page's hero and the section below, with the
 //                           why-dishbooks animation straddling them (mockup.mjs)
+//   Homepage mockup.html    the homepage hero and the section below, with the
+//                           home-hero animation straddling them (mockup.mjs)
 // Re-run after rendering to refresh it.
 //
 //   npm run anim:deliver
@@ -18,7 +20,7 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { ROOT, listScenarios } from './serve.mjs';
-import { sectionMockup, whyMockup } from './mockup.mjs';
+import { sectionMockup, whyMockup, homeMockup } from './mockup.mjs';
 
 const { values: args } = parseArgs({
   options: { out: { type: 'string', default: join(homedir(), 'Desktop', 'DishBooks Animations') } },
@@ -44,6 +46,10 @@ const SECTIONS = {
   'why-dishbooks': {
     title: 'Why DishBooks',
     section: 'WHY DISHBOOKS page — full-app window straddling the hero and the section below.',
+  },
+  'home-hero': {
+    title: 'Homepage hero',
+    section: 'HOMEPAGE hero — full-app tour (Home, Calendars, Prime Cost P&L, Dex) straddling the hero and the section below.',
   },
 };
 
@@ -194,7 +200,7 @@ code { font: 12px ui-monospace, Menlo, monospace; background: var(--bg); padding
 <body>
 <header>
   <h1>DishBooks animations</h1>
-  <p>Updated ${esc(when)}${commit ? ` · commit ${esc(commit)}` : ''} · all names and numbers are fictional · <a href="Section mockup.html">See them in the homepage section ↗</a> · <a href="Why DishBooks mockup.html">Why DishBooks page ↗</a></p>
+  <p>Updated ${esc(when)}${commit ? ` · commit ${esc(commit)}` : ''} · all names and numbers are fictional · <a href="Section mockup.html">See them in the homepage section ↗</a> · <a href="Why DishBooks mockup.html">Why DishBooks page ↗</a> · <a href="Homepage mockup.html">Homepage hero ↗</a></p>
 </header>
 <main>
 ${body}
@@ -242,6 +248,8 @@ const videos = new Set();
 for (const s of rendered) if (await exists(join(DIST, s, 'home', `${s}.webm`))) videos.add(s);
 await writeFile(join(OUT, 'Section mockup.html'), sectionMockup({ fontCss, has: (s) => videos.has(s) }));
 await writeFile(join(OUT, 'Why DishBooks mockup.html'), whyMockup({ fontCss, has: (s) => videos.has(s) }));
+await writeFile(join(OUT, 'Homepage mockup.html'), homeMockup({ fontCss, has: (s) => videos.has(s) }));
 console.log(`✓ ${OUT}/Open deliverables.html`);
 console.log(`✓ ${OUT}/Section mockup.html`);
 console.log(`✓ ${OUT}/Why DishBooks mockup.html`);
+console.log(`✓ ${OUT}/Homepage mockup.html`);

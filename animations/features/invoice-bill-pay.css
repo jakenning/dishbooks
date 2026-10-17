@@ -1,0 +1,87 @@
+/* Invoice Approval & Bill Pay: the bills list beside the open invoice. Rows
+   reuse the bank feed's .tx grid (../scenes/why-dishbooks/app.css). */
+
+.ft .ibv { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 12px; }
+.ft .bls { display: flex; flex-direction: column; }
+.ft .tabs { display: flex; gap: 4px; padding: 3px; border-radius: 6px; background: var(--u1); font-size: 13px; }
+.ft .tabs span { padding: 4px 10px; border-radius: 4px; color: var(--t1); white-space: nowrap; }
+.ft .tabs b { margin-left: 4px; font-weight: 600; color: var(--t2); }
+.ft .tabs .on { background: #fff; color: var(--p7); font-weight: 600; box-shadow: 0 1px 3px rgb(16 24 40 / 12%); }
+.ft .tabs .on b { color: var(--p7); }
+.ft .bls .tx { margin-top: 12px; }
+.ft .bls .tx .tr { grid-template-columns: minmax(0, 1.5fr) 58px minmax(0, 1.1fr) 98px 130px; min-height: 64px; }
+.ft .bls .tx .tr > span { padding: 0 8px; }
+.ft .bls .tx .th { min-height: 32px; border-top: 0; }
+.ft .bls .tx .th > span { font-size: 12px; line-height: 16px; color: var(--t2); text-transform: uppercase; letter-spacing: 0.6px; }
+.ft .bls .tx .th > span:nth-child(4) { text-align: right; }
+.ft .bls .tr.sel { background: rgb(50 108 255 / 6%); box-shadow: inset 3px 0 0 var(--p5); }
+.ft .bls .ds { font-weight: 500; }
+.ft .bls .cg { color: var(--t2); }
+.ft .bst { justify-self: start; padding: 2px 9px; border-radius: 99px; font-size: 12px; line-height: 18px; font-weight: 500; white-space: nowrap; }
+.ft .bst.na { background: rgb(254 154 0 / 16%); color: #973c00; }
+.ft .bst.ok { background: var(--pa); color: var(--p7); }
+.ft .bst.sc { background: rgb(0 166 62 / 12%); color: #016630; }
+.ft .bst3 { display: grid; justify-items: start; }
+.ft .bst3 > span { grid-area: 1 / 1; visibility: hidden; }
+.ft .bst3[data-s='na'] .na,
+.ft .bst3[data-s='ok'] .ok,
+.ft .bst3[data-s='sc'] .sc { visibility: visible; }
+.ft .inbox { display: flex; align-items: center; gap: 8px; margin-top: auto; padding: 12px; border-radius: 8px; background: var(--u1); color: var(--t1); font-size: 13px; }
+.ft .inbox b { font-weight: 600; color: var(--t0); }
+
+.ft .inv { display: flex; flex-direction: column; gap: 14px; }
+.ft:not(.m) .inv { gap: 20px; }
+.ft:not(.m) .pay { margin-top: auto; }
+.ft .ih { display: flex; align-items: center; gap: 10px; }
+.ft .vlogo { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 8px; background: #1440ad; color: #fff; font-weight: 600; }
+.ft .src { display: flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 99px; background: rgb(0 166 62 / 12%); color: #016630; font-size: 12px; font-weight: 500; white-space: nowrap; }
+.ft .lis { display: flex; flex-direction: column; }
+.ft .ih .rn { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.ft .ih .rn b { font-weight: 600; font-size: 15px; }
+.ft .ih .rn span { color: var(--t2); font-size: 12px; line-height: 16px; }
+.ft .lih,
+.ft .li { display: grid; grid-template-columns: minmax(0, 1fr) 112px 84px; align-items: center; gap: 8px; }
+.ft .lih { padding-bottom: 6px; font-size: 11px; color: var(--t2); text-transform: uppercase; letter-spacing: 0.5px; }
+.ft .lih span:last-child,
+.ft .la { text-align: right; }
+.ft .li { min-height: 40px; border-top: 1px solid var(--b2); }
+.ft .ln { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.ft .lq { color: var(--t2); font-size: 12px; }
+.ft .lc2 { justify-self: start; padding: 2px 8px; border-radius: 4px; background: var(--pa); color: var(--p7); font-size: 12px; line-height: 16px; font-weight: 500; white-space: nowrap; }
+.ft .la { font-weight: 500; }
+.ft .li.lt span { font-weight: 600; }
+.ft .act { display: flex; gap: 8px; }
+.ft .abtn,
+.ft .pbtn { flex: 1; display: grid; height: 40px; border-radius: 6px; background: var(--p5); color: #faf8f5; font-weight: 500; }
+.ft .abtn > span,
+.ft .pbtn > span { grid-area: 1 / 1; display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; }
+.ft .abtn .b2,
+.ft .abtn.done .b1,
+.ft .pbtn .b2,
+.ft .pbtn.done .b1 { visibility: hidden; }
+.ft .abtn.done,
+.ft .pbtn.done { background: var(--gn); }
+.ft .abtn.done .b2,
+.ft .pbtn.done .b2 { visibility: visible; }
+.ft .rej { display: grid; place-items: center; padding: 0 16px; border: 1px solid var(--b2); border-radius: 6px; color: var(--t1); font-weight: 500; }
+.ft .pay { display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 8px; background: var(--u2); border: 1px solid var(--b2); opacity: calc(0.45 + 0.55 * var(--on, 0)); }
+.ft .pay .fr { border-top: 0; padding-top: 0; min-height: 32px; }
+.ft .pay .sel { gap: 8px; font-size: 13px; }
+.ft .pbtn { flex: none; background: #0b0c0d; }
+
+/* Desktop: the taller window's page */
+.ft:not(.m) .bls .tx .tr:not(.th) { min-height: 76px; }
+.ft:not(.m) .li { min-height: 46px; }
+
+/* Phones: the list as two-line rows, the invoice below it */
+.ft.m .ibv { display: flex; flex-direction: column; gap: 10px; }
+.ft.m .tabs span:not(.on) { display: none; }
+.ft.m .bls .tx .tr { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; min-height: 58px; padding: 8px 0; row-gap: 4px; }
+.ft.m .bls .tx .tr > span { padding: 0 4px; }
+.ft.m .bst3,
+.ft.m .bls .bst { justify-self: end; }
+.ft.m .bst3 { justify-items: end; }
+.ft.m .lih,
+.ft.m .li { grid-template-columns: minmax(0, 1fr) 100px 72px; }
+.ft.m .lc2 { font-size: 11px; }
+.ft.m .src { display: none; }

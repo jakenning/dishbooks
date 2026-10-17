@@ -1,0 +1,5 @@
+/* Feature page: Fiscal Calendar Accounting — the app window from ../home-hero-mobile, the feature kit
+   and the story's own styles. render.mjs inlines the @imports. */
+
+@import url('../home-hero-mobile/scene.css');
+@import url('../../features/kit.css');

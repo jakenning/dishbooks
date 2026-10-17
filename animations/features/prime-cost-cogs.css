@@ -1,0 +1,13 @@
+/* Prime Cost & COGS: on the desktop window's taller page, roomier rows and
+   prime cost by month under the P&L. */
+
+.ft-prime-cost-cogs:not(.m) .pt .tr { min-height: 44px; }
+.ft-prime-cost-cogs:not(.m) .pt .cr { min-height: 36px; }
+.ft .ptc { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.ft .pbs { flex: 1; display: flex; gap: 14px; margin-top: 12px; min-height: 0; }
+.ft .pcol { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; }
+.ft .pcol b { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--t1); }
+.ft .pcol span { font-size: 12px; line-height: 16px; color: var(--t2); }
+.ft .pb2 { display: block; width: 100%; max-height: calc(100% - 44px); border-radius: 4px 4px 2px 2px; background: #a3b3ff; transform-origin: 50% 100%; }
+.ft .pcol.now .pb2 { background: var(--in); }
+.ft .pcol.now b { color: var(--t0); font-weight: 600; }

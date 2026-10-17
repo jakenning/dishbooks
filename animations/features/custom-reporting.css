@@ -1,0 +1,63 @@
+/* Custom Reporting: the report beside its recipients and schedule. */
+
+.ft .crv { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 12px; }
+.ft .rpt { display: flex; flex-direction: column; gap: 14px; }
+.ft .rpt .ch { align-items: flex-start; }
+.ft .rsub { color: var(--t2); font-size: 13px; }
+.ft .rpt .tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.ft .rpt .tile { padding: 12px 14px; }
+.ft .rpt .tv { font-size: 22px; line-height: 30px; letter-spacing: -0.8px; }
+.ft .rpt .pt .tr { grid-template-columns: minmax(0, 1.2fr) repeat(var(--n), minmax(0, 1fr)); min-height: 40px; }
+.ft .rpt .pt .tr > span { padding: 0 10px; }
+.ft .crs { display: flex; flex-direction: column; gap: 12px; }
+.ft .rcp,
+.ft .sch { display: flex; flex-direction: column; gap: 10px; }
+.ft .rr { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--b2); }
+.ft .rr .av { width: 32px; height: 32px; }
+.ft .rn { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.ft .rn b { font-weight: 500; }
+.ft .rn span { color: var(--t2); font-size: 12px; line-height: 16px; }
+.ft .rs2 { display: flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 99px; background: var(--pa); color: var(--p7); font-size: 12px; line-height: 18px; font-weight: 500; white-space: nowrap; }
+.ft .gmw { height: 0; overflow: hidden; }
+.ft .radd { display: flex; align-items: center; gap: 8px; align-self: flex-start; padding: 6px 12px; border: 1px dashed var(--ps); border-radius: 6px; color: var(--p7); font-weight: 500; }
+.ft .pl2 { font-size: 13px; }
+.ft .fr { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 36px; border-top: 1px solid var(--b2); padding-top: 8px; }
+.ft .fl2 { color: var(--t2); font-size: 13px; }
+.ft .sv { font-weight: 500; }
+.ft .seg2 { display: flex; padding: 3px; border-radius: 6px; background: var(--u1); }
+.ft .seg2 span { padding: 4px 12px; border-radius: 4px; color: var(--t1); font-size: 13px; }
+.ft .seg2 .on { background: #fff; color: var(--p7); font-weight: 600; box-shadow: 0 1px 3px rgb(16 24 40 / 12%); }
+.ft .dys { display: flex; gap: 4px; }
+.ft .dys span { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 99px; border: 1px solid var(--b2); font-size: 12px; font-weight: 500; color: var(--t1); }
+.ft .dys .on { background: var(--p5); border-color: var(--p5); color: #fff; }
+.ft .sbtn { display: grid; height: 40px; margin-top: 4px; border-radius: 6px; background: var(--p5); color: #faf8f5; font-weight: 500; }
+.ft .sbtn > span { grid-area: 1 / 1; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.ft .sbtn .b2,
+.ft .sbtn.done .b1 { visibility: hidden; }
+.ft .sbtn.done { background: var(--gn); }
+.ft .sbtn.done .b2 { visibility: visible; }
+
+/* Desktop: the taller window's page */
+.ft:not(.m) .rpt .pt .tr:not(.th) { min-height: 52px; }
+.ft:not(.m) .rpt .pt { margin-top: 8px; }
+
+/* Phones: stacked, the report trimmed to sales and prime cost */
+.ft.m .crv { display: flex; flex-direction: column; gap: 10px; }
+.ft.m .rpt .tiles { grid-template-columns: 1fr 1fr; gap: 8px; }
+.ft.m .rpt .ch .sel { display: none; }
+.ft.m .rpt .tv { font-size: 19px; line-height: 26px; }
+.ft.m .crs { gap: 10px; }
+.ft.m .rs2 { font-size: 11px; padding: 2px 8px; }
+.ft.m .seg2 span { padding: 4px 9px; font-size: 12px; }
+.ft.m .dys span { width: 25px; height: 25px; font-size: 11px; }
+
+/* Desktop extras: prime cost bars in the report, recent sends under the schedule */
+.ft .rbs { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; gap: 12px; padding-top: 14px; border-top: 1px solid var(--b2); }
+.ft .rb { display: grid; grid-template-columns: 110px minmax(0, 1fr) 56px; align-items: center; gap: 12px; }
+.ft .rb b { font-weight: 600; text-align: right; }
+.ft .rtk { height: 14px; border-radius: 4px; background: var(--u1); overflow: hidden; }
+.ft .rtk i { display: block; height: 100%; border-radius: 4px; background: var(--in); transform-origin: 0 50%; }
+.ft .hist { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.ft .hr { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--b2); }
+.ft .hk { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 99px; background: rgb(0 166 62 / 12%); color: var(--gn); font-size: 14px; }
+.ft .hp { padding: 2px 8px; border-radius: 4px; border: 1px solid var(--b2); color: var(--t2); font-size: 11px; font-weight: 600; }

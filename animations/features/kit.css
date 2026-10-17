@@ -1,0 +1,39 @@
+/* Feature-page animations: the camera, the spotlight and its label, around
+   the app window from ../scenes/why-dishbooks (scene.css or the phone
+   scene.css). kit.js moves .cam (the app) and drives --lift (0 → 1) on each
+   lit element, dimming everything else with a filter, so neither fights the
+   riseIn transforms. */
+
+.ftstage { background: #f9fafc; }
+.ftstage .cam { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+
+.ft .lit {
+  box-shadow:
+    0 0 0 calc(var(--lift, 0) * 2px) rgb(50 108 255 / calc(var(--lift, 0) * 60%)),
+    0 calc(var(--lift, 0) * 18px) calc(var(--lift, 0) * 40px) -14px rgb(31 18 143 / calc(var(--lift, 0) * 45%));
+}
+.ft .tr.lit { border-radius: 6px; }
+
+.ftstage .callout {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px 7px 10px;
+  border-radius: 99px;
+  background: #0b0c0d;
+  color: #fdfdff;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  white-space: nowrap;
+  box-shadow: 0 10px 24px -10px rgb(11 12 13 / 45%);
+  opacity: 0;
+  pointer-events: none;
+}
+.ftstage .callout i { width: 8px; height: 8px; border-radius: 99px; background: linear-gradient(135deg, #2eb2ff, #326cff 55%, #5542ff); box-shadow: 0 0 0 3px rgb(50 108 255 / 30%); }
+.ftstage .m ~ .callout { font-size: 12px; line-height: 16px; padding: 6px 12px 6px 9px; }

@@ -6,6 +6,8 @@ DishBooks app UI with fictional data, then recorded to video.
 ```
 animations/
   scenes/<scene>/        one folder per animation (HTML + CSS + JS)
+  features/              the feature-page animations: kit.js (window, spotlight, camera),
+                         pages.js (shared app pages) and one story per feature
     scene.js             ← CUES (all timings) at the top, then the layout
     scene.css            ← the look
   scenarios/<name>.json  fictional company / people / financials, one per audience
@@ -415,6 +417,48 @@ DishBooks hero, and those classes are global, so the same setup applies
 
 The embeds are about 59k characters (the calendar page adds about 10k), over
 Webflow's 50k limit, so the homepage uses the videos.
+
+## Feature pages
+
+One animation per feature page (the Features CMS collection), shown where the
+hero image is: a 5:4 slot beside the headline (4:5 on phones). The whole app
+can't be read at that size, so each one is filmed: the app window (1280 × 1024)
+opens on the page the feature lives on, whole; then one or two of its elements
+at a time step forward (a blue ring, everything else dims, a short label), the
+camera pushes in until they read at full size, and pulls back out at the end.
+Phones get the app's phone layout (400 wide) in a 400 × 500 frame; the camera
+pans down the page instead of zooming out. 10 s loops; frame 0 (the poster) is
+the loaded page.
+
+| Scene (`scenes/feature-<slug>`, `-mobile`) | Page | What lights up |
+|---|---|---|
+| `dex-ai` | Prime Cost P&L with Dex open | the question box; the answer; the answer beside the cells it's about |
+| `smart-dashboard` | Home | sales + prime cost; net profit + cash; Sales Performance; Cost Breakdown |
+| `prime-cost-cogs` | Prime Cost P&L | COGS + labor tiles; prime cost; COGS opening into categories; the flagged location |
+| `custom-reporting` | Custom Reports | the report; recipients (a GM is added, scoped to their location); the schedule (Weekly · M · Schedule report) |
+| `fiscal-calendar-accounting` | Settings → Calendars | the grid row (Months → 13-4); the timeline re-cut into 13 periods; Total Sales by period |
+| `multi-location` | Location Performance | the location cards; prime cost bars; the flagged location's row; the group total |
+| `invoice-bill-pay` | Expenses → Bills | bills needing approval; the invoice's coded line items; Approve; Schedule payment |
+| `bank-reconciliation` | Banking | cash balance; matched transactions; Accept N matches; the feed reconciled |
+
+Each scene folder is three small files (index.html, scene.js picking
+`DESKTOP` or `PHONE` from `features/kit.js`, scene.css importing the window's
+CSS, `features/kit.css` and the story's own `features/<slug>.css`). The story
+in `features/<slug>.js` has the page markup, its motion and its `spots` (when
+each spotlight starts, how long it stays, what it lights, the label) — that's
+the file to edit for timing or wording. `focus` frames the camera on part of
+what's lit; `zoom` caps the push-in. Stories import shared pages from
+`features/pages.js`, never from each other: the bundle puts every module in
+one scope, and two `STORY` consts would collide.
+
+The invoices, vendors and line items in `invoice-bill-pay` are invented, like
+the bank feed's: search them before publishing. Render one with
+`npm run anim:render -- --scene feature-<slug>` (and `-mobile`).
+
+**On dishbooks.com** they're CMS fields on Features: Hero Animation (desktop
+MP4), Hero Animation Phone, and a poster for each. The template shows the
+video in place of the Hero Image when Hero Animation is set; an item without
+one keeps its Hero Image. See the Webflow notes in the commit that set it up.
 
 The recorder drives your installed Google Chrome through Playwright and pipes
 PNG frames into ffmpeg (both already on this machine: `brew install ffmpeg` if

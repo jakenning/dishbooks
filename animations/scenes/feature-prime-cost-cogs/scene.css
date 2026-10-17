@@ -1,0 +1,6 @@
+/* Feature page: Prime Cost & COGS — the app window from ../why-dishbooks, the feature kit
+   and the story's own styles. render.mjs inlines the @imports. */
+
+@import url('../why-dishbooks/scene.css');
+@import url('../../features/kit.css');
+@import url('../../features/prime-cost-cogs.css');

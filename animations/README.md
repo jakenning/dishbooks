@@ -550,15 +550,26 @@ the bank feed's: search them before publishing. Render one with
   animations" folder), copy its URL, paste it into the field. They're links,
   not File/Image fields, because the API can only bind a Link field to a
   custom attribute (a video's `src` and `poster`).
-- The Features Template's `.feature-hero` has a `div.feature-hero-video`
-  before the image wrapper, holding `video.feature-hero-video-desktop` and
-  `video.feature-hero-video-phone` (autoplay, muted, loop, playsinline,
-  preload metadata; `src` and `poster` bound to those fields) and an HTML
-  Embed `feature-hero-video-css`. Its CSS shows the video box (5:4, 4:5 on
-  phones when there's a phone video) and hides the Hero Image only when Hero
-  Animation is set; an item without one looks exactly as before. Phones
-  without a phone video play the desktop one. Its script plays only the
-  video that's showing and holds the poster for reduced motion.
+- The Features Template straddles like Why DishBooks. After `.feature-hero`
+  in the hero's container there's a `.wdb-slot` holding `div.feature-hero-video`,
+  with `video.feature-hero-video-desktop` and `video.feature-hero-video-phone`
+  inside it. They have autoplay, muted, loop, playsinline and preload metadata,
+  and their `src` and `poster` are bound to those fields. Next to them is an
+  HTML Embed, `feature-hero-video-css`. The Proof section below starts with a
+  `.wdb-slot.is-feature-spacer > .wdb-spacer`.
+- The embed's CSS only does anything when Hero Animation is set (and treats a
+  missing, empty or "null" `src` as unset). It then:
+  - hides the Hero Image and makes the hero one column;
+  - shows the window at 16:9 with margin-bottom −28.125%;
+  - raises the hero's container to z-index 11;
+  - shows the spacer (28.125%).
+- On phones with a Hero Animation Phone, the window is 5:9 with −90%, and the
+  spacer is 90%.
+- An item without a Hero Animation looks exactly as before.
+- Its script:
+  - adds the same states as classes, for browsers without `:has()`;
+  - plays only the video that's showing;
+  - holds the poster for reduced motion.
 - After re-rendering a feature, upload the new MP4/JPG and paste the new
   URLs into that item's fields.
 

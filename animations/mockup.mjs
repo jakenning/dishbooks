@@ -345,10 +345,13 @@ ${VIEW_SCRIPT}
 
 // "Homepage mockup.html": the homepage hero and the section below it, rebuilt
 // from the live Webflow page (copy, classes and spacing read through the
-// Webflow Data API, Oct 2026), with the home-hero animation straddling the
-// boundary between them, exactly as on Why DishBooks. The hero's Unicorn Studio
-// background and the section card's background video are stood in for by
-// gradients.
+// Webflow Data API, Oct 2026). The home-components animation sits in the
+// hero's right column, beside the headline (no straddle). The paragraph that
+// used to be in the dark section card is under the H1 (the /why-dishbooks hero
+// paragraph style, .text-dim: 16px / 32px, #5f6166), and the card keeps its old
+// height with a min-height (the Webflow combo .section-card.is-tall, same
+// values as below). The hero's Unicorn Studio background and the card's
+// background video are stood in for by gradients.
 /**
  * @param fontCss  @font-face rules for Albert Sans (inlined)
  * @param has      (scene) => boolean, whether files/<scene>/home/<scene>.webm exists
@@ -366,23 +369,45 @@ export function homeMockup({ fontCss, has }) {
 <style>
 ${fontCss}
 ${HERO_CSS}
-/* The section below the homepage hero: one dark card (.section-card) with a
-   background video under a scrim, inside .v2-content-wrapper. */
+/* Homepage hero: .hero-content-block.is-home-anim (grid 1.25fr 1fr, centred
+   rows) with the animation (.hero-anim) in the right column. */
+.hero { padding: 120px 80px; align-items: center; }
+.hero p { margin: 0; font-size: 16px; line-height: 32px; }
+.hanim { justify-self: end; width: 100%; max-width: 560px; border-radius: 16px; overflow: hidden; background: #f9fafc; box-shadow: 0 0 0 1px rgb(130 133 140 / 16%), 0 32px 64px -28px rgb(4 29 92 / 24%), 0 8px 16px -10px rgb(4 29 92 / 10%); }
+.hanim video, .hanim img { display: block; width: 100%; height: auto; }
+.hanim .v-desk { aspect-ratio: 560 / 660; }
+.hanim .v-mob { aspect-ratio: 400 / 572; }
+
+/* The section below: one dark card (.section-card.is-tall) with a background
+   video under a scrim, inside .v2-content-wrapper. */
 .below-home { padding: 104px 80px; }
-.scard { position: relative; overflow: hidden; padding: 104px 80px; border-radius: 24px; border: 1px solid rgb(255 255 255 / 12%); background: #0b2a7a; }
+.scard { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; min-height: clamp(570px, calc(1120px - 36.7vw), 778px); padding: 104px 80px; border-radius: 16px; border: 1px solid rgb(255 255 255 / 12%); background: #0b2a7a; }
 .scard .bgv { position: absolute; inset: 0; background: radial-gradient(70% 90% at 85% 30%, #326cff, transparent 70%), radial-gradient(50% 70% at 60% 100%, #2eb2ff 0%, transparent 70%), #12317f; }
 .scard .scrim { position: absolute; inset: 0; background: linear-gradient(82deg, #041d5c 0%, rgb(4 29 92 / 0%) 100%); }
 .scard .sc { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: flex-start; gap: 40px; padding: 2px 50% 2px 0; }
-.scard h2 { color: #fdfdff; }
-.scard p { margin: 16px 0 0; font-size: 18px; line-height: 28px; color: rgb(253 253 255 / 80%); }
-.wbtn { display: inline-flex; padding: 16px 28px; border-radius: 120px; background: #fdfdff; color: #0b0c0d; font-weight: 500; font-size: 16px; line-height: 24px; text-decoration: none; }
-@container (max-width: 991px) { .below-home { padding: 48px 24px; } }
-@container (max-width: 767px) { .scard { padding: 48px 24px; } .scard .sc { padding-right: 0; } }
-@container (max-width: 479px) { .below-home { padding: 48px 0; } }
+.scard h2 { color: #fdfdff; letter-spacing: -1px; }
+.wbtn { display: inline-flex; padding: 16px 24px; border-radius: 120px; background: #fdfdff; color: #0b0c0d; font-weight: 500; font-size: 16px; line-height: 32px; text-decoration: none; }
+@container (max-width: 991px) {
+  .hero { padding: 40px 24px; }
+  .hanim { justify-self: start; margin-top: 24px; }
+  .below-home { padding: 48px 24px; }
+  .scard { min-height: clamp(674px, calc(1268px - 61.5cqw), 778px); }
+}
+@container (max-width: 767px) {
+  .hanim { max-width: none; }
+  .scard { min-height: clamp(498px, calc(803px - 43.4cqw), 602px); padding: 48px 24px; }
+  .scard .sc { padding-right: 0; gap: 80px; }
+}
+@container (max-width: 479px) {
+  .hero { padding: 40px 0; }
+  .below-home { padding: 48px 0; }
+  .scard { min-height: clamp(554px, calc(1185px - 137.9cqw), 754px); }
+  .scard h2 { font-size: 28px; line-height: 36px; }
+}
 </style></head>
 <body>
 <div class="bar">
-  <div><b>Homepage mockup</b> <span>· the hero and the section below, with the animation straddling them · not the live site</span></div>
+  <div><b>Homepage mockup</b> <span>· the hero with the animation beside the headline, and the section below · not the live site</span></div>
   <div class="seg"><button type="button" class="on" data-view="desktop">Desktop</button><button type="button" data-view="phone">Phone</button></div>
 </div>
 <div class="stage"><div class="frame">
@@ -391,17 +416,17 @@ ${HERO_CSS}
       <div class="head">
         <div class="eyebrow text-blue">Restaurant Accounting, Simplified</div>
         <h1>AI-powered accounting software, <span class="text-blue">built for restaurants.</span></h1>
+        <p class="dim">Daily sales, prime cost, COGS by category, every location side by side. Generic accounting software wasn't built for restaurants. DishBooks was. Sales come in from your POS, vendor invoices get sorted into real cost categories, and every location lines up side by side.</p>
       </div>
       <div class="btns"><a class="button" href="#">Start your free trial</a><a class="button invert" href="#">Schedule a demo</a></div>
-    </div></div>
-    <div class="slot"><div class="win">${media('home-hero', 'v-desk')}${media('home-hero-mobile', 'v-mob')}</div></div>
+    </div>
+    <div class="hanim">${media('home-components', 'v-desk')}${media('home-components-mobile', 'v-mob')}</div>
+    </div>
   </div></section>
   <section class="v2-section"><div class="container">
-    <div class="slot"><div class="spacer"></div></div>
     <div class="below-home"><div class="scard"><div class="bgv"></div><div class="scrim"></div>
       <div class="sc">
-        <div><h2>Built around the numbers restaurants actually run on.</h2>
-        <p>Daily sales, prime cost, COGS by category, every location side by side. Generic accounting software wasn't built for restaurants. DishBooks was. Sales come in from your POS, vendor invoices get sorted into real cost categories, and every location lines up side by side.</p></div>
+        <h2>Built around the numbers restaurants actually run on.</h2>
         <a class="wbtn" href="#">See why DishBooks</a>
       </div>
     </div></div>

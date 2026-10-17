@@ -8,7 +8,7 @@
 //   Why DishBooks mockup.html  that page's hero and the section below, with the
 //                           why-dishbooks animation straddling them (mockup.mjs)
 //   Homepage mockup.html    the homepage hero and the section below, with the
-//                           home-hero animation straddling them (mockup.mjs)
+//                           home-components animation beside the headline (mockup.mjs)
 // Re-run after rendering to refresh it.
 //
 //   npm run anim:deliver
@@ -47,9 +47,13 @@ const SECTIONS = {
     title: 'Why DishBooks',
     section: 'WHY DISHBOOKS page — full-app window straddling the hero and the section below.',
   },
-  'home-hero': {
+  'home-components': {
     title: 'Homepage hero',
-    section: 'HOMEPAGE hero — full-app tour (Home, Calendars, Prime Cost P&L, Dex) straddling the hero and the section below.',
+    section: 'HOMEPAGE hero — app components (bank feed, KPIs, prime cost by location, Dex) in the right column, beside the headline.',
+  },
+  'home-hero': {
+    title: 'Homepage hero (earlier: full-app window)',
+    section: 'HOMEPAGE hero, earlier version — full-app tour (Home, Calendars, Prime Cost P&L, Dex) straddling the hero and the section below.',
   },
 };
 

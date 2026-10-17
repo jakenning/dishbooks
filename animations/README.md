@@ -120,8 +120,9 @@ all of its CSS under `.db-anim`, so it won't affect the rest of the page.
 
 A scene can have a phone layout in a sibling folder named `<scene>-mobile`
 (today: `ops-calendar-mobile`, 400 × 632, and `custom-reports-mobile` and
-`why-dishbooks-mobile` and `home-hero-mobile`, 400 × 720, all rendered at
-2.5× → 1000 × 1580 / 1000 × 1800). The
+`why-dishbooks-mobile` and `home-hero-mobile`, 400 × 720, and
+`home-components-mobile`, 400 × 572, all rendered at 2.5× → 1000 × 1580 /
+1000 × 1800 / 1000 × 1430). The
 preview's phone slot shows it automatically. In Webflow, add both versions to
 the section and use the breakpoint visibility settings: hide the desktop
 version on Mobile Landscape and Mobile Portrait, and hide the mobile version
@@ -365,7 +366,9 @@ If an edit pushes an embed over 50k, use the video.
 
 ### Homepage hero
 
-The homepage's version of the Why DishBooks window: the same 1280 × 720 app
+Superseded on the homepage by "Homepage hero components" below (kept
+because other scenes import its calendar views). The homepage's version of the
+Why DishBooks window: the same 1280 × 720 app
 window (phone: 400 × 720), straddling the hero ("AI-powered accounting
 software, built for restaurants.") and the section card below it. It tours the
 product rather than one argument: Home, then the Ops Calendar, then a report,
@@ -415,6 +418,87 @@ DishBooks hero, and those classes are global, so the same setup applies
 
 The embeds are about 59k characters (the calendar page adds about 10k), over
 Webflow's 50k limit, so the homepage uses the videos.
+
+### Homepage hero components
+
+The homepage hero's current animation (it replaces the straddling Homepage
+hero window above, which stays in the repo). Like the Ops Calendar and Custom
+Reports scenes, it has no app window: four app components float on the page
+background, in the hero's right column, beside the headline. It sums up the
+product in one quick story: transactions come in from the bank and the POS and
+sort themselves into cost categories, the numbers are live, every location
+lines up side by side with the outlier flagged, and Dex says why. The story
+lives in `scenes/home-components/hc.js`; each layout's `scene.js` holds only
+geometry. The components reuse the Why DishBooks tokens and the Dex, status
+chip and button styles (`scenes/why-dishbooks/app.css`), and its numbers
+(`model()` in `app.js`), so the feed matches that scene's bank feed.
+`hc.js` keeps its top-level names (`HC_CUES`, `makeHomeComponents`, …) clear
+of `app.js`'s. It loops every 11s.
+
+1. **Bank Transactions.** A POS deposit (Sales) and two vendor invoices. The
+   invoices sort into the concept's first food and beverage categories
+   (Proteins, Beer & Wine for the homepage), then **Accept 3 matches**
+   reconciles them.
+2. **KPI tiles.** Total Sales and Prime Cost % against last year, with the
+   monthly sparklines.
+3. **Prime Cost by Location.** COGS + labor bars for every location against
+   the group's prime cost (dashed line). The outlier (`flag` in the scenario)
+   is outlined in red and its labor bar turns red (its COGS bar, when the flag
+   is on COGS).
+4. **Dex.** **Ask Dex** on the location card. The scenario's question types
+   out and the first paragraph of the answer streams in.
+
+| Time | Beat |
+|---|---|
+| 0–1.4s | The cards rise in. The feed rows cascade in with "Match found", the KPIs count up and the location bars grow. |
+| 0.85–1.4s | The two invoices go from "Sorting…" to their categories. |
+| 1.45–2.65s | Pointer → **Accept 3 matches**. The rows turn Reconciled and the button turns green: "All reconciled". |
+| 3.0s | The outlier location is outlined and its labor bar turns red. |
+| 3.15–3.8s | Pointer → **Ask Dex**. |
+| 3.95–6.85s | The question types out and sends, Dex thinks, and the answer streams in. The pointer steps off and fades. |
+| 6.85–10.1s | Hold. |
+| 10.1–11s | Everything leaves; 11s = 0s (empty). |
+
+The times are story time. Both videos start at 7.2s (`startAt` in each
+`scene.js`), so frame 0, the poster, is everything loaded and answered.
+
+| Layout | Stage | Rendered | Notes |
+|---|---|---|---|
+| `home-components` | 560 × 660 | 2× → 1120 × 1320 | The hero's right column: about 400–560px wide on desktop (525 at 1440). Feed on top; KPIs and locations side by side; Dex below. |
+| `home-components-mobile` | 400 × 572 | 2.5× → 1000 × 1430 | Under the headline and buttons at full width (about 327–360px). KPIs side by side, the location card, then one slot that the feed and Dex take in turn (Dex replaces the feed at the **Ask Dex** tap). A fingertip instead of a pointer. 572, not 570, so the 2.5× height is even, which H.264 needs. |
+
+**On dishbooks.com** (set up through the Webflow Data API, Oct 2026; see
+"Homepage mockup.html"):
+
+- The hero's paragraph is the one that used to be in the dark section card
+  ("Daily sales, prime cost, COGS by category, …"), now under the H1 in
+  `.v2-aux-headline`, with the Why DishBooks hero paragraph's class
+  `.text-dim` (#5f6166, the body's 16px / 32px).
+- `.hero-content-block` has the combo `is-home-anim` (align-items: center),
+  and its second column holds `.hero-anim` (max-width 560px, justify-self
+  end, radius 16px, a soft shadow; on tablet, where the hero is one column:
+  justify-self start, margin-top 24px; on phones: no max-width). Inside are
+  two HTML Embeds, `anim-desktop` and `anim-phone`, each a plain `<video>`
+  (WebM, then MP4, with the poster JPG) from the site's Assets, plus a small
+  pause/play button and a reduced-motion check. This is a `<video>` tag, not
+  the scene's live HTML embed, so it doesn't have the measuring problems
+  above, and Webflow doesn't re-encode the files.
+- The section card has the combo `.section-card.is-tall`: display flex,
+  column, justify-content center, and a min-height that matches the card's
+  old height with the paragraph, which depended on how many lines the
+  paragraph wrapped to. The values come from rebuilding the card from its
+  Webflow styles and measuring it every 8px from 320 to 1920
+  (with/without the paragraph), then fitting a line per breakpoint:
+
+  | Breakpoint | min-height | Off by at most |
+  |---|---|---|
+  | Desktop (≥ 992) | `clamp(570px, calc(1120px - 36.7vw), 778px)` | about one line (±50px); 10px at 1440 |
+  | Tablet (768–991) | `clamp(674px, calc(1268px - 61.5vw), 778px)` | ±22px |
+  | Mobile landscape (480–767) | `clamp(498px, calc(803px - 43.4vw), 602px)` | ±33px |
+  | Mobile portrait (< 480) | `clamp(554px, calc(1185px - 137.9vw), 754px)` | ±24px |
+
+If you re-render, upload the new files to Webflow Assets and update the four
+URLs in each embed (their asset IDs change).
 
 The recorder drives your installed Google Chrome through Playwright and pipes
 PNG frames into ffmpeg (both already on this machine: `brew install ffmpeg` if

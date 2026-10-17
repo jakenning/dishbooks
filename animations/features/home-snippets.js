@@ -9,7 +9,7 @@
 // Dex is asked about cash, not prime cost (the rest of the site leans on prime
 // cost). The answer's figures come from the home scenario: Cash Balance, a
 // biweekly payroll (Labor / 26), a week of bills ((COGS + Operating Expenses)
-// / 52) and a month's rent at each location (bank feed's rent line).
+// / 52) and Larkfield's weekly produce bill (the bank feed's Larkfield line).
 
 import { seg, ease } from '../lib/timeline.js';
 import { homeView } from '../scenes/why-dishbooks/app.js';
@@ -22,7 +22,7 @@ const ASK = {
   ask: 'Can we cover payroll and next week’s bills?',
   answer: [
     'Yes. You have **$477.7k** in the bank. Friday’s payroll is about **$124.8k** and **$119.8k** in bills are due next week, which leaves about **$233.1k**.',
-    'The biggest is rent for all four locations, **$73.6k** on the 1st. Nothing is past due.',
+    'The biggest is Larkfield Provisions, **$15.6k** due Tuesday. Nothing is late.',
   ],
 };
 const byKey = (R, key) => R.kpis.filter((k) => k.d.key === key).map((k) => k.el);

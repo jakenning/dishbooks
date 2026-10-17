@@ -4,27 +4,16 @@
 // across the KPI row: Prime Cost %, EBITDA, Net Profit, Cash Balance. Then the
 // pointer clicks Ask Dex (phones: the menu, then Ask Dex in the drawer), the
 // question types out and the answer streams in. The loop starts and ends on
-// the first card (noWide); each video starts on Dex's answer.
-//
-// Dex is asked about cash, not prime cost (the rest of the site leans on prime
-// cost). The answer's figures come from the home scenario: Cash Balance, a
-// biweekly payroll (Labor / 26), a week of bills ((COGS + Operating Expenses)
-// / 52) and Larkfield's weekly produce bill (the bank feed's Larkfield line).
+// the first card (noWide); each video starts on Dex's answer. Dex is asked the
+// Why DishBooks story's question, about cash (cashAsk), not prime cost.
 
 import { seg, ease } from '../lib/timeline.js';
-import { homeView } from '../scenes/why-dishbooks/app.js';
+import { homeView, model, cashAsk } from '../scenes/why-dishbooks/app.js';
 import { homeRefs, homeLoad, dexPanel, dexRefs, dexFrame } from './pages.js';
 
 const MENU_TAP = 5.6; // phones
 const DEX_TAP = 6.25;
 const DEX = { dexIn: [6.35, 0.35], typeAsk: [6.8, 1.0], send: 7.9, thinking: [7.95, 0.4], answer: [8.4, 1.6], dexOut: 11.2 };
-const ASK = {
-  ask: 'Can we cover payroll and next week’s bills?',
-  answer: [
-    'Yes. You have **$477.7k** in the bank. Friday’s payroll is about **$124.8k** and **$119.8k** in bills are due next week, which leaves about **$233.1k**.',
-    'The biggest is Larkfield Provisions, **$15.6k** due Tuesday. Nothing is late.',
-  ],
-};
 const byKey = (R, key) => R.kpis.filter((k) => k.d.key === key).map((k) => k.el);
 
 export const STORY = {
@@ -35,7 +24,7 @@ export const STORY = {
   title: 'Home',
   noWide: true,
   drawer: true,
-  data: (D) => ({ ...D, dex: ASK }),
+  data: (D) => ({ ...D, dex: cashAsk(D, model(D)) }),
   view: (D, L, N, id) => homeView(D, L, id),
   extra: (D) => dexPanel(D),
   refs: (q, qa, L, D) => ({ ...homeRefs(q, qa, L, D), ...dexRefs(q, qa), menu: q('.menu'), dexBtn: q('.dex-btn') }),

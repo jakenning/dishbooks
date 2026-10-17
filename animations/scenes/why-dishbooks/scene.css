@@ -43,9 +43,13 @@
 .wdb .trend .lbl { font-size: 11px; line-height: 16px; }
 .wdb .trend .chart { margin-top: 8px; }
 .wdb .txh { align-items: center; }
-.wdb .prog > i { width: 120px; }
-.wdb .tx .tr { grid-template-columns: 64px minmax(0, 1.5fr) minmax(0, 1fr) 112px 128px; min-height: 56px; }
+/* --dx (0–1) is Dex opening: the page narrows for the panel, so Date, Category
+   and Status fold away (--txcols, both set in frame()) and Description and
+   Amount keep the room. */
+.wdb .tx .tr { grid-template-columns: var(--txcols, 64px minmax(0, 1.5fr) minmax(0, 1fr) 112px 128px); min-height: 56px; }
 .wdb .tx .tr > span { padding: 0 10px; }
+.wdb .tx .tr > span:nth-child(2n + 1) { padding-inline: calc(10px * (1 - var(--dx, 0))); opacity: calc(1 - 2 * var(--dx, 0)); }
+.wdb .prog > i { width: calc(120px * (1 - 0.5 * var(--dx, 0))); }
 .wdb .tx .th { min-height: 32px; border-top: 0; }
 .wdb .tx .th > span { font-size: 12px; line-height: 16px; color: var(--t2); text-transform: uppercase; letter-spacing: 0.6px; }
 .wdb .tx .th > span:nth-child(4) { text-align: right; }

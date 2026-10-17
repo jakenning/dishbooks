@@ -4,10 +4,10 @@
 // sidebar and each page loads in place.
 //
 //   Home      KPI cards count up, sales chart and cost breakdown draw
-//   Banking   cash across accounts; "Accept 6 matches" reconciles the feed
 //   Reports → Prime Cost P&L by location; COGS opens into the company's own
-//             categories and the location that's off gets flagged
-//   Ask Dex   the question about that location, answer streams in
+//             categories
+//   Banking   cash across accounts; "Accept 6 matches" reconciles the feed
+//   Ask Dex   can that cash cover payroll and next week's bills? (cashAsk)
 //   → back to Home (seamless 12s loop: t = 12 is the empty page t = 0 starts on)
 //
 // This file is the story, shared by both layouts: scenes/why-dishbooks
@@ -28,17 +28,17 @@ export const CUES = {
   countDur: 1.3,
   chartDraw: [0.35, 1.1],
   toRest: [0.25, 0.7], // cursor eases off the nav into the page
-  toBank: [2.0, 0.5],
-  goBank: 2.6,
-  toAccept: [3.05, 0.45],
-  accept: 3.6,
-  matched: [3.7, 0.1], // rows flip to Reconciled (start, stagger)
-  toReports: [4.55, 0.45],
-  goReports: 5.1,
-  toCogs: [5.5, 0.45],
-  cogs: 6.05,
-  cats: [6.1, 0.55], // COGS opens into the categories
-  flag: 6.75, // the location that's off lights up
+  toReports: [2.0, 0.5],
+  goReports: 2.6,
+  toCogs: [3.05, 0.45],
+  cogs: 3.6,
+  cats: [3.65, 0.55], // COGS opens into the categories
+  flag: null, // when the location that's off lights up (null: it doesn't; Dex asks about cash)
+  toBank: [4.55, 0.45],
+  goBank: 5.1,
+  toAccept: [5.5, 0.45],
+  accept: 6.05,
+  matched: [6.15, 0.1], // rows flip to Reconciled (start, stagger)
   toDex: [7.0, 0.5],
   goDex: 7.6,
   dexIn: [7.65, 0.35],
@@ -70,8 +70,8 @@ const PAGES = [
   ['Prime Cost P&amp;L', 'Reports'],
 ];
 const STOPS = [
-  [CUES.goBank, 4, 1],
   [CUES.goReports, 5, 2],
+  [CUES.goBank, 4, 1],
   [CUES.goHome, 0, 0],
 ];
 
@@ -292,6 +292,28 @@ export function answerHtml(paragraphs) {
     .join('');
 }
 
+/**
+ * Dex's question in this story (and the homepage hero's): can the cash in the
+ * bank cover payroll and next week's bills? Every figure is the scenario's:
+ * Cash Balance, a biweekly payroll (Labor / 26), a week of supplier and
+ * operating bills ((COGS + Operating Expenses) / 52), and the bank feed's
+ * produce supplier as the biggest one.
+ */
+export function cashAsk(D, N) {
+  const P = Object.fromEntries(D.pnl.map((r) => [r.metric, r.actual]));
+  const cash = N.cash / 100;
+  const payroll = P.Labor / 26;
+  const bills = (P.COGS + P['Operating Expenses']) / 52;
+  const [, vendor, , amt] = N.tx[1];
+  return {
+    ask: 'Can we cover payroll and next week\u2019s bills?',
+    answer: [
+      `Yes. You have **${kMoney(cash)}** in the bank. Friday\u2019s payroll is about **${kMoney(payroll)}** and **${kMoney(bills)}** in bills are due next week, which leaves about **${kMoney(cash - payroll - bills)}**.`,
+      `The biggest is ${vendor}, **${kMoney(-amt / 100)}** due Tuesday. Nothing is late.`,
+    ],
+  };
+}
+
 export function homeView(D, L, id) {
   const kpis = L.compact ? D.kpis.filter((k) => k.key !== 'ebitda') : D.kpis;
   const total = D.costBreakdown.reduce((a, b) => a + b.pct, 0);
@@ -397,8 +419,8 @@ export function makeScene(L) {
 
   function build(el, data) {
     root = el;
-    D = data;
     N = model(data);
+    D = { ...data, dex: cashAsk(data, N) };
     el.classList.add('db-anim', 'wdb');
     if (L.compact) el.classList.add('m');
     window.__wdN = (window.__wdN ?? 0) + 1;
@@ -431,8 +453,8 @@ export function makeScene(L) {
       <header><span class="orb"></span><b>Dex</b><span class="ai">AI</span><span class="grow"></span>${icon('x')}</header>
       <div class="dex-body">
         <div class="msg"><span class="orb sm"></span><div class="dex-message"><p>Hi ${esc(u.firstName)}, ask me anything about your numbers.</p></div></div>
-        <div class="bubble">${esc(data.dex.ask)}</div>
-        <div class="msg ans"><span class="orb sm"></span><div class="dex-message">${answerHtml(data.dex.answer)}<div class="dots"><i></i><i></i><i></i></div></div></div>
+        <div class="bubble">${esc(D.dex.ask)}</div>
+        <div class="msg ans"><span class="orb sm"></span><div class="dex-message">${answerHtml(D.dex.answer)}<div class="dots"><i></i><i></i><i></i></div></div></div>
       </div>
       <footer><div class="input"><span class="typed"></span><span class="caret"></span><span class="ph">Ask Dex about your numbers…</span><span class="send">${icon('paper-plane-right')}</span></div></footer>
     </aside>
@@ -562,7 +584,7 @@ export function makeScene(L) {
 
     // Pages fade/slide in after their click and out at the next one.
     const pageIn = [C.homeIn, C.goBank + 0.15, C.goReports + 0.15];
-    const pageOut = [C.goBank, C.goReports, C.goHome];
+    const pageOut = [C.goReports, C.goHome, C.goBank]; // Banking stays behind Dex
     R.views.forEach((v, i) => {
       const pin = ease.outCubic(seg(t, pageIn[i], 0.45));
       const pout = ease.inOutCubic(seg(t, pageOut[i], 0.3));
@@ -584,7 +606,7 @@ export function makeScene(L) {
     R.dexBtn.style.scale = 1 - pulse(t, C.goDex) * 0.05;
 
     // Phone: the drawer opens on the menu tap and closes after the item tap.
-    const navTaps = [C.goBank, C.goReports, C.goDex, C.goHome];
+    const navTaps = [C.goReports, C.goBank, C.goDex, C.goHome];
     if (L.compact) {
       const open = Math.max(...navTaps.map((at) => ease.inOutCubic(seg(t, at - C.menuLead + 0.05, 0.25)) * (1 - ease.inOutCubic(seg(t, at + 0.08, 0.25)))));
       R.side.style.transform = `translateX(${(-104 * (1 - open)).toFixed(2)}%)`;
@@ -656,7 +678,7 @@ export function makeScene(L) {
       r.style.opacity = p;
       r.style.transform = `translateY(${lerp(5, 0, p).toFixed(2)}px)`;
     });
-    const fl = ease.outCubic(seg(t, C.flag, 0.35));
+    const fl = C.flag == null ? 0 : ease.outCubic(seg(t, C.flag, 0.35));
     R.fls.forEach((c) => {
       c.style.setProperty('--fl', fl);
       c.classList.toggle('on', fl > 0.5);
@@ -665,8 +687,13 @@ export function makeScene(L) {
     // ---- 4. Dex: question typed and sent, answer streams in ------------------------------
     const dexIn = ease.outCubic(seg(t, ...C.dexIn)) * (1 - ease.inOutCubic(seg(t, C.goHome, 0.35)));
     show(R.dex, dexIn);
-    // Desktop: the page makes room for the panel, so the flagged column stays in view.
-    if (!L.compact) R.viewsEl.style.right = `${(L.dexRoom * dexIn).toFixed(1)}px`;
+    // Desktop: the page makes room for the panel, so the accounts stay in view.
+    if (!L.compact) {
+      R.viewsEl.style.right = `${(L.dexRoom * dexIn).toFixed(1)}px`;
+      const f = 1 - dexIn;
+      R.viewsEl.style.setProperty('--dx', dexIn.toFixed(3));
+      R.viewsEl.style.setProperty('--txcols', `${(64 * f).toFixed(1)}px minmax(0, 1.5fr) minmax(0, ${f.toFixed(3)}fr) 112px ${(128 * f).toFixed(1)}px`);
+    }
     R.dex.style.transform = L.compact ? `translateY(${lerp(60, 0, dexIn).toFixed(2)}px)` : `translateX(${lerp(40, 0, dexIn).toFixed(2)}px)`;
     const ask = D.dex.ask;
     const sent = t >= C.send;
@@ -687,16 +714,16 @@ export function makeScene(L) {
     R.words.forEach((w, i) => (w.style.opacity = clamp(shown - i)));
 
     // ---- Pointer ---------------------------------------------------------------------
-    const clicks = [C.goBank, C.accept, C.goReports, C.cogs, C.goDex, C.goHome];
+    const clicks = [C.goReports, C.cogs, C.goBank, C.accept, C.goDex, C.goHome];
     if (L.touch) {
       // A fingertip lands just before each tap and lifts after; nav taps are
       // preceded by a tap on the menu button.
       const taps = [
         ...navTaps.map((at) => [at - C.menuLead, G.menu]),
-        [C.goBank, G.bank],
-        [C.accept, G.accept],
         [C.goReports, G.reports],
         [C.cogs, G.cogs],
+        [C.goBank, G.bank],
+        [C.accept, G.accept],
         [C.goDex, G.dex],
         [C.goHome, G.home],
       ];
@@ -712,10 +739,10 @@ export function makeScene(L) {
     // The pointer rests on Home at the loop point, so t = 12 meets t = 0.
     const path = [
       [C.toRest, G.rest],
-      [C.toBank, G.bank],
-      [C.toAccept, G.accept],
       [C.toReports, G.reports],
       [C.toCogs, G.cogs],
+      [C.toBank, G.bank],
+      [C.toAccept, G.accept],
       [C.toDex, G.dex],
       [C.dexRest, G.dexRest],
       [C.toHome, G.home],

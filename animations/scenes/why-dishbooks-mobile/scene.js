@@ -1,8 +1,8 @@
 // Why DishBooks, phone layout (400 × 720, rendered at 2.5× so text stays sharp
 // on retina phones). Same story and timings as the desktop window — see
 // ../why-dishbooks/app.js — in the app's narrow layout: a top bar with a menu
-// button, the sidebar as a drawer, cards stacked, the P&L showing the flagged
-// location next to the total, and Dex as a sheet. A fingertip taps the menu,
+// button, the sidebar as a drawer, cards stacked, the P&L showing one location
+// next to the total, and Dex as a sheet. A fingertip taps the menu,
 // then each item, instead of a cursor.
 
 import { makeScene } from '../why-dishbooks/app.js';

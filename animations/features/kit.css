@@ -42,7 +42,3 @@
    around the number, instead of hugging one line of text. */
 .ft .pt .fl { align-self: stretch; display: flex; align-items: center; justify-content: flex-end; padding-right: 16px; }
 .ft .pt .fl::before { inset: 5px 4px 5px 8px; border-radius: 6px; }
-
-/* Dex's input: a question longer than the box scrolls like a real input,
-   keeping its end (and the caret) in view instead of running under Send. */
-.ft .dex .typed { display: flex; justify-content: flex-end; min-width: 0; overflow: hidden; }

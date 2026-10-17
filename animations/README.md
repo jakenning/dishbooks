@@ -268,15 +268,17 @@ full dashboard.
 | Time | Beat |
 |---|---|
 | 0–2s | **Home.** The KPIs rise in and count up, Sales Performance draws, and the Cost Breakdown donut sweeps. |
-| 2–3.7s | Pointer → **Banking**. The cash balance counts up, and the bank feed cascades in with "Match found" chips. Pointer clicks **Accept N matches**: every row turns Reconciled, the progress bar fills, and the button turns green. |
-| 4.55–6.9s | Pointer → **Reports**, which opens the **Prime Cost P&L** by location. The tiles and rows count up. Pointer opens **COGS**, which unfolds into the company's categories, and the outlier location's cell gets a red outline. |
-| 7–10.2s | Pointer → **Ask Dex**. The panel slides in and the page narrows to make room. "Which location needs attention?" types out, sends, and the answer streams in, naming the flagged location. |
+| 2–4.2s | Pointer → **Reports**, which opens the **Prime Cost P&L** by location. The tiles and rows count up. Pointer opens **COGS**, which unfolds into the company's categories. |
+| 4.55–6.8s | Pointer → **Banking**. The cash balance counts up, and the bank feed cascades in with "Match found" chips. Pointer clicks **Accept N matches**: every row turns Reconciled, the progress bar fills, and the button turns green. |
+| 7–10.2s | Pointer → **Ask Dex**. The panel slides in and the page narrows to make room. "Can we cover payroll and next week's bills?" types out, sends, and the answer streams in: cash, payroll, a week of bills, what's left, and the biggest bill. |
 | 10.7–12s | Pointer goes back to **Home**. Dex closes and the page clears, so 12s = 0s. |
 
-The P&L comes just before Dex, so the outlier Dex names is the one just
-flagged. On phones, the sidebar is a drawer: a fingertip taps the menu button
-and then the item. The page shows 4 KPIs, the flagged location next to Total
-in the P&L, two-line bank rows, and Dex as a sheet.
+Banking comes just before Dex, so the cash Dex counts is the balance just on
+screen. (Prime cost already carries the rest of the site, so Dex asks about
+cash; `cashAsk` in `app.js` builds the answer, and the homepage hero video asks
+the same.) On phones, the sidebar is a drawer: a fingertip taps the menu button
+and then the item. The page shows 4 KPIs, one location next to Total in the
+P&L, two-line bank rows, and Dex as a sheet.
 
 **Numbers.** Everything comes from the scenario. Home's KPIs and the P&L tiles
 use the same P&L, so they match. The by-location table is worked in hundreds of
@@ -284,7 +286,9 @@ dollars so that each column foots: categories add up to COGS, and COGS + labor
 = prime cost. Total is the sum of the location columns, and a single location
 has no Total column. The bank feed is one week of the P&L (deposits per
 location, food and beverage purchases, payroll, rent, utilities), and its
-accounts add up to the Cash Balance KPI. The vendor names (Larkfield
+accounts add up to the Cash Balance KPI. Dex's answer uses the same figures:
+payroll is Labor / 26, a week of bills is (COGS + Operating Expenses) / 52, and
+the biggest bill is the feed's produce supplier. The vendor names (Larkfield
 Provisions, Copperleaf Beverage Co., Valecrest Power & Light) are invented:
 search them before publishing.
 

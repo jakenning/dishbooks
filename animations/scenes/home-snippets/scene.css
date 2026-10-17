@@ -1,0 +1,5 @@
+/* Homepage hero snippets, desktop: the app window from ../why-dishbooks and
+   the feature kit. render.mjs inlines the @imports. */
+
+@import url('../why-dishbooks/scene.css');
+@import url('../../features/kit.css');

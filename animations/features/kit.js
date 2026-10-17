@@ -32,11 +32,13 @@
 //     refs(q, qa, L, D)                element refs for frame()
 //     frame(t, R, L, D, N)             pose the page at story time t (pure)
 //     blocks(L)                        selectors of what dims while something else is lit
-//     spots(L)                         [{ at, dur, sel: [selectors] | (R) => [els], label | (D) => label, zoom?, focus? }]
+//     spots(L)                         [{ at, dur, sel: [selectors] | (R) => [els], label? | (D) => label, zoom?, focus? }]
 //                                      (focus: what the camera frames, when not everything lit)
 //     taps(L)                          [{ at, el: (R) => element, fx, fy }] or
 //                                      [{ at, pos: (R, at) => { x, y } }] for something hidden until then
 //     app: { d, m }                    optional app size overrides, e.g. { m: { h: 980 } } for a long phone page
+//     noWide                           never show the whole window: start and end on the first spot
+//     drawer                           phones: include the sidebar as a drawer (the story opens it)
 //   }
 //
 // render.mjs bundles a scene's modules into one scope, so names here stay clear
@@ -115,8 +117,9 @@ export function makeFeature(L0, S) {
       </header>
       <div class="views">${S.view(data, L, N, id)}</div>
     </div>
+    ${L.compact && S.drawer ? '<div class="scrim"></div>' : ''}
     ${
-      L.compact
+      L.compact && !S.drawer
         ? ''
         : `<nav class="side">
       <div class="logo">${MARK.replaceAll('__ID__', id)}<span>DishBooks</span></div>
@@ -141,6 +144,8 @@ export function makeFeature(L0, S) {
     const qa = (s) => [...app.querySelectorAll(s)];
     R = {
       view: q('.view'),
+      side: q('.side'),
+      scrim: q('.scrim'),
       nhl: q('.nhl'),
       nis: qa('.ni'),
       dexBtnIn: q('.dex-btn-in'),
@@ -154,7 +159,9 @@ export function makeFeature(L0, S) {
     const frameBlocks = L.compact ? ['.mbar', '.top'] : ['.side', '.top'];
     R.blocks = [...new Set([...frameBlocks, ...S.blocks(L)].flatMap((s) => qa(s)))];
     const pick = (sel) => (typeof sel === 'function' ? sel(R) : sel.flatMap((s) => qa(s)));
-    R.spots = spots.map((sp) => ({ ...sp, label: typeof sp.label === 'function' ? sp.label(data) : sp.label, els: pick(sp.sel), framed: pick(sp.focus ?? sp.sel) }));
+    R.spots = spots
+      .map((sp) => ({ ...sp, label: typeof sp.label === 'function' ? sp.label(data) : sp.label, els: pick(sp.sel), framed: pick(sp.focus ?? sp.sel) }))
+      .filter((sp) => sp.els.length); // a spot can name something one layout doesn't have
     R.lit = [...new Set(R.spots.flatMap((sp) => sp.els))];
     R.lit.forEach((e) => e.classList.add('lit'));
   }
@@ -243,20 +250,22 @@ export function makeFeature(L0, S) {
 
     // ---- Camera: wide → each spot's shot in turn → wide ------------------------------
     // Shots are measured every frame: a story's own motion (a row opening, say)
-    // can move what a later spot lights.
-    let cam = WIDE;
+    // can move what a later spot lights. With S.noWide there's no wide shot: the
+    // loop starts and ends on the first spot's shot.
+    const homeCam = S.noWide && R.spots[0] ? shot(R.spots[0]) : WIDE;
+    let cam = homeCam;
     R.spots.forEach((sp) => {
       cam = mixCam(cam, shot(sp), ease.inOutCubic(seg(t, sp.at - 0.2, MOVE)));
     });
     const lastSp = R.spots[R.spots.length - 1];
-    if (lastSp) cam = mixCam(cam, WIDE, ease.inOutCubic(seg(t, lastSp.at + lastSp.dur - 0.2, MOVE + 0.1)));
+    if (lastSp) cam = mixCam(cam, homeCam, ease.inOutCubic(seg(t, lastSp.at + lastSp.dur - 0.2, MOVE + 0.1)));
     app.style.transform = `translate(${(W / 2 - cam.x * cam.s).toFixed(2)}px, ${(H / 2 - cam.y * cam.s).toFixed(2)}px) scale(${cam.s.toFixed(4)})`;
 
     // The label sits under the lit (and framed) elements, in frame space (above them when there's no room).
     const on = w.reduce((b, v, i) => (v > w[b] ? i : b), 0);
     const sp = R.spots[on];
-    R.callout.style.opacity = w[on] ?? 0;
-    if (sp && w[on] > 0.001) {
+    R.callout.style.opacity = sp?.label ? w[on] : 0;
+    if (sp?.label && w[on] > 0.001) {
       R.calloutText.textContent = sp.label;
       const b = union([...sp.els, ...sp.framed]);
       const a = toFrame(cam, b.x0, b.y0);

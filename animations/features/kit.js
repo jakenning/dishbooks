@@ -39,6 +39,7 @@
 //     app: { d, m }                    optional app size overrides, e.g. { m: { h: 980 } } for a long phone page
 //     noWide                           never show the whole window: start and end on the first spot
 //     drawer                           phones: include the sidebar as a drawer (the story opens it)
+//     data(D)                          optional: the scenario as this story tells it (e.g. a different Dex question)
 //   }
 //
 // render.mjs bundles a scene's modules into one scope, so names here stay clear
@@ -98,7 +99,8 @@ export function makeFeature(L0, S) {
   let D;
   let N;
 
-  function build(el, data) {
+  function build(el, scenario) {
+    const data = S.data ? S.data(scenario) : scenario;
     D = data;
     N = model(data);
     el.classList.add('db-anim', 'ftstage');

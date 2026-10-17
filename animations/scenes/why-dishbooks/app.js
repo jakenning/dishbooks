@@ -76,7 +76,7 @@ const STOPS = [
 ];
 
 // Chart colours, from the app's Chart.js config.
-const COL = { indigo: '#4f39f6', indigo300: '#a3b3ff', green: '#00a63e', red: '#e7000b', blue: '#326cff' };
+export const COL = { indigo: '#4f39f6', indigo300: '#a3b3ff', green: '#00a63e', red: '#e7000b', blue: '#326cff' };
 const DOUGHNUT = ['#4f39f6', '#f6339a', '#fe9a00', 'rgba(11,12,13,.6)'];
 
 export const MARK = `<svg class="mark" viewBox="0 0 68 48" aria-hidden="true"><defs><linearGradient id="__ID__m" x1="0" y1="24" x2="85" y2="24" gradientUnits="userSpaceOnUse"><stop offset=".1" stop-color="#2EB2FF"/><stop offset="1" stop-color="#326CFF"/></linearGradient></defs><path d="M46.19 24C46.19 10.97 34.49.33 19.96 0H2.01C.9 0 0 .88 0 1.97v44.07C0 47.12.9 48 2.01 48h17.95C34.49 47.67 46.19 37.03 46.19 24Z" fill="url(#__ID__m)"/><path d="M57.11 24c0-11.23-8.69-20.69-20.39-23.29-.83-.19-1.3.9-.59 1.34 7.76 4.81 12.85 12.86 12.85 21.95s-5.09 17.14-12.85 21.95c-.71.44-.24 1.52.59 1.34C48.41 44.69 57.11 35.23 57.11 24Z" fill="#326CFF"/><path d="M47.5.63c-.82-.19-1.3.9-.58 1.34C54.74 6.78 59.89 14.86 59.89 24c0 9.15-5.15 17.23-12.98 22.04-.72.44-.24 1.53.6 1.34 4.62-1.04 8.75-3.3 12-6.4 4.54-4.35 7.35-10.35 7.35-16.97C66.85 12.63 58.59 3.1 47.5.63Z" fill="#5542FF"/></svg>`;
@@ -94,7 +94,7 @@ export const kMoney = (v) => `${v < 0 ? '-' : ''}$${n1(Math.abs(v) / 1000)}k`;
 export const pct = (v) => `${v.toFixed(1)}%`;
 export const f1 = (v) => v.toFixed(1);
 /** Bank amounts: cents → +$1,234.56 / -$1,234.56. */
-const cents = (c, sign = true) =>
+export const cents = (c, sign = true) =>
   `${sign ? (c < 0 ? '-' : '+') : ''}$${(Math.abs(c) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 export const axisMoney = (v) => (v >= 1e6 ? `$${+(v / 1e6).toFixed(2)}M` : `$${Math.round(v / 1e3)}K`);
 
@@ -244,7 +244,7 @@ function spark(k, id) {
 }
 
 /** Line chart with x labels: this period (solid, hatched fill) and an optional dashed comparison. */
-function lineChart(D, now, prev, { W, H, id, x0 = 48, every = 2, cls }) {
+export function lineChart(D, now, prev, { W, H, id, x0 = 48, every = 2, cls }) {
   const P = { x0, x1: W - 6, y0: 12, y1: H - 22 };
   const all = [...now, ...(prev ?? [])];
   const { min, max, ticks } = ticks4(Math.min(...all), Math.max(...all), H < 160 ? 3 : 4);
@@ -263,7 +263,7 @@ function lineChart(D, now, prev, { W, H, id, x0 = 48, every = 2, cls }) {
     </g></svg>`;
 }
 
-function donut(items, S) {
+export function donut(items, S) {
   const r = S * 0.418;
   const total = items.reduce((a, b) => a + b.pct, 0);
   return `<svg class="donut" width="${S}" height="${S}" viewBox="0 0 ${S} ${S}"><g transform="rotate(-90 ${S / 2} ${S / 2})">${items
@@ -315,7 +315,7 @@ export function homeView(D, L, id) {
   </section>`;
 }
 
-function bankView(D, L, N, id) {
+export function bankView(D, L, N, id) {
   const rows = N.tx.slice(0, L.txRows);
   const nMatch = L.txRows - 2;
   const status = `<span class="st"><span class="s1">Match found</span><span class="s2">${icon('check')}Reconciled</span></span>`;

@@ -220,7 +220,7 @@ function periodChart(CH, months, periods, sats) {
   </svg>`;
 }
 
-function calView(D, L, id) {
+export function calView(D, L, id) {
   const daily = dailySales(D);
   const months = START.map((st, m) => daily.slice(st, st + DAYS[m]).reduce((a, b) => a + b, 0));
   const periods = Array.from({ length: 13 }, (_, p) => daily.slice(p * 28, p * 28 + 28).reduce((a, b) => a + b, 0));
@@ -248,6 +248,114 @@ function calView(D, L, id) {
       <div class="foot"><span class="f1"><i class="lf"></i>${L.compact ? 'Months: 28–31 days, 4–5 weekends' : 'Month totals swing with 28–31 days and 4–5 weekends'}</span><span class="f2">${icon('check', 'ok')}${L.compact ? 'Every period: 28 days, 4 weekends' : 'Every period: 28 days, 4 weekends — compare like for like'}</span></div>
     </div>
   </section>`;
+}
+
+/** The Calendars page's element refs (spread into a scene's R). */
+export function calRefs(q, qa) {
+  return {
+    calCards: qa('.calv > .card'),
+    opCell: q('.selc.op'),
+    opv: q('.opv'),
+    endv: q('.endv'),
+    end: q('.end'),
+    rs: q('.rs'),
+    rsItems: qa('.rs-i'),
+    reveal: q('.tl-svg .reveal'),
+    fiveTl: qa('.tl-svg .five'),
+    obars: qa('.obar'),
+    olbl: qa('.olbl'),
+    pbars: qa('.pbar'),
+    plbl: qa('.plbl'),
+    qs: qa('.q'),
+    opval: q('.opval'),
+    opsub: q('.opsub'),
+    opsub2: q('.opsub2'),
+    by: q('.by'),
+    mb: qa('.mb'),
+    pb: qa('.pb'),
+    mdots: qa('.mdot'),
+    xm: qa('.xm'),
+    xp: qa('.xp'),
+    f1: q('.f1'),
+    f2: q('.f2'),
+  };
+}
+
+/** Cursor targets on the Calendars page: the Operational Structure cell and the 13-4 option. */
+export function calMeasure(R, at) {
+  // The structure list drops down from the cell being edited; it is
+  // display:none at rest, so measure it open.
+  R.rs.style.left = `${R.opCell.offsetLeft}px`;
+  R.rs.style.top = `${R.opCell.parentElement.offsetTop + R.opCell.offsetHeight}px`;
+  R.rs.style.display = 'block';
+  const g = { cell: at(R.opCell, 0.4), option: at(R.rsItems[0], 0.3) };
+  R.rs.style.display = '';
+  return g;
+}
+
+/**
+ * Poses the Calendars page at story time t. C holds its cues (optionClick,
+ * cellClick, selectOpen/Close, optionHover, tlDraw, fiveFlags, morph,
+ * quarters, chartMorph, monthBars); c0 is when its cards rise in.
+ */
+export function calFrame(R, t, C, L, c0) {
+  /** Squash a timeline bar group vertically about its centre (k = 0 hidden, 1 full). */
+  const squash = (g, y, k) => g.setAttribute('transform', `translate(0 ${f1(y + L.tl.bh / 2)}) scale(1 ${k.toFixed(3)}) translate(0 ${f1(-(y + L.tl.bh / 2))})`);
+  R.calCards.forEach((el, i) => riseIn(el, t, c0 + i * 0.08, { dy: 12 }));
+  // The 13-4 calendar ends a day early (Dec 30); Dec 31 starts next year's P1.
+  const chosen = t >= C.optionClick;
+  R.opv.textContent = chosen ? '13-4' : 'Months';
+  R.endv.textContent = dateLabel(chosen ? 363 : 364);
+  R.end.style.setProperty('--flash', chosen ? 1 - seg(t, C.optionClick + 0.1, 1.2) : 0);
+  R.opCell.classList.toggle('editing', t >= C.cellClick && t < C.selectClose[0] + C.selectClose[1]);
+  const open = ease.outCubic(seg(t, ...C.selectOpen)) * (1 - seg(t, ...C.selectClose));
+  R.rs.style.display = open > 0.001 ? 'block' : 'none';
+  R.rs.style.opacity = open;
+  R.rs.style.transform = `translateY(${lerp(-4, 0, open).toFixed(2)}px)`;
+  R.rsItems.forEach((el, i) => el.classList.toggle('hi', t < C.optionHover ? i === 4 : i === 0));
+  R.reveal.setAttribute('width', (L.tl.w * ease.inOutCubic(seg(t, ...C.tlDraw))).toFixed(1));
+  R.fiveTl.forEach((d) => (d.style.opacity = seg(t, C.fiveFlags, 0.3)));
+  const [m0, md] = C.morph;
+  R.obars.forEach((g, i) => {
+    const k = 1 - ease.inCubic(seg(t, m0 + Number(g.dataset.c) * md * 0.55, 0.3));
+    squash(g, L.tl.oy, k);
+    R.olbl[i].style.opacity = k;
+  });
+  R.pbars.forEach((g, i) => {
+    const k = ease.outBack(seg(t, m0 + 0.18 + Number(g.dataset.c) * md * 0.55, 0.4));
+    squash(g, L.tl.oy, Math.max(0, k));
+    g.style.opacity = clamp(k * 3);
+    R.plbl[i].style.opacity = clamp(k);
+  });
+  R.qs.forEach((q, i) => riseIn(q, t, C.quarters[0] + i * 0.08, { dy: -4, dur: C.quarters[1] }));
+  const swapped = t >= m0 + 0.3;
+  R.opval.textContent = swapped ? '13-4' : 'Months';
+  R.opval.classList.toggle('on', swapped);
+  R.opsub.style.opacity = 1 - seg(t, m0 + 0.2, 0.3);
+  R.opsub2.style.opacity = seg(t, m0 + 0.5, 0.4);
+  const [h0, hd] = C.chartMorph;
+  const y1 = L.ch.y1;
+  R.mb.forEach((b) => {
+    const c = Number(b.dataset.c);
+    const grow = ease.outCubic(seg(t, C.monthBars[0] + c * C.monthBars[1] * 0.5, 0.45));
+    const fall = ease.inCubic(seg(t, h0 + c * hd * 0.35, 0.3));
+    const h = Number(b.dataset.h) * grow * (1 - fall);
+    b.setAttribute('y', (y1 - h).toFixed(2));
+    b.setAttribute('height', h.toFixed(2));
+  });
+  R.pb.forEach((b) => {
+    const h = Number(b.dataset.h) * ease.outBack(seg(t, h0 + 0.3 + Number(b.dataset.c) * hd * 0.4, 0.45), 1.1);
+    b.setAttribute('y', (y1 - h).toFixed(2));
+    b.setAttribute('height', Math.max(0, h).toFixed(2));
+  });
+  const dotsOn = seg(t, C.fiveFlags, 0.3) * (1 - seg(t, h0, 0.25));
+  R.mdots.forEach((d) => (d.style.opacity = dotsOn));
+  const lbl = seg(t, h0 + 0.25, 0.35);
+  R.xm.forEach((x) => (x.style.opacity = 1 - lbl));
+  R.xp.forEach((x) => (x.style.opacity = lbl));
+  R.by.textContent = t >= h0 + 0.25 ? 'Period' : 'Month';
+  R.f1.style.opacity = dotsOn;
+  R.f2.style.opacity = seg(t, h0 + hd * 0.7, 0.35);
 }
 
 // ---- Scene ----------------------------------------------------------------------------
@@ -333,32 +441,7 @@ export function makeHero(L) {
       slices: qa('.slice'),
       dc: q('.dc'),
       costItems: qa('.cl li'),
-      // Calendars
-      calCards: qa('.calv > .card'),
-      opCell: q('.selc.op'),
-      opv: q('.opv'),
-      endv: q('.endv'),
-      end: q('.end'),
-      rs: q('.rs'),
-      rsItems: qa('.rs-i'),
-      reveal: q('.tl-svg .reveal'),
-      fiveTl: qa('.tl-svg .five'),
-      obars: qa('.obar'),
-      olbl: qa('.olbl'),
-      pbars: qa('.pbar'),
-      plbl: qa('.plbl'),
-      qs: qa('.q'),
-      opval: q('.opval'),
-      opsub: q('.opsub'),
-      opsub2: q('.opsub2'),
-      by: q('.by'),
-      mb: qa('.mb'),
-      pb: qa('.pb'),
-      mdots: qa('.mdot'),
-      xm: qa('.xm'),
-      xp: qa('.xp'),
-      f1: q('.f1'),
-      f2: q('.f2'),
+      ...calRefs(q, qa),
       // P&L
       tiles: qa('.tile'),
       plc: q('.plc'),
@@ -402,11 +485,7 @@ export function makeHero(L) {
       const o = offset(el);
       return { x: o.x + o.w * fx, y: o.y + o.h * fy };
     };
-    // The structure list drops down from the cell being edited; it is
-    // display:none at rest, so measure it open.
-    R.rs.style.left = `${R.opCell.offsetLeft}px`;
-    R.rs.style.top = `${R.opCell.parentElement.offsetTop + R.opCell.offsetHeight}px`;
-    R.rs.style.display = 'block';
+    const cal = calMeasure(R, at);
     const nav = (i) => at(R.nis[i], L.compact ? 0.3 : 0.32);
     const g = {
       navY: R.nis.map((n) => n.offsetTop),
@@ -415,8 +494,7 @@ export function makeHero(L) {
       home: nav(0),
       settings: nav(7),
       reports: nav(5),
-      cell: at(R.opCell, 0.4),
-      option: at(R.rsItems[0], 0.3),
+      ...cal,
       cogs: at(R.cogs, L.compact ? 0.12 : 0.08),
       dex: at(R.dexBtn, 0.42, 0.6),
       menu: R.menu ? at(R.menu, 0.5, 0.5) : null,
@@ -424,7 +502,6 @@ export function makeHero(L) {
       calRest: L.calRest,
       dexRest: L.dexRest,
     };
-    R.rs.style.display = '';
     return g;
   }
 
@@ -434,8 +511,6 @@ export function makeHero(L) {
     el.style.opacity = v;
     el.style.visibility = v <= 0.001 ? 'hidden' : 'visible';
   };
-  /** Squash a timeline bar group vertically about its centre (k = 0 hidden, 1 full). */
-  const squash = (g, y, k) => g.setAttribute('transform', `translate(0 ${f1(y + L.tl.bh / 2)}) scale(1 ${k.toFixed(3)}) translate(0 ${f1(-(y + L.tl.bh / 2))})`);
 
   function frame(t) {
     const dur = L.meta.duration;
@@ -508,63 +583,7 @@ export function makeHero(L) {
     R.dc.style.opacity = seg(t, C.kpis + 0.7, 0.4);
     R.costItems.forEach((li, i) => riseIn(li, t, C.kpis + 0.6 + i * 0.06, { dy: 4, dur: 0.35 }));
 
-    // ---- 2. Calendars: Months → 13-4, the year and the sales re-cut -------------------
-    const c0 = C.goCal + 0.15;
-    R.calCards.forEach((el, i) => riseIn(el, t, c0 + i * 0.08, { dy: 12 }));
-    // The 13-4 calendar ends a day early (Dec 30); Dec 31 starts next year's P1.
-    const chosen = t >= C.optionClick;
-    R.opv.textContent = chosen ? '13-4' : 'Months';
-    R.endv.textContent = dateLabel(chosen ? 363 : 364);
-    R.end.style.setProperty('--flash', chosen ? 1 - seg(t, C.optionClick + 0.1, 1.2) : 0);
-    R.opCell.classList.toggle('editing', t >= C.cellClick && t < C.selectClose[0] + C.selectClose[1]);
-    const open = ease.outCubic(seg(t, ...C.selectOpen)) * (1 - seg(t, ...C.selectClose));
-    R.rs.style.display = open > 0.001 ? 'block' : 'none';
-    R.rs.style.opacity = open;
-    R.rs.style.transform = `translateY(${lerp(-4, 0, open).toFixed(2)}px)`;
-    R.rsItems.forEach((el, i) => el.classList.toggle('hi', t < C.optionHover ? i === 4 : i === 0));
-    R.reveal.setAttribute('width', (L.tl.w * ease.inOutCubic(seg(t, ...C.tlDraw))).toFixed(1));
-    R.fiveTl.forEach((d) => (d.style.opacity = seg(t, C.fiveFlags, 0.3)));
-    const [m0, md] = C.morph;
-    R.obars.forEach((g, i) => {
-      const k = 1 - ease.inCubic(seg(t, m0 + Number(g.dataset.c) * md * 0.55, 0.3));
-      squash(g, L.tl.oy, k);
-      R.olbl[i].style.opacity = k;
-    });
-    R.pbars.forEach((g, i) => {
-      const k = ease.outBack(seg(t, m0 + 0.18 + Number(g.dataset.c) * md * 0.55, 0.4));
-      squash(g, L.tl.oy, Math.max(0, k));
-      g.style.opacity = clamp(k * 3);
-      R.plbl[i].style.opacity = clamp(k);
-    });
-    R.qs.forEach((q, i) => riseIn(q, t, C.quarters[0] + i * 0.08, { dy: -4, dur: C.quarters[1] }));
-    const swapped = t >= m0 + 0.3;
-    R.opval.textContent = swapped ? '13-4' : 'Months';
-    R.opval.classList.toggle('on', swapped);
-    R.opsub.style.opacity = 1 - seg(t, m0 + 0.2, 0.3);
-    R.opsub2.style.opacity = seg(t, m0 + 0.5, 0.4);
-    const [h0, hd] = C.chartMorph;
-    const y1 = L.ch.y1;
-    R.mb.forEach((b) => {
-      const c = Number(b.dataset.c);
-      const grow = ease.outCubic(seg(t, C.monthBars[0] + c * C.monthBars[1] * 0.5, 0.45));
-      const fall = ease.inCubic(seg(t, h0 + c * hd * 0.35, 0.3));
-      const h = Number(b.dataset.h) * grow * (1 - fall);
-      b.setAttribute('y', (y1 - h).toFixed(2));
-      b.setAttribute('height', h.toFixed(2));
-    });
-    R.pb.forEach((b) => {
-      const h = Number(b.dataset.h) * ease.outBack(seg(t, h0 + 0.3 + Number(b.dataset.c) * hd * 0.4, 0.45), 1.1);
-      b.setAttribute('y', (y1 - h).toFixed(2));
-      b.setAttribute('height', Math.max(0, h).toFixed(2));
-    });
-    const dotsOn = seg(t, C.fiveFlags, 0.3) * (1 - seg(t, h0, 0.25));
-    R.mdots.forEach((d) => (d.style.opacity = dotsOn));
-    const lbl = seg(t, h0 + 0.25, 0.35);
-    R.xm.forEach((x) => (x.style.opacity = 1 - lbl));
-    R.xp.forEach((x) => (x.style.opacity = lbl));
-    R.by.textContent = t >= h0 + 0.25 ? 'Period' : 'Month';
-    R.f1.style.opacity = dotsOn;
-    R.f2.style.opacity = seg(t, h0 + hd * 0.7, 0.35);
+    calFrame(R, t, C, L, C.goCal + 0.15);
 
     // ---- 3. Prime Cost P&L: rows count up, COGS opens, the outlier flags ------------------
     const p0 = C.goReports + 0.15;

@@ -1,4 +1,4 @@
-// Feature page: Invoice Approval & Bill Pay, desktop (a 1280 × 1024 window in a 1000 × 800 frame, rendered at 2×).
+// Feature page: Invoice Approval & Bill Pay, desktop (the 1280 × 720 window, rendered at 1.5×).
 // The story is ../../features/invoice-bill-pay.js; the window, spotlight, camera and
 // pointer are ../../features/kit.js.
 

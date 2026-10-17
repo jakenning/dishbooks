@@ -1,8 +1,8 @@
-/* Prime Cost & COGS: on the desktop window's taller page, roomier rows and
+/* Prime Cost & COGS: on a taller desktop window (.tall), roomier rows and
    prime cost by month under the P&L. */
 
-.ft-prime-cost-cogs:not(.m) .pt .tr { min-height: 44px; }
-.ft-prime-cost-cogs:not(.m) .pt .cr { min-height: 36px; }
+.ft-prime-cost-cogs.tall .pt .tr { min-height: 44px; }
+.ft-prime-cost-cogs.tall .pt .cr { min-height: 36px; }
 .ft .ptc { flex: 1; display: flex; flex-direction: column; min-height: 0; }
 .ft .pbs { flex: 1; display: flex; gap: 14px; margin-top: 12px; min-height: 0; }
 .ft .pcol { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; }

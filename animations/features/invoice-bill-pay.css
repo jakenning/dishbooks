@@ -30,8 +30,8 @@
 .ft .inbox b { font-weight: 600; color: var(--t0); }
 
 .ft .inv { display: flex; flex-direction: column; gap: 14px; }
-.ft:not(.m) .inv { gap: 20px; }
-.ft:not(.m) .pay { margin-top: auto; }
+.ft.tall .inv { gap: 20px; }
+.ft.tall .pay { margin-top: auto; }
 .ft .ih { display: flex; align-items: center; gap: 10px; }
 .ft .vlogo { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 8px; background: #1440ad; color: #fff; font-weight: 600; }
 .ft .src { display: flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 99px; background: rgb(0 166 62 / 12%); color: #016630; font-size: 12px; font-weight: 500; white-space: nowrap; }
@@ -69,9 +69,9 @@
 .ft .pay .sel { gap: 8px; font-size: 13px; }
 .ft .pbtn { flex: none; background: #0b0c0d; }
 
-/* Desktop: the taller window's page */
-.ft:not(.m) .bls .tx .tr:not(.th) { min-height: 76px; }
-.ft:not(.m) .li { min-height: 46px; }
+/* A taller desktop window (.tall) */
+.ft.tall .bls .tx .tr:not(.th) { min-height: 76px; }
+.ft.tall .li { min-height: 46px; }
 
 /* Phones: the list as two-line rows, the invoice below it */
 .ft.m .ibv { display: flex; flex-direction: column; gap: 10px; }

@@ -37,9 +37,9 @@
 .ft .sbtn.done { background: var(--gn); }
 .ft .sbtn.done .b2 { visibility: visible; }
 
-/* Desktop: the taller window's page */
-.ft:not(.m) .rpt .pt .tr:not(.th) { min-height: 52px; }
-.ft:not(.m) .rpt .pt { margin-top: 8px; }
+/* A taller desktop window (.tall) */
+.ft.tall .rpt .pt .tr:not(.th) { min-height: 52px; }
+.ft.tall .rpt .pt { margin-top: 8px; }
 
 /* Phones: stacked, the report trimmed to sales and prime cost */
 .ft.m .crv { display: flex; flex-direction: column; gap: 10px; }

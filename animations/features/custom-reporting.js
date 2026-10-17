@@ -72,7 +72,7 @@ function crView(D, L) {
         <div class="sbtn"><span class="b1">${icon('paper-plane-right')}Schedule report</span><span class="b2">${icon('check')}${NEXT}</span></div>
       </div>
       ${
-        L.compact
+        !L.tall
           ? ''
           : `<div class="card hist"><div class="ct">Recent sends</div>${['Mon, Oct 5', 'Mon, Sep 28', 'Mon, Sep 21']
               .map((d) => `<div class="hr"><span class="hk">${icon('check')}</span><div class="rn"><b>${d} · 7:00 AM</b><span>Delivered to ${esc(u.firstName)} ${esc(u.lastName)}</span></div><span class="hp">PDF</span></div>`)

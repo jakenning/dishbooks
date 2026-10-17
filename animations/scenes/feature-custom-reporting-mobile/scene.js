@@ -1,4 +1,4 @@
-// Feature page: Custom Reporting, phone (the 400-wide phone layout in a 400 × 500 frame, rendered at 2.5×).
+// Feature page: Custom Reporting, phone (the 400 × 720 phone layout, rendered at 2.5×).
 // The story is ../../features/custom-reporting.js; the window, spotlight, camera and
 // pointer are ../../features/kit.js.
 

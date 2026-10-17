@@ -1,3 +1,3 @@
-/* Bank Reconciliation: on the desktop window's taller page, roomier feed rows. */
+/* Bank Reconciliation: on a taller desktop window (.tall), roomier feed rows. */
 
-.ft-bank-reconciliation:not(.m) .tx .tr:not(.th) { min-height: 84px; }
+.ft-bank-reconciliation.tall .tx .tr:not(.th) { min-height: 84px; }

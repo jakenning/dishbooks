@@ -40,10 +40,10 @@
 .ft .ltb .pt .tr { grid-template-columns: minmax(0, 1.3fr) repeat(var(--n), minmax(0, 1fr)); }
 .ft .trt > span { font-weight: 600; }
 
-/* Desktop: the taller window's page */
-.ft:not(.m) .lc { padding: 18px; }
-.ft:not(.m) .ltb .pt .tr:not(.th) { min-height: 46px; }
-.ft:not(.m) .pbl { flex: 1; }
+/* A taller desktop window (.tall) */
+.ft.tall .lc { padding: 18px; }
+.ft.tall .ltb .pt .tr:not(.th) { min-height: 46px; }
+.ft.tall .pbl { flex: 1; }
 
 /* Phones: 2 × 2 cards, narrower bars, three table columns */
 .ft.m .lcs { grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -59,3 +59,17 @@
 .ft.m .trk { height: 18px; }
 .ft.m .pbs2 { gap: 8px; }
 .ft.m .ltb .pt .tr { grid-template-columns: minmax(0, 1.2fr) repeat(var(--n), minmax(0, 1fr)); }
+
+/* The 16:9 desktop window (not .tall): tighter, so the table and its total fit */
+.ft:not(.m):not(.tall) .mlv { gap: 10px; }
+.ft:not(.m):not(.tall) .lc { padding: 10px 14px; }
+.ft:not(.m):not(.tall) .lc-v { margin-top: 4px; font-size: 22px; line-height: 28px; }
+.ft:not(.m):not(.tall) .lc-m { margin-top: 6px; }
+.ft:not(.m):not(.tall) .lc-bar { margin-top: 5px; }
+.ft:not(.m):not(.tall) .pbl { padding: 12px 16px; }
+.ft:not(.m):not(.tall) .pbs2 { gap: 6px; margin-top: 8px; }
+.ft:not(.m):not(.tall) .trk { height: 18px; }
+.ft:not(.m):not(.tall) .ltb { padding: 12px 16px; }
+.ft:not(.m):not(.tall) .ltb .pt { margin-top: 6px; }
+.ft:not(.m):not(.tall) .ltb .pt .tr { min-height: 32px; }
+.ft:not(.m):not(.tall) .ltb .pt .th { min-height: 26px; }

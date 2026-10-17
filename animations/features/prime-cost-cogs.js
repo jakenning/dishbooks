@@ -17,8 +17,8 @@ export const STORY = {
   nav: 5,
   crumb: 'Reports',
   title: 'Prime Cost P&amp;L',
-  // Desktop: the P&L page also shows prime cost by month (phones: the P&L alone).
-  view: (D, L, N) => (L.compact ? plView(D, L, N) : plView(D, L, N).replace(/<\/section>$/, `${trendCard(D)}</section>`)),
+  // A taller desktop window also shows prime cost by month under the P&L.
+  view: (D, L, N) => (!L.tall ? plView(D, L, N) : plView(D, L, N).replace(/<\/section>$/, `${trendCard(D)}</section>`)),
   refs: (q, qa, L, D) => ({ ...plRefs(q, qa, L, D), ptc: q('.ptc'), pbars: qa('.ptc .pb2') }),
   blocks: () => ['.tile', '.plc .ch', '.pt > .tr', '.cats', '.ptc'],
   spots: () => [

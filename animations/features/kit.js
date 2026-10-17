@@ -1,19 +1,22 @@
 // Feature-page animations: one app page, its feature in the spotlight.
 //
 // Each feature page (the Features CMS template on dishbooks.com) shows its
-// animation where the hero image is: a 5:4 slot beside the headline. That slot
-// is too small for the whole app to be readable, so these are filmed:
+// animation as an app window straddling the hero and the section below, like
+// Why DishBooks:
 //
-//   - the app window (1280 × 1024, the homepage window's components) opens on
-//     the page the feature lives on, the whole window in view;
+//   - the window (1280 × 720, the Why DishBooks window's components) opens on
+//     the page the feature lives on;
 //   - one or two of the page's elements at a time step forward — they lift
 //     with a blue ring while the rest of the window dims, a short label says
-//     what they are, and the camera pushes in until they read at full size;
-//   - the camera pulls back to the whole window, the page clears, and the
-//     loop starts again. Each video starts on the loaded page.
+//     what they are, and the camera pushes in a little;
+//   - the camera settles back, the page clears, and the loop starts again.
+//     Each video starts on the loaded page.
 //
-// Phones get the app's phone layout (400 × 720) in a 4:5 frame: no zooming
-// out, the camera pans down the page to whatever is lit, like scrolling.
+// Phones get the app's phone layout (400 × 720); on a page longer than that
+// the camera pans down to whatever is lit, like scrolling. (The presets can
+// also film a taller window in a smaller frame — app: { h } > 800 adds .tall,
+// where stories fill the extra height — which is how the 5:4 hero-image
+// versions were made.)
 //
 // This file is the frame around a story: the window (title bar, sidebar, page
 // header; on phones the app's top bar), the spotlight, label, camera and
@@ -43,26 +46,30 @@ import { seg, ease, lerp, clamp } from '../lib/timeline.js';
 import { icon } from '../shared/icons.js';
 import { NAV, MARK, CURSOR, COG, SUN, MENU, esc, model } from '../scenes/why-dishbooks/app.js';
 
-/** Desktop: a 1280 × 1024 window filmed in a 1000 × 800 frame (5:4, the hero image slot). */
+/**
+ * Desktop: the 1280 × 720 window (16:9), as on Why DishBooks — it straddles the
+ * feature page's hero and the section below at about 1060–1280px wide, so the
+ * camera only pushes in a little.
+ */
 export const DESKTOP = {
-  meta: { width: 1000, height: 800, fps: 30, posterTime: 0, scale: 2 },
-  app: { w: 1280, h: 1024 },
-  cam: { pad: 28, maxZoom: 1.45 },
+  meta: { width: 1280, height: 720, fps: 30, posterTime: 0, scale: 1.5 },
+  app: { w: 1280, h: 720 },
+  cam: { pad: 28, maxZoom: 1.22 },
   compact: false,
-  sales: { W: 612, H: 520 },
-  donut: 220,
+  sales: { W: 612, H: 320 },
+  donut: 176,
   txRows: 8,
-  cashChart: { W: 288, H: 300, x0: 46, every: 3 },
+  cashChart: { W: 288, H: 260, x0: 46, every: 3 },
   tl: { w: 982, x0: 170, x1: 982, fy: 6, oy: 74, bh: 32, lbl: 17, qy: 27, H: 158, five: 14 },
-  ch: { w: 982, h: 470, x0: 52, x1: 976, y0: 14, y1: 444 },
+  ch: { w: 982, h: 206, x0: 52, x1: 976, y0: 14, y1: 180 },
   dexRoom: 332,
-  rest: { x: 1180, y: 990 }, // where the pointer comes from and goes back to
+  rest: { x: 1180, y: 690 }, // where the pointer comes from and goes back to
 };
-/** Phone: the app's phone layout (400 × 720) in a 400 × 500 frame (4:5). */
+/** Phone: the app's phone layout, 400 × 720 (5:9), in a frame the same size; long pages pan. */
 export const PHONE = {
-  meta: { width: 400, height: 500, fps: 30, posterTime: 0, scale: 2.5 },
+  meta: { width: 400, height: 720, fps: 30, posterTime: 0, scale: 2.5 },
   app: { w: 400, h: 720 },
-  cam: { pad: 12, maxZoom: 1.12, minZoom: 1 },
+  cam: { pad: 12, maxZoom: 1.08, minZoom: 1 },
   compact: true,
   touch: true,
   sales: { W: 352, H: 168, x0: 44, every: 3 },
@@ -98,7 +105,8 @@ export function makeFeature(L0, S) {
     const u = data.user;
     const head = S.head ? S.head(data, L) : `<span class="pill">${icon('calendar')}${esc(data.period)}${icon('caret-down', 'car')}</span><span class="chip">${icon('map-pin')}${esc(data.company.scopeLabel)}</span>`;
 
-    el.innerHTML = `<div class="cam wdb ft ft-${S.id}${L.compact ? ' m' : ''} ${(S.rootClass ?? []).join(' ')}" style="width:${AW}px;height:${AH}px">
+    L.tall = !L.compact && AH > 800; // a taller desktop window: stories fill the extra page height
+    el.innerHTML = `<div class="cam wdb ft ft-${S.id}${L.compact ? ' m' : ''}${L.tall ? ' tall' : ''} ${(S.rootClass ?? []).join(' ')}" style="width:${AW}px;height:${AH}px">
     ${L.compact ? `<div class="mbar"><span class="menu">${MENU}</span><div class="logo">${MARK.replaceAll('__ID__', `${id}t`)}<span>DishBooks</span></div><span class="av">${esc(u.initials)}</span></div>` : '<div class="chrome"><i></i><i></i><i></i></div>'}
     <div class="main">
       <header class="top">

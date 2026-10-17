@@ -504,15 +504,18 @@ URLs in each embed (their asset IDs change).
 
 ## Feature pages
 
-One animation per feature page (the Features CMS collection), shown where the
-hero image is: a 5:4 slot beside the headline (4:5 on phones). The whole app
-can't be read at that size, so each one is filmed: the app window (1280 × 1024)
-opens on the page the feature lives on, whole; then one or two of its elements
-at a time step forward (a blue ring, everything else dims, a short label), the
-camera pushes in until they read at full size, and pulls back out at the end.
-Phones get the app's phone layout (400 wide) in a 400 × 500 frame; the camera
-pans down the page instead of zooming out. 10 s loops; frame 0 (the poster) is
-the loaded page.
+One animation per feature page (the Features CMS collection). Like Why
+DishBooks, it's an app window straddling the hero and the section below: the
+1280 × 720 window (16:9, rendered at 1.5× → 1920 × 1080; phones 400 × 720 at
+2.5× → 1000 × 1800) opens on the page the feature lives on, then one or two of
+its elements at a time step forward — a blue ring, everything else dims, a
+short label — while the camera pushes in a little, and settles back at the
+end. On phones a page longer than the frame pans down to whatever is lit.
+10 s loops; frame 0 (the poster) is the loaded page.
+
+(The kit can also film a taller window in a smaller frame: `app: { h }` above
+800 adds `.tall`, where stories fill the extra height. That's how the first,
+5:4 hero-image versions were made — see git history.)
 
 | Scene (`scenes/feature-<slug>`, `-mobile`) | Page | What lights up |
 |---|---|---|

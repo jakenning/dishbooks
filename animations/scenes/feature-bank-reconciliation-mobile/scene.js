@@ -1,4 +1,4 @@
-// Feature page: Bank Reconciliation, phone (the 400-wide phone layout in a 400 × 500 frame, rendered at 2.5×).
+// Feature page: Bank Reconciliation, phone (the 400 × 720 phone layout, rendered at 2.5×).
 // The story is ../../features/bank-reconciliation.js; the window, spotlight, camera and
 // pointer are ../../features/kit.js.
 

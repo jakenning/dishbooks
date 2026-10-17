@@ -1,0 +1,123 @@
+/* Homepage hero components, desktop: 560 × 660 stage for the hero's right
+   column. Four app components floating on the page background. The tokens and
+   the Dex, status-chip and button styles come from the Why DishBooks app
+   (app.css); this file adds the cards and places them. The phone layout
+   (../home-components-mobile/scene.css) imports this file and overrides
+   sizes and positions. Everything is scoped under .wdb.hc. */
+
+@import url('../why-dishbooks/app.css');
+
+.wdb.hc {
+  background:
+    radial-gradient(circle at 1px 1px, rgb(130 133 140 / 14%) 1px, transparent 0) 0 0 / 20px 20px,
+    radial-gradient(420px 320px at 92% 4%, rgb(46 178 255 / 11%), transparent 70%),
+    radial-gradient(380px 300px at 4% 98%, rgb(85 66 255 / 7%), transparent 70%),
+    var(--u2);
+  font-size: 13px;
+  line-height: 18px;
+}
+.hc .card {
+  position: absolute;
+  left: 20px;
+  width: 520px;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--b2);
+  border-radius: 10px;
+  box-shadow: 0 12px 32px -14px rgb(31 18 143 / 18%), 0 2px 6px rgb(16 24 40 / 4%);
+  opacity: 0;
+}
+.hc .ct { font-size: 15px; line-height: 20px; font-weight: 600; letter-spacing: -0.2px; white-space: nowrap; }
+.hc .cs { display: flex; align-items: center; gap: 5px; margin-top: 1px; font-size: 11.5px; line-height: 16px; color: var(--t2); white-space: nowrap; }
+.hc .ci { font-size: 13px; color: var(--t3); }
+.hc .lbl { font-size: 11px; line-height: 16px; letter-spacing: 0.5px; }
+
+/* 1 · Bank Transactions */
+.hc .fd { top: 20px; z-index: 2; }
+.hc .fh { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.hc .fd .btn { height: 32px; padding: 0 12px; font-size: 12.5px; }
+.hc .fd .btn .pi { font-size: 13px; }
+.hc .fx { margin-top: 8px; }
+.hc .fr { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 104px 82px 92px; align-items: center; column-gap: 8px; min-height: 40px; border-top: 1px solid var(--b2); opacity: 0; }
+.hc .fr::before { content: ''; position: absolute; inset: 0 -8px; border-radius: 4px; background: rgb(0 166 62 / 8%); opacity: var(--hl, 0); }
+.hc .fr > span { position: relative; min-width: 0; }
+.hc .d2 { display: flex; flex-direction: column; }
+.hc .d2 b { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hc .d2 em { font-style: normal; font-size: 11.5px; line-height: 15px; color: var(--t2); white-space: nowrap; }
+.hc .am { text-align: right; font-weight: 500; white-space: nowrap; }
+.hc .am.in { color: var(--gn); }
+.hc .st { justify-items: end; }
+.hc .st > span { padding: 1px 8px; font-size: 11.5px; line-height: 18px; }
+.hc .st .pi { font-size: 11px; }
+/* Category chip: "Sorting…" until the invoice lands in its category */
+.hc .cat { display: grid; justify-self: start; max-width: 100%; }
+.hc .cat > span { grid-area: 1 / 1; display: flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border-radius: 4px; font-size: 11.5px; white-space: nowrap; overflow: hidden; }
+.hc .c0 { color: var(--t3); border: 1px dashed var(--b2); opacity: calc(1 - var(--s, 0)); }
+.hc .c1 { background: color-mix(in srgb, var(--c) 10%, #fff); color: var(--t0); font-weight: 500; opacity: var(--s, 0); transform: translateX(calc(6px - 6px * var(--s, 0))); }
+.hc .c1 i { width: 7px; height: 7px; border-radius: 2px; flex: none; background: var(--c); }
+.hc .cat.sold .c0 { visibility: hidden; }
+.hc .cat.sold .c1 { opacity: 1; transform: none; }
+
+/* 2 · KPI tiles */
+.hc .kts { position: absolute; left: 20px; top: 225px; width: 176px; display: flex; flex-direction: column; gap: 12px; }
+.hc .kt { position: relative; left: 0; width: auto; height: 102px; padding: 12px 14px; overflow: hidden; }
+.hc .kr { display: flex; flex-direction: column; margin-top: 2px; }
+.hc .kv { font-size: 24px; line-height: 30px; font-weight: 500; letter-spacing: -1px; white-space: nowrap; }
+.hc .dl { font-size: 11px; line-height: 14px; font-weight: 600; white-space: nowrap; }
+.hc .dl em { font-style: normal; font-weight: 400; color: var(--t2); }
+.hc .dl.up { color: var(--gn); }
+.hc .dl.dn { color: var(--rd); }
+.hc .spk { position: absolute; left: 0; bottom: 0; width: 100%; height: 26px; }
+
+/* 3 · Prime Cost by Location */
+.hc .lc { left: 208px; top: 225px; width: 332px; z-index: 2; }
+.hc .lh { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.hc .lc .dex-btn { position: relative; flex: none; margin-top: 1px; box-shadow: 0 2px 4px -2px #1f128f99, 0 4px 8px -4px #1f128f33, 0 0 0 calc(4px * var(--glow, 0)) rgb(50 108 255 / calc(28% * var(--glow, 0))); }
+.hc .lc .dex-btn-in { gap: 6px; padding: 3px 10px; font-size: 12.5px; line-height: 18px; letter-spacing: -0.3px; white-space: nowrap; }
+.hc .lc .ai { width: 18px; height: 18px; font-size: 9.5px; }
+.hc .lg { display: flex; align-items: center; gap: 12px; margin-top: 10px; font-size: 11px; line-height: 16px; color: var(--t2); }
+.hc .lg span { display: flex; align-items: center; gap: 5px; }
+.hc .lg i { width: 8px; height: 8px; border-radius: 2px; }
+.hc .lg .c,
+.hc .lb .c { background: var(--p5); }
+.hc .lg .l,
+.hc .lb .l { background: #a3b3ff; }
+.hc .lg .ga { margin-left: auto; }
+.hc .lg .ga i { width: 0; height: 10px; border-radius: 0; border-left: 1.5px dashed var(--t3); }
+.hc .lrs { position: relative; margin-top: 6px; --name: 78px; --val: 50px; }
+.hc .lr { position: relative; display: grid; grid-template-columns: var(--name) minmax(0, 1fr) var(--val); align-items: center; height: 29px; opacity: 0; }
+.hc .lr + .lr { border-top: 1px solid var(--b1); }
+.hc .ln { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hc .lb { display: flex; height: 12px; border-radius: 3px; background: var(--u1); overflow: hidden; }
+.hc .lb b { display: block; height: 100%; width: 0; }
+.hc .lv { text-align: right; font-weight: 500; white-space: nowrap; }
+/* Group average: one dashed line across the bar column */
+.hc .avg { position: absolute; top: -2px; bottom: -2px; left: calc(var(--name) + (100% - var(--name) - var(--val)) * var(--avg) / 100%); border-left: 1.5px dashed var(--t3); opacity: 0; z-index: 1; }
+/* The outlier: a red outline drawn in, then its labor (or COGS) bar turns red */
+.hc .lr.fl::before { content: ''; position: absolute; inset: 1px -8px; border-radius: 5px; border: 1.5px solid var(--rd); background: rgb(231 0 11 / 6%); opacity: var(--fl, 0); transform: scale(calc(1.06 - 0.06 * var(--fl, 0))); }
+.hc .lr.fl > span { position: relative; }
+.hc .lr.fl.on .ln,
+.hc .lr.fl.on .lv { color: var(--rd); font-weight: 600; }
+.hc .lr.fl.on .l { background: #ff6467; }
+.hc .lr.fl.on.fc .l { background: #a3b3ff; }
+.hc .lr.fl.on.fc .c { background: #ff6467; }
+
+/* 4 · Dex */
+.hc .dx { top: 453px; z-index: 3; display: flex; flex-direction: column; box-shadow: 0 24px 48px -18px rgb(31 18 143 / 28%), 0 2px 8px rgb(16 24 40 / 6%); }
+.hc .dh { display: flex; align-items: center; gap: 8px; }
+.hc .dh b { font-size: 15px; font-weight: 600; }
+.hc .dh .ai { color: #1f128f; }
+.hc .dh .orb { width: 22px; height: 22px; }
+.hc .dsub { margin-left: auto; font-size: 11.5px; color: var(--t2); white-space: nowrap; }
+.hc .dxb { position: relative; height: 80px; margin: 10px 0; }
+.hc .la { position: absolute; left: 0; right: 0; top: 0; display: flex; flex-direction: column; gap: 10px; }
+.hc .la.hi { top: auto; bottom: 0; }
+.hc .dex-message { gap: 6px; line-height: 19px; }
+.hc .bubble { padding: 6px 12px; line-height: 18px; }
+.hc .input { min-height: 40px; padding: 6px 44px 6px 12px; }
+.hc .send { top: 6px; width: 26px; height: 26px; }
+.hc .caret { height: 16px; }
+
+/* Mouse pointer */
+.hc .cursor svg { width: 22px; height: 22px; filter: drop-shadow(0 2px 3px rgb(0 0 0 / 25%)); }
+.hc .ripple { left: -14px; top: -14px; width: 28px; height: 28px; }

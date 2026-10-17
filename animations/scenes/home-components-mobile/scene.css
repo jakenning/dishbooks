@@ -1,0 +1,41 @@
+/* Homepage hero components, phone layout (400 × 572; 572 so that 2.5× gives an even 1430px, which H.264 needs). Same components and
+   tokens as the desktop stage; only sizes and positions change here: the KPI
+   tiles side by side, the location card under them, and one slot below that
+   the feed and Dex take in turn. render.mjs inlines the @import when it builds
+   the embed. */
+
+@import url('../home-components/scene.css');
+
+.hc.m .card { left: 14px; width: 372px; padding: 12px 14px; }
+
+/* KPI tiles: side by side */
+.hc.m .kts { left: 14px; top: 12px; width: 372px; flex-direction: row; gap: 10px; }
+.hc.m .kt { flex: 1; min-width: 0; height: 90px; padding: 9px 12px; }
+.hc.m .kv { font-size: 22px; line-height: 28px; letter-spacing: -0.8px; }
+.hc.m .spk { height: 20px; }
+
+/* Prime Cost by Location */
+.hc.m .lc { top: 112px; height: auto; padding-bottom: 6px; }
+.hc.m .lg { margin-top: 8px; }
+.hc.m .lr { height: 29px; }
+.hc.m .lrs { --name: 80px; --val: 50px; }
+
+/* The shared slot: the feed, then Dex */
+.hc.m .fd,
+.hc.m .dx { top: 328px; }
+.hc.m .fh { align-items: flex-start; }
+.hc.m .fx { margin-top: 6px; }
+.hc.m .fd .btn { padding: 0 10px; font-size: 12px; }
+.hc.m .fr { grid-template-columns: minmax(0, 1fr) auto; min-height: 50px; padding: 6px 0; }
+.hc.m .d2 { gap: 3px; }
+.hc.m .cat { align-self: flex-start; }
+.hc.m .rt { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+.hc.m .cat > span { height: 19px; font-size: 11px; }
+.hc.m .st > span { font-size: 11px; line-height: 16px; padding: 1px 7px; }
+.hc.m .dsub { display: none; }
+.hc.m .dxb { height: 100px; }
+
+/* Fingertip (replaces the mouse pointer): centred on the tap point */
+.hc.m .cursor { width: 0; height: 0; }
+.hc.m .tip { position: absolute; left: -17px; top: -17px; width: 34px; height: 34px; border-radius: 50%; background: rgb(11 12 13 / 20%); border: 1.5px solid rgb(255 255 255 / 85%); box-shadow: 0 2px 8px rgb(16 24 40 / 18%); }
+.hc.m .ripple { left: -20px; top: -20px; width: 40px; height: 40px; border-color: rgb(11 12 13 / 30%); }

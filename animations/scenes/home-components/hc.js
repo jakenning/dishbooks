@@ -96,7 +96,7 @@ function hcModel(D) {
 
 // ---- Markup ---------------------------------------------------------------------
 
-function hcSpark(k, id) {
+export function hcSpark(k, id) {
   const W = 200;
   const H = 40;
   const lo = Math.min(...k.spark);
@@ -130,7 +130,7 @@ function feedCard(M, L) {
   </div>`;
 }
 
-function kpiTile(label, k, delta, good, id) {
+export function kpiTile(label, k, delta, good, id) {
   return `<div class="card kt"><div class="lbl">${esc(label)}</div><div class="kr"><span class="kv"></span><span class="dl${good ? ' up' : ' dn'}">${delta} <em>vs last year</em></span></div>${hcSpark(k, id)}</div>`;
 }
 

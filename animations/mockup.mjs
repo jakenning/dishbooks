@@ -345,7 +345,7 @@ ${VIEW_SCRIPT}
 
 // "Homepage mockup.html": the homepage hero and the section below it, rebuilt
 // from the live Webflow page (copy, classes and spacing read through the
-// Webflow Data API, Oct 2026). The home-components animation sits in the
+// Webflow Data API, Oct 2026). The home-boxes animation sits in the
 // hero's right column, beside the headline (no straddle). The paragraph that
 // used to be in the dark section card is under the H1 (the /why-dishbooks hero
 // paragraph style, .text-dim: 16px / 32px, #5f6166), and the card keeps its old
@@ -420,7 +420,7 @@ ${HERO_CSS}
       </div>
       <div class="btns"><a class="button" href="#">Start your free trial</a><a class="button invert" href="#">Schedule a demo</a></div>
     </div>
-    <div class="hanim">${media('home-components', 'v-desk')}${media('home-components-mobile', 'v-mob')}</div>
+    <div class="hanim">${media('home-boxes', 'v-desk')}${media('home-boxes-mobile', 'v-mob')}</div>
     </div>
   </div></section>
   <section class="v2-section"><div class="container">

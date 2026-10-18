@@ -1,0 +1,40 @@
+/* Homepage hero boxes, desktop: 560 × 660 stage for the hero's right column.
+   App components floating on the page background, assembled one at a time.
+   The card, KPI-tile, Dex and pointer styles come from the first boxes version
+   (../home-components/scene.css, and through it the Why DishBooks app.css);
+   this file places the cards and adds the Cash Balance card. The phone layout
+   (../home-boxes-mobile/scene.css) imports this file and overrides sizes and
+   positions. Everything is scoped under .wdb.hb. */
+
+@import url('../home-components/scene.css');
+
+/* 1 · KPI tiles: one row */
+.hb .kts { top: 20px; width: 520px; flex-direction: row; gap: 12px; }
+.hb .kt { flex: 1; min-width: 0; }
+
+/* 2 · Cash Balance, with Ask Dex in its corner; lit (--lit) while Dex answers */
+.hb .cc {
+  top: 136px;
+  z-index: 2;
+  box-shadow:
+    0 0 0 calc(2px * var(--lit, 0)) rgb(50 108 255 / calc(60% * var(--lit, 0))),
+    0 12px 32px -14px rgb(31 18 143 / 18%),
+    0 2px 6px rgb(16 24 40 / 4%);
+}
+.hb .ch { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.hb .cv { margin-top: 2px; font-size: 30px; line-height: 36px; font-weight: 500; letter-spacing: -1.2px; white-space: nowrap; }
+.hb .cc .acc { margin-top: 10px; }
+.hb .cc .acc li { min-height: 34px; opacity: 0; }
+.hb .cc .dex-btn { position: relative; flex: none; margin-top: 1px; box-shadow: 0 2px 4px -2px #1f128f99, 0 4px 8px -4px #1f128f33, 0 0 0 calc(5px * var(--glow, 0)) rgb(50 108 255 / calc(28% * var(--glow, 0))); }
+.hb .cc .dex-btn-in { gap: 6px; padding: 5px 14px; font-size: 13.5px; line-height: 20px; letter-spacing: -0.3px; white-space: nowrap; }
+.hb .cc .ai { width: 18px; height: 18px; font-size: 9.5px; }
+
+/* 3 · Dex: the conversation fills the card; the input sits at the bottom */
+.hb .dx { top: 330px; bottom: 20px; }
+.hb .dxb { height: auto; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+.hb .dx .input { margin-top: auto; }
+.hb .dxb { font-size: 15px; line-height: 22px; }
+.hb .dex-message { line-height: 22px; }
+.hb .bubble { line-height: 21px; }
+.hb .orb.sm { margin-top: 2px; }
+.hb .dex-message p { text-wrap: pretty; } /* no one-word last line */

@@ -1,0 +1,35 @@
+/* Homepage hero boxes, phone layout (400 × 572; 572 so that 2.5× gives an even
+   1430px, which H.264 needs). Same components as the desktop stage; only sizes
+   and positions change here (the card and fingertip sizes follow
+   ../home-components-mobile). render.mjs inlines the @import when it builds
+   the embed. */
+
+@import url('../home-boxes/scene.css');
+
+.hb.m .card { left: 14px; width: 372px; padding: 12px 14px; }
+
+/* KPI tiles: two side by side */
+.hb.m .kts { left: 14px; top: 12px; width: 372px; gap: 10px; }
+.hb.m .kt { height: 90px; padding: 9px 12px; }
+.hb.m .kv { font-size: 22px; line-height: 28px; letter-spacing: -0.8px; }
+.hb.m .spk { height: 20px; }
+
+/* Cash Balance */
+.hb.m .cc { top: 114px; }
+.hb.m .cv { font-size: 26px; line-height: 32px; }
+.hb.m .cc .acc { margin-top: 6px; }
+.hb.m .cc .acc li { min-height: 30px; }
+.hb.m .cc .dex-btn-in { padding: 4px 11px; font-size: 13px; }
+
+/* Dex */
+.hb.m .dx { top: 278px; bottom: 12px; }
+.hb.m .dxb { margin: 8px 0; }
+.hb.m .dsub { display: none; }
+.hb.m .dxb { font-size: 14px; line-height: 20px; }
+.hb.m .dex-message { line-height: 20px; }
+.hb.m .bubble { line-height: 20px; }
+
+/* Fingertip (replaces the mouse pointer): centred on the tap point */
+.hb.m .cursor { width: 0; height: 0; }
+.hb.m .tip { position: absolute; left: -17px; top: -17px; width: 34px; height: 34px; border-radius: 50%; background: rgb(11 12 13 / 20%); border: 1.5px solid rgb(255 255 255 / 85%); box-shadow: 0 2px 8px rgb(16 24 40 / 18%); }
+.hb.m .ripple { left: -20px; top: -20px; width: 40px; height: 40px; border-color: rgb(11 12 13 / 30%); }

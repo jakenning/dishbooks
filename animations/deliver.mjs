@@ -8,7 +8,7 @@
 //   Why DishBooks mockup.html  that page's hero and the section below, with the
 //                           why-dishbooks animation straddling them (mockup.mjs)
 //   Homepage mockup.html    the homepage hero and the section below, with the
-//                           home-components animation beside the headline (mockup.mjs)
+//                           home-boxes animation beside the headline (mockup.mjs)
 // Re-run after rendering to refresh it.
 //
 //   npm run anim:deliver
@@ -55,8 +55,12 @@ const SECTIONS = {
   'feature-multi-location': { title: 'Feature · Multi-Location Reporting', section: 'FEATURE PAGE hero (5:4 slot): Multi-Location Reporting.' },
   'feature-invoice-bill-pay': { title: 'Feature · Invoice Approval & Bill Pay', section: 'FEATURE PAGE hero (5:4 slot): Invoice Approval & Bill Pay.' },
   'feature-bank-reconciliation': { title: 'Feature · Bank Reconciliation', section: 'FEATURE PAGE hero (5:4 slot): Bank Reconciliation.' },
-  'home-components': {
+  'home-boxes': {
     title: 'Homepage hero',
+    section: 'HOMEPAGE hero — app components assembled one at a time (KPIs, cash balance, Dex on payroll and bills) in the right column, beside the headline.',
+  },
+  'home-components': {
+    title: 'Homepage hero (earlier: components)',
     section: 'HOMEPAGE hero — app components (bank feed, KPIs, prime cost by location, Dex) in the right column, beside the headline.',
   },
   'home-hero': {

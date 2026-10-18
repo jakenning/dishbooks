@@ -123,7 +123,7 @@ all of its CSS under `.db-anim`, so it won't affect the rest of the page.
 A scene can have a phone layout in a sibling folder named `<scene>-mobile`
 (today: `ops-calendar-mobile`, 400 × 632, and `custom-reports-mobile` and
 `why-dishbooks-mobile` and `home-hero-mobile`, 400 × 720, and
-`home-components-mobile`, 400 × 572, all rendered at 2.5× → 1000 × 1580 /
+`home-components-mobile` and `home-boxes-mobile`, 400 × 572, all rendered at 2.5× → 1000 × 1580 /
 1000 × 1800 / 1000 × 1430). The
 preview's phone slot shows it automatically. In Webflow, add both versions to
 the section and use the breakpoint visibility settings: hide the desktop
@@ -425,10 +425,41 @@ DishBooks hero, and those classes are global, so the same setup applies
 The embeds are about 59k characters (the calendar page adds about 10k), over
 Webflow's 50k limit, so the homepage uses the videos.
 
+### Homepage hero boxes
+
+The homepage hero's current animation, in the same slot and sizes as the
+Homepage hero components below (which it replaces; both stay in the repo, as
+does `home-snippets`, a camera-in-the-app version that was on the page
+briefly). Floating app components, no app window, assembled one at a time and
+paced slowly: the numbers an owner opens the app for, then Dex. The story lives
+in `scenes/home-boxes/boxes.js` (names kept clear of `app.js`'s and `hc.js`'s);
+the cards reuse the components' styles (`scenes/home-components/scene.css`) and
+KPI tile (`kpiTile` in `hc.js`). It loops every 18s.
+
+| Time | Beat |
+|---|---|
+| 0.2–3.4s | KPI tiles rise in one by one and count up: Total Sales, Prime Cost %, Net Profit (phones: the first two). |
+| 2.4–4.6s | **Cash Balance** rises in and counts up; its two accounts list in. **Ask Dex** sits in its corner. |
+| 3.9–5.0s | **Ask Dex** glows; the pointer (phones: a fingertip) clicks it. |
+| 5.2–11.1s | The Dex card rises in underneath. "Can we cover payroll and next week's bills?" types out and sends, Dex thinks, and the answer streams in (`cashAsk` in `app.js`, the Why DishBooks question). The Cash Balance card lights while Dex answers. |
+| 11.1–16.6s | Hold, to read the answer. |
+| 16.6–18s | Everything leaves; 18s = 0s (empty). |
+
+Both videos start at 12s (`startAt`), so frame 0, the poster, is everything
+assembled and answered.
+
+| Layout | Stage | Rendered | Notes |
+|---|---|---|---|
+| `home-boxes` | 560 × 660 | 2× → 1120 × 1320 | Three KPI tiles in a row, Cash Balance, Dex filling the rest. |
+| `home-boxes-mobile` | 400 × 572 | 2.5× → 1000 × 1430 | Two KPI tiles, Cash Balance, Dex (the greeting steps aside for the conversation). |
+
+The Webflow embeds are the Homepage hero components ones (`anim-desktop`,
+`anim-phone`), pointed at these videos.
+
 ### Homepage hero components
 
-The homepage hero's current animation (it replaces the straddling Homepage
-hero window above, which stays in the repo). Like the Ops Calendar and Custom
+The homepage hero's animation before Homepage hero boxes (it replaced the
+straddling Homepage hero window above; both stay in the repo). Like the Ops Calendar and Custom
 Reports scenes, it has no app window: four app components float on the page
 background, in the hero's right column, beside the headline. It sums up the
 product in one quick story: transactions come in from the bank and the POS and

@@ -48,8 +48,48 @@ export const HB_CUES = {
 
 // ---- Numbers --------------------------------------------------------------------
 
-function hbModel(D) {
+// The homepage shows a mid-sized group, not the scenario's $10.8M one (client
+// review, Oct 2026): these figures are set, and everything else is scaled to
+// them so the tiles, the accounts and Dex's answer agree. Prime cost % (60.5%)
+// and the year-over-year changes stay as the scenario has them.
+const HB_FIGURES = {
+  sales: 4320000, // Total Sales, shown as $4.32M
+  net: 647500, // Net Profit
+  accounts: { Operating: 29515926, Payroll: 8263177 }, // cents; Cash Balance is their sum
+};
+
+/** The scenario at the homepage's size: P&L, locations and KPIs scaled to HB_FIGURES. */
+function hbScenario(D) {
+  const F = HB_FIGURES;
+  const P = Object.fromEntries(D.pnl.map((r) => [r.metric, r]));
+  const f = F.sales / P['Total Sales'].actual;
+  // Net Profit is set; EBITDA keeps its ratio to it, and operating expenses take up the difference.
+  const net = { actual: F.net, lastYear: F.net * (P['Net Profit'].lastYear / P['Net Profit'].actual) };
+  const ebitda = Object.fromEntries(['actual', 'lastYear'].map((y) => [y, net[y] * (P.EBITDA[y] / P['Net Profit'][y])]));
+  const pnl = D.pnl.map((r) => {
+    const s = (y) => r[y] * f;
+    if (r.metric === 'Net Profit') return { ...r, ...net };
+    if (r.metric === 'EBITDA') return { ...r, ...ebitda };
+    if (r.metric === 'Operating Expenses') {
+      const opex = (y) => P['Total Sales'][y] * f - P['Prime Cost'][y] * f - ebitda[y];
+      return { ...r, actual: opex('actual'), lastYear: opex('lastYear') };
+    }
+    return { ...r, actual: s('actual'), lastYear: s('lastYear') };
+  });
+  const cash = (F.accounts.Operating + F.accounts.Payroll) / 100;
+  const value = { sales: F.sales, net: F.net, ebitda: ebitda.actual, cash };
+  return {
+    ...D,
+    pnl,
+    locations: D.locations.map((l) => ({ ...l, sales: l.sales * f })),
+    kpis: D.kpis.map((k) => (k.key in value ? { ...k, value: value[k.key] } : k)),
+  };
+}
+
+function hbModel(scenario) {
+  const D = hbScenario(scenario);
   const N = model(D);
+  N.accounts = N.accounts.map(([nm, last4]) => [nm, last4, HB_FIGURES.accounts[nm]]);
   const P = Object.fromEntries(D.pnl.map((r) => [r.metric, r]));
   const k = (key) => D.kpis.find((x) => x.key === key);
   const yoy = (m) => (P[m].actual / P[m].lastYear - 1) * 100;
@@ -192,7 +232,7 @@ export function makeHomeBoxes(L) {
     R.tiles.forEach(({ k }, i) => {
       const s = C.tiles[0] + i * C.tiles[1] + 0.15;
       const v = countUp(t, s, C.count, k.value);
-      R.kvs[i].textContent = k.format === 'pct' ? pct(v) : kMoney(v);
+      R.kvs[i].textContent = k.format === 'pct' ? pct(v) : k.value >= 1e6 ? `$${(v / 1e6).toFixed(2)}M` : kMoney(v);
       R.dls[i].style.opacity = ease.outCubic(seg(t, s + C.count - 0.5, 0.5));
       R.rvs[i].setAttribute('width', (200 * ease.inOutCubic(seg(t, s + 0.1, C.count))).toFixed(1));
     });
